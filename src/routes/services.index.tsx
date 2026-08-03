@@ -66,7 +66,7 @@ function ServicesPage() {
           >
             <div className="container-page py-16 lg:py-24">
               <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                <Reveal className={flipped ? "lg:order-2" : undefined}>
+                <Reveal className={flipped ? "lg:order-2" : ""}>
                   <figure className="overflow-hidden rounded-3xl border border-border bg-card shadow-[0_30px_80px_-55px_var(--primary)]">
                     <img
                       src={service.image}
