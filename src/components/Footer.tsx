@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { professionalDisclaimer, site } from "@/data/site";
+import vision2030 from "@/assets/vision-2030-logo.svg";
 import { solutionCategories } from "@/data/solutions";
 
 const companyLinks = [
