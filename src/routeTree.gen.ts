@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GrowthStagesRouteImport } from './routes/growth-stages'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ScopeRouteImport } from './routes/scope'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -61,6 +62,11 @@ const GrowthStagesRoute = GrowthStagesRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScopeRoute = ScopeRouteImport.update({
+  id: '/scope',
+  path: '/scope',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemsRoute = SystemsRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
+  '/scope': typeof ScopeRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
+  '/scope': typeof ScopeRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
+  '/scope': typeof ScopeRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/growth-stages'
     | '/privacy'
+    | '/scope'
     | '/systems'
     | '/team'
     | '/terms'
@@ -210,6 +220,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/growth-stages'
     | '/privacy'
+    | '/scope'
     | '/systems'
     | '/team'
     | '/terms'
@@ -230,6 +241,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/growth-stages'
     | '/privacy'
+    | '/scope'
     | '/systems'
     | '/team'
     | '/terms'
@@ -251,6 +263,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GrowthStagesRoute: typeof GrowthStagesRoute
   PrivacyRoute: typeof PrivacyRoute
+  ScopeRoute: typeof ScopeRoute
   SystemsRoute: typeof SystemsRoute
   TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
@@ -313,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scope': {
+      id: '/scope'
+      path: '/scope'
+      fullPath: '/scope'
+      preLoaderRoute: typeof ScopeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/systems': {
@@ -403,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   GrowthStagesRoute: GrowthStagesRoute,
   PrivacyRoute: PrivacyRoute,
+  ScopeRoute: ScopeRoute,
   SystemsRoute: SystemsRoute,
   TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
