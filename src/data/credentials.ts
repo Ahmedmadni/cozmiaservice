@@ -1,5 +1,8 @@
-import badgeBusinessCenter from "@/assets/badge-business-center.png";
-import badgeZakatVat from "@/assets/badge-zakat-vat.png";
+import badgeBusinessCenterAsset from "@/assets/saudi-business-center.png.asset.json";
+import badgeZakatVatAsset from "@/assets/zatca.png.asset.json";
+
+const badgeBusinessCenter = badgeBusinessCenterAsset.url;
+const badgeZakatVat = badgeZakatVatAsset.url;
 
 export type Credential = {
   id: string;
