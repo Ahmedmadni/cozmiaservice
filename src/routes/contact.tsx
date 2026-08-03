@@ -61,7 +61,7 @@ function ContactPage() {
               <ul className="mt-4 space-y-2 text-sm leading-7 text-muted-foreground">
                 <li>البريد: {site.email}</li>
                 <li>الجوال: {site.phone}</li>
-                <li>المقر: {site.location}</li>
+                <li>المقر: {site.city}</li>
               </ul>
             </div>
             <p className="rounded-2xl border border-border bg-card p-6 text-xs leading-7 text-muted-foreground">
