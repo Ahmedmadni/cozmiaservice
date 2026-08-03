@@ -7,6 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { GrowthStageCard } from "@/components/GrowthStageCard";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { CTASection } from "@/components/CTASection";
+import { VisionSection } from "@/components/VisionSection";
 import { site } from "@/data/site";
 import {
   problems,
