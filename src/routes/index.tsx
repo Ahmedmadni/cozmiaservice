@@ -17,6 +17,7 @@ import { Reveal } from "@/components/Reveal";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
+import { CredentialsSection } from "@/components/CredentialsSection";
 import { ServiceGridCard } from "@/components/ServiceGridCard";
 import heroServices from "@/assets/hero-services.jpg";
 import { site } from "@/data/site";
@@ -100,6 +101,7 @@ function Index() {
       <ProcessSection />
       <StagePicker />
       <VisionSection />
+      <CredentialsSection />
       <CaseStudiesSection />
       <CTASection />
     </>
