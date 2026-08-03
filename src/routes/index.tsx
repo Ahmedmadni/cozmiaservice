@@ -80,6 +80,14 @@ const challenges = [
   },
 ];
 
+const heroStats = [
+  { label: "مجالات خدمية", value: "٦", hint: "من الهوية إلى النمو ضمن منظومة واحدة" },
+  { label: "مراحل رحلة", value: "٤", hint: "ابدأ، نظّم، انطلق، نمُ" },
+  { label: "نقطة تواصل", value: "١", hint: "شريك واحد بدل تعدد الجهات" },
+  { label: "خطة عمل", value: "مخصصة", hint: "تُبنى حسب مرحلة مشروعك" },
+];
+
+
 function Index() {
   return (
     <>
