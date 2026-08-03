@@ -8,6 +8,7 @@ import { GrowthStageCard } from "@/components/GrowthStageCard";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
+import heroServices from "@/assets/hero-services.jpg";
 import { site } from "@/data/site";
 import {
   problems,
@@ -113,38 +114,39 @@ function Hero() {
 
 function HeroVisual() {
   return (
-    <div className="relative fade-up" style={{ animationDelay: "160ms" }} aria-hidden>
-      <div className="relative mx-auto aspect-square w-full max-w-md">
-        <div className="absolute inset-6 rounded-full border border-dashed border-border" />
-        <div className="absolute inset-16 rounded-full border border-dashed border-border" />
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="grid h-28 w-28 place-items-center rounded-2xl bg-primary text-center text-sm font-semibold leading-6 text-primary-foreground shadow-[0_24px_60px_-30px_var(--primary)]">
-            مشروعك
-          </div>
-        </div>
-        {heroNodes.map((node, i) => {
-          const angle = (i / heroNodes.length) * 2 * Math.PI - Math.PI / 2;
-          const radius = 43;
-          const left = 50 + radius * Math.cos(angle);
-          const top = 50 + radius * Math.sin(angle);
-          return (
-            <div
-              key={node}
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold shadow-[0_12px_30px_-24px_var(--primary)] fade-up"
-              style={{
-                left: `${left}%`,
-                top: `${top}%`,
-                animationDelay: `${240 + i * 90}ms`,
-              }}
-            >
-              {node}
-            </div>
-          );
-        })}
+    <div className="relative fade-up" style={{ animationDelay: "160ms" }}>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-accent-soft/60 blur-3xl"
+      />
+      <figure className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-[0_36px_90px_-50px_var(--primary)]">
+        <img
+          src={heroServices}
+          alt="رسم توضيحي لخدمات الشركة: بناء الهوية، الموقع والمتجر، الأنظمة، والتسويق ونمو الأعمال"
+          width={1280}
+          height={1024}
+          className="h-full w-full object-cover"
+        />
+      </figure>
+
+      <div
+        aria-hidden
+        className="absolute -bottom-5 right-4 flex flex-wrap gap-2 sm:right-6"
+      >
+        {heroNodes.slice(0, 4).map((node, i) => (
+          <span
+            key={node}
+            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold shadow-[0_12px_30px_-24px_var(--primary)] fade-up"
+            style={{ animationDelay: `${320 + i * 90}ms` }}
+          >
+            {node}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
+
 
 function ProblemSection() {
   return (
