@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AssessmentRouteImport } from './routes/assessment'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GrowthStagesRouteImport } from './routes/growth-stages'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
 import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
@@ -32,6 +36,16 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssessmentRoute = AssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -42,6 +56,11 @@ const GrowthStagesRoute = GrowthStagesRouteImport.update({
   path: '/growth-stages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SystemsRoute = SystemsRouteImport.update({
   id: '/systems',
   path: '/systems',
@@ -50,6 +69,11 @@ const SystemsRoute = SystemsRouteImport.update({
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
@@ -86,10 +110,14 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
+  '/privacy': typeof PrivacyRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -100,10 +128,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
+  '/privacy': typeof PrivacyRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -115,10 +147,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
+  '/privacy': typeof PrivacyRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -131,10 +167,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/assessment'
+    | '/contact'
     | '/faq'
     | '/growth-stages'
+    | '/privacy'
     | '/systems'
     | '/team'
+    | '/terms'
     | '/case-studies/$slug'
     | '/knowledge/$slug'
     | '/solutions/$slug'
@@ -145,10 +185,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/assessment'
+    | '/contact'
     | '/faq'
     | '/growth-stages'
+    | '/privacy'
     | '/systems'
     | '/team'
+    | '/terms'
     | '/case-studies/$slug'
     | '/knowledge/$slug'
     | '/solutions/$slug'
@@ -159,10 +203,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/assessment'
+    | '/contact'
     | '/faq'
     | '/growth-stages'
+    | '/privacy'
     | '/systems'
     | '/team'
+    | '/terms'
     | '/case-studies/$slug'
     | '/knowledge/$slug'
     | '/solutions/$slug'
@@ -174,10 +222,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AssessmentRoute: typeof AssessmentRoute
+  ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   GrowthStagesRoute: typeof GrowthStagesRoute
+  PrivacyRoute: typeof PrivacyRoute
   SystemsRoute: typeof SystemsRoute
   TeamRoute: typeof TeamRoute
+  TermsRoute: typeof TermsRoute
   CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
   KnowledgeSlugRoute: typeof KnowledgeSlugRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
@@ -202,6 +254,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assessment': {
+      id: '/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AssessmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -216,6 +282,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GrowthStagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/systems': {
       id: '/systems'
       path: '/systems'
@@ -228,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-studies/': {
@@ -278,10 +358,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AssessmentRoute: AssessmentRoute,
+  ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   GrowthStagesRoute: GrowthStagesRoute,
+  PrivacyRoute: PrivacyRoute,
   SystemsRoute: SystemsRoute,
   TeamRoute: TeamRoute,
+  TermsRoute: TermsRoute,
   CaseStudiesSlugRoute: CaseStudiesSlugRoute,
   KnowledgeSlugRoute: KnowledgeSlugRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
