@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CTASection } from "@/components/CTASection";
 import { site, professionalDisclaimer } from "@/data/site";
-import { solutionCategories } from "@/data/solutions";
+import { solutionCategories, type SolutionCategory } from "@/data/solutions";
 
 export const Route = createFileRoute("/solutions/$slug")({
   loader: ({ params }) => {
