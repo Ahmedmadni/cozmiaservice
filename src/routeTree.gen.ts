@@ -11,8 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GrowthStagesRouteImport } from './routes/growth-stages'
 import { Route as SystemsRouteImport } from './routes/systems'
+import { Route as TeamRouteImport } from './routes/team'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
+import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
+import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
+import { Route as KnowledgeSlugRouteImport } from './routes/knowledge.$slug'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 
@@ -26,6 +32,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GrowthStagesRoute = GrowthStagesRouteImport.update({
   id: '/growth-stages',
   path: '/growth-stages',
@@ -34,6 +45,31 @@ const GrowthStagesRoute = GrowthStagesRouteImport.update({
 const SystemsRoute = SystemsRouteImport.update({
   id: '/systems',
   path: '/systems',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
+  id: '/case-studies/$slug',
+  path: '/case-studies/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeIndexRoute = KnowledgeIndexRouteImport.update({
+  id: '/knowledge/',
+  path: '/knowledge/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeSlugRoute = KnowledgeSlugRouteImport.update({
+  id: '/knowledge/$slug',
+  path: '/knowledge/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
@@ -50,26 +86,44 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/systems': typeof SystemsRoute
+  '/team': typeof TeamRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/systems': typeof SystemsRoute
+  '/team': typeof TeamRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
+  '/knowledge': typeof KnowledgeIndexRoute
   '/solutions': typeof SolutionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/faq': typeof FaqRoute
   '/growth-stages': typeof GrowthStagesRoute
   '/systems': typeof SystemsRoute
+  '/team': typeof TeamRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -77,34 +131,58 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/faq'
     | '/growth-stages'
     | '/systems'
+    | '/team'
+    | '/case-studies/$slug'
+    | '/knowledge/$slug'
     | '/solutions/$slug'
+    | '/case-studies/'
+    | '/knowledge/'
     | '/solutions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/faq'
     | '/growth-stages'
     | '/systems'
+    | '/team'
+    | '/case-studies/$slug'
+    | '/knowledge/$slug'
     | '/solutions/$slug'
+    | '/case-studies'
+    | '/knowledge'
     | '/solutions'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/faq'
     | '/growth-stages'
     | '/systems'
+    | '/team'
+    | '/case-studies/$slug'
+    | '/knowledge/$slug'
     | '/solutions/$slug'
+    | '/case-studies/'
+    | '/knowledge/'
     | '/solutions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  FaqRoute: typeof FaqRoute
   GrowthStagesRoute: typeof GrowthStagesRoute
   SystemsRoute: typeof SystemsRoute
+  TeamRoute: typeof TeamRoute
+  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
+  KnowledgeSlugRoute: typeof KnowledgeSlugRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  KnowledgeIndexRoute: typeof KnowledgeIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
 }
 
@@ -124,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/growth-stages': {
       id: '/growth-stages'
       path: '/growth-stages'
@@ -136,6 +221,41 @@ declare module '@tanstack/react-router' {
       path: '/systems'
       fullPath: '/systems'
       preLoaderRoute: typeof SystemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/$slug': {
+      id: '/case-studies/$slug'
+      path: '/case-studies/$slug'
+      fullPath: '/case-studies/$slug'
+      preLoaderRoute: typeof CaseStudiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/': {
+      id: '/knowledge/'
+      path: '/knowledge'
+      fullPath: '/knowledge/'
+      preLoaderRoute: typeof KnowledgeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/$slug': {
+      id: '/knowledge/$slug'
+      path: '/knowledge/$slug'
+      fullPath: '/knowledge/$slug'
+      preLoaderRoute: typeof KnowledgeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/solutions/': {
@@ -158,9 +278,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  FaqRoute: FaqRoute,
   GrowthStagesRoute: GrowthStagesRoute,
   SystemsRoute: SystemsRoute,
+  TeamRoute: TeamRoute,
+  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
+  KnowledgeSlugRoute: KnowledgeSlugRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  KnowledgeIndexRoute: KnowledgeIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
 }
 export const routeTree = rootRouteImport
