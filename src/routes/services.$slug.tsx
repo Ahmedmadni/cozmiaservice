@@ -9,27 +9,27 @@ import { professionalDisclaimer, site } from "@/data/site";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
-    const service = getService(params.slug);
-    if (!service) throw notFound();
-    return { service };
+    if (!getService(params.slug)) throw notFound();
+    return null;
   },
-  head: ({ loaderData }) => {
-    if (!loaderData) {
+  head: ({ params }) => {
+    const service = getService(params.slug);
+    if (!service) {
       return { meta: [{ title: "الخدمة غير متوفرة" }, { name: "robots", content: "noindex" }] };
     }
-    const t = `${loaderData.service.title} | ${site.name}`;
+    const t = `${service.title} | ${site.name}`;
     return {
       meta: [
         { title: t },
-        { name: "description", content: loaderData.service.description },
+        { name: "description", content: service.description },
         { property: "og:title", content: t },
-        { property: "og:description", content: loaderData.service.description },
+        { property: "og:description", content: service.description },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: t },
-        { name: "twitter:description", content: loaderData.service.description },
+        { name: "twitter:description", content: service.description },
       ],
-      links: [{ rel: "canonical", href: `/services/${loaderData.service.slug}` }],
+      links: [{ rel: "canonical", href: `/services/${service.slug}` }],
     };
   },
   notFoundComponent: ServiceNotFound,
@@ -48,7 +48,8 @@ function ServiceNotFound() {
 }
 
 function ServiceDetail() {
-  const { service } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const service = getService(slug)!;
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   return (
