@@ -49,7 +49,9 @@ function Index() {
       <WhyUsSection />
       <ProcessSection />
       <StagePicker />
+      <VisionSection />
       <SystemsSection />
+
       <CaseStudiesSection />
       <CTASection />
     </>
