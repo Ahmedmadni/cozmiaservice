@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { professionalDisclaimer, site } from "@/data/site";
 import vision2030 from "@/assets/vision-2030-logo.svg";
-import { solutionCategories } from "@/data/solutions";
+import { services } from "@/data/services";
 
 const companyLinks = [
   { to: "/about", label: "من نحن" },
@@ -50,24 +50,21 @@ export function Footer() {
             </ul>
           </div>
 
-          <FooterCol title="الحلول">
-            {solutionCategories.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  to="/solutions/$slug"
-                  params={{ slug: c.slug }}
-                  className="hover:text-foreground"
-                >
-                  {c.title}
+          <FooterCol title="الخدمات">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link to="/services/$slug" params={{ slug: s.slug }} className="hover:text-foreground">
+                  {s.title}
                 </Link>
               </li>
             ))}
             <li>
-              <Link to="/systems" className="hover:text-foreground">
-                البرامج والأنظمة
+              <Link to="/services" className="hover:text-foreground">
+                جميع الخدمات
               </Link>
             </li>
           </FooterCol>
+
 
           <FooterCol title="الشركة">
             {companyLinks.map((l) => (

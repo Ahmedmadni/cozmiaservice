@@ -24,10 +24,11 @@ export const professionalDisclaimer =
 export const navLinks = [
   { to: "/", label: "الرئيسية" },
   { to: "/about", label: "من نحن" },
-  { to: "/solutions", label: "الحلول" },
+  { to: "/services", label: "الخدمات" },
   { to: "/growth-stages", label: "مراحل النمو" },
   { to: "/systems", label: "البرامج والأنظمة" },
   { to: "/case-studies", label: "قصص النجاح" },
   { to: "/knowledge", label: "المعرفة" },
   { to: "/contact", label: "تواصل معنا" },
 ] as const;
+
