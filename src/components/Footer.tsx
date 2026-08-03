@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { professionalDisclaimer, site } from "@/data/site";
 import vision2030 from "@/assets/vision-2030-logo.svg";
 import { services } from "@/data/services";
+import { CredentialBadges } from "@/components/CredentialBadges";
 
 const companyLinks = [
   { to: "/about", label: "من نحن" },
