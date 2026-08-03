@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { professionalDisclaimer, site } from "@/data/site";
 import vision2030 from "@/assets/vision-2030-logo.svg";
 import { services } from "@/data/services";
+import { CredentialBadges } from "@/components/CredentialBadges";
 
 const companyLinks = [
   { to: "/about", label: "من نحن" },
@@ -87,7 +88,11 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        <div className="mt-12 flex flex-col gap-5 rounded-xl border border-border bg-card p-5 sm:flex-row sm:items-center">
+        <div className="mt-12">
+          <CredentialBadges />
+        </div>
+
+        <div className="mt-6 flex flex-col gap-5 rounded-xl border border-border bg-card p-5 sm:flex-row sm:items-center">
           <img
             src={vision2030}
             alt="شعار رؤية السعودية 2030"
@@ -98,6 +103,7 @@ export function Footer() {
           />
           <p className="text-xs leading-7 text-muted-foreground">{professionalDisclaimer}</p>
         </div>
+
 
 
         <div className="mt-8 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
