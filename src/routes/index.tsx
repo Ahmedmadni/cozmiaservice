@@ -8,6 +8,7 @@ import {
   Puzzle,
   Radar,
   Settings2,
+  Sparkles,
   UserPlus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -80,6 +81,14 @@ const challenges = [
   },
 ];
 
+const heroStats = [
+  { label: "مجالات خدمية", value: "٦", hint: "من الهوية إلى النمو ضمن منظومة واحدة" },
+  { label: "مراحل رحلة", value: "٤", hint: "ابدأ، نظّم، انطلق، نمُ" },
+  { label: "نقطة تواصل", value: "١", hint: "شريك واحد بدل تعدد الجهات" },
+  { label: "خطة عمل", value: "مخصصة", hint: "تُبنى حسب مرحلة مشروعك" },
+];
+
+
 function Index() {
   return (
     <>
@@ -99,7 +108,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden border-b border-border">
       <div
         aria-hidden
         className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-accent-soft blur-3xl"
@@ -108,6 +117,11 @@ function Hero() {
         aria-hidden
         className="pointer-events-none absolute -right-32 top-24 h-96 w-96 rounded-full bg-primary-soft blur-3xl"
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:linear-gradient(to_left,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(70%_60%_at_50%_35%,black,transparent)]"
+      />
+
       <div className="container-page relative grid gap-14 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-28">
         <div className="fade-up">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground">
@@ -145,6 +159,22 @@ function Hero() {
 
         <HeroVisual />
       </div>
+
+      <div className="container-page relative pb-14 lg:pb-20">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border lg:grid-cols-4">
+          {heroStats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className="bg-card p-6 fade-up"
+              style={{ animationDelay: `${480 + i * 80}ms` }}
+            >
+              <dt className="text-xs text-muted-foreground">{stat.label}</dt>
+              <dd className="mt-2 text-2xl font-bold text-primary">{stat.value}</dd>
+              <p className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</p>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   );
 }
@@ -166,20 +196,33 @@ function HeroVisual() {
         />
       </figure>
 
-      <div aria-hidden className="mt-4 flex flex-wrap gap-2 sm:absolute sm:-bottom-5 sm:right-6 sm:mt-0">
-        {heroNodes.map((node, i) => (
-          <span
-            key={node}
-            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold shadow-[0_12px_30px_-24px_var(--primary)] fade-up"
-            style={{ animationDelay: `${320 + i * 90}ms` }}
-          >
-            {node}
-          </span>
-        ))}
+      <div
+        className="mt-4 grid gap-3 sm:absolute sm:-bottom-8 sm:-left-4 sm:mt-0 sm:w-56"
+        style={{ animationDelay: "420ms" }}
+      >
+        <div className="rounded-2xl border border-border bg-card/95 p-4 shadow-[0_24px_60px_-40px_var(--primary)] backdrop-blur fade-up">
+          <div className="flex items-center gap-2">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+              <Sparkles className="h-4 w-4" strokeWidth={1.75} />
+            </span>
+            <span className="text-xs font-semibold">رحلة واحدة متكاملة</span>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {heroNodes.map((node) => (
+              <span
+                key={node}
+                className="rounded-lg border border-border bg-surface px-2 py-1 text-[11px] font-medium text-muted-foreground"
+              >
+                {node}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 
 function ChallengesSection() {
   return (
