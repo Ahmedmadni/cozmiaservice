@@ -185,7 +185,8 @@ function Hero() {
             >
               <dt className="text-xs text-muted-foreground">{stat.label}</dt>
               <dd className="mt-2 text-2xl font-bold text-primary">{stat.value}</dd>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</p>
+              <dd className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</dd>
+
             </div>
           ))}
         </dl>
