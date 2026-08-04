@@ -36,7 +36,7 @@ export function SectionHeader({
         </span>
       ) : null}
 
-      <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl lg:text-[2.6rem] lg:leading-[1.24]">
+      <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl lg:text-[2.6rem] lg:leading-[1.24]">
         <SplitWords text={title} />
       </h2>
 

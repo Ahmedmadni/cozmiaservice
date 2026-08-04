@@ -5,12 +5,14 @@
  * أعماق مختلفة، يربطها مسار واحد يُرسم عند التحميل — لأن الرسالة
  * الأساسية للشركة هي «الترابط»، فالصورة يجب أن تقولها لا أن تزخرفها.
  *
- * لا صور نقطية: التكوين حاد على كل الكثافات، ووزنه أقل من 10KB.
+ * الخلفية صورة معمارية عند الزرقة، بحجاب حبري كثيف: تعطي عمقًا
+ * ماديًا تعجز عنه التدرجات، ويبقى النص فوقها مقروءًا. وزنها 16KB.
  */
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { Compass, LineChart, MonitorSmartphone, Workflow } from "lucide-react";
 import { useRef } from "react";
 import { EASE } from "@/components/motion";
+import skyline from "@/assets/hero-skyline.webp";
 import { cn } from "@/lib/utils";
 
 type Node = {
@@ -140,11 +142,23 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
       style={{ x: tx, y: ty }}
       className="absolute inset-[-6%] grain overflow-hidden rounded-[2rem] bg-ink"
     >
-      <div className="absolute inset-0 blueprint opacity-[0.07]" />
+      <img
+        src={skyline}
+        alt=""
+        aria-hidden
+        width={760}
+        height={1018}
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full scale-105 object-cover"
+      />
+      {/* الحجاب: الصورة نسيج يحمل البطاقات، لا لوحة تُقرأ بذاتها. */}
+      <div className="absolute inset-0 bg-ink/58" />
+      <div className="absolute inset-0 blueprint opacity-[0.05]" />
       {/* ضوءان فقط: واحد تركوازي وواحد رملي — لا أكثر. */}
-      <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/25 blur-[90px]" />
-      <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/12 blur-[100px]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/25 to-transparent" />
+      <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/22 blur-[90px]" />
+      <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/10 blur-[100px]" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/95 via-ink/25 to-transparent" />
     </motion.div>
   );
 }

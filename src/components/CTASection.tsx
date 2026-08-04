@@ -35,7 +35,7 @@ export function CTASection({
         </span>
       </Rise>
 
-      <h2 className="mx-auto mt-6 max-w-3xl text-[1.9rem] font-semibold leading-[1.28] text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.22]">
+      <h2 className="mx-auto mt-6 max-w-3xl text-[1.9rem] font-bold leading-[1.28] text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.22]">
         <SplitWords text={title} />
       </h2>
 

@@ -37,7 +37,7 @@ export function VisionSection() {
               <span className="eyebrow">منسجمون مع رؤية المملكة</span>
             </span>
 
-            <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl lg:text-[2.6rem] lg:leading-[1.24]">
+            <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl lg:text-[2.6rem] lg:leading-[1.24]">
               <SplitWords text="نعمل من قلب السوق السعودي… ونساهم في مستهدفات" />
             </h2>
 
