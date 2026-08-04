@@ -86,16 +86,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "ar_SA" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Growth Partner Hub offers integrated business solutions for startups and SMEs in Saudi Arabia." },
+      { property: "og:description", content: "Growth Partner Hub offers integrated business solutions for startups and SMEs in Saudi Arabia." },
+      { name: "twitter:description", content: "Growth Partner Hub offers integrated business solutions for startups and SMEs in Saudi Arabia." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6fcc82d9-9fcc-4a8d-a2ee-74d1cbe24b53/id-preview-07668d1f--56df2212-88f5-442d-94d3-6c58eebb01fc.lovable.app-1785821119384.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6fcc82d9-9fcc-4a8d-a2ee-74d1cbe24b53/id-preview-07668d1f--56df2212-88f5-442d-94d3-6c58eebb01fc.lovable.app-1785821119384.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        // Alexandria للعناوين (هندسي عربي مميّز)، IBM Plex Sans Arabic للنص،
-        // IBM Plex Mono للأرقام الفهرسية والتسميات الصغيرة.
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Alexandria:wght@300..700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
