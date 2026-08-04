@@ -94,9 +94,9 @@ function AssessmentPage() {
   return (
     <>
       <PageHero eyebrow="أداة تفاعلية" title="مقياس جاهزية المشروع" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="mx-auto max-w-3xl space-y-4">
-          <div className="sticky top-20 z-10 rounded-2xl border border-border bg-card/95 p-4 backdrop-blur">
+          <div className="sticky top-20 z-10 panel/95 p-4 backdrop-blur">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>
                 أجبت عن {answered} من {questions.length}
@@ -112,7 +112,7 @@ function AssessmentPage() {
           </div>
 
           {questions.map((q, i) => (
-            <div key={q} className="rounded-2xl border border-border bg-card p-6">
+            <div key={q} className="panel p-6">
               <p className="text-sm font-medium">
                 <span className="ml-2 text-muted-foreground">{i + 1}.</span>
                 {q}
@@ -155,7 +155,7 @@ function AssessmentPage() {
           {submitted ? (
             <div className="rounded-2xl border border-accent/40 bg-accent-soft p-7">
               <p className="text-xs text-muted-foreground">نتيجتك: {score} من 20</p>
-              <h2 className="mt-2 text-xl font-bold">{result.title}</h2>
+              <h2 className="mt-2 font-display text-xl font-semibold">{result.title}</h2>
               <p className="mt-2 text-sm leading-8 text-muted-foreground">{result.desc}</p>
               <ul className="mt-4 space-y-2 text-sm leading-7">
                 {result.next.map((n) => (
@@ -172,7 +172,9 @@ function AssessmentPage() {
               >
                 اطلب مناقشة النتائج
               </button>
-              <p className="mt-5 text-xs leading-7 text-muted-foreground">{professionalDisclaimer}</p>
+              <p className="mt-5 text-xs leading-7 text-muted-foreground">
+                {professionalDisclaimer}
+              </p>
             </div>
           ) : null}
         </div>

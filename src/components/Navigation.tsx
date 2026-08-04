@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EASE, Magnetic, ScrollProgress } from "@/components/motion";
 import { navLinks, site } from "@/data/site";
@@ -92,7 +92,26 @@ export function Navigation() {
             )}
           </ul>
 
-          <div className="mr-auto flex items-center gap-2 lg:mr-0">
+          <div className="mr-auto flex items-center gap-3 lg:mr-0">
+            {/*
+             * كتلة الاتصال المباشر: الهاتف هو قناة التواصل الأولى لدى
+             * هذه الشريحة، فيستحق حضورًا دائمًا في الشريط لا في التذييل فقط.
+             */}
+            <a
+              href={`tel:${site.phone.replace(/\s/g, "")}`}
+              className="hidden items-center gap-2.5 xl:flex"
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-primary transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
+                <Phone className="h-4 w-4" strokeWidth={1.75} />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-[10px] text-muted-foreground">اتصل بنا في أي وقت</span>
+                <span className="block text-xs font-semibold" dir="ltr">
+                  {site.phone}
+                </span>
+              </span>
+            </a>
+
             <Magnetic strength={0.2} className="hidden sm:inline-block">
               <Button asChild>
                 <Link to="/contact">ابدأ مشروعك</Link>

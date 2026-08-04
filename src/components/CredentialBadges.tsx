@@ -21,7 +21,7 @@ export function CredentialBadges() {
             type="button"
             onClick={() => setActive(cred)}
             title={cred.title}
-            className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-3 pl-5 text-right transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-[0_18px_40px_-30px_var(--primary)]"
+            className="group flex items-center gap-4 panel p-3 pl-5 text-right transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-[0_18px_40px_-30px_var(--primary)]"
           >
             <span className="grid h-20 w-20 shrink-0 place-items-center rounded-xl bg-surface p-2">
               <img
@@ -50,7 +50,7 @@ export function CredentialBadges() {
                 <DialogDescription>{active.issuer}</DialogDescription>
               </DialogHeader>
 
-              <div className="mt-2 overflow-hidden rounded-2xl border border-border bg-card">
+              <div className="mt-2 overflow-hidden panel">
                 <div className="flex items-center gap-3 border-b border-border bg-surface p-5">
                   <img
                     src={active.logo}

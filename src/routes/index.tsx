@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowLeft, Check, MoveDown } from "lucide-react";
+import { ArrowLeft, Check, Compass, Handshake, MoveDown, Route as RouteIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
@@ -17,7 +17,10 @@ import {
   useParallax,
 } from "@/components/motion";
 import { HeroComposition } from "@/components/HeroComposition";
+import { IconBadge } from "@/components/IconBadge";
+import { Constellation } from "@/components/Constellation";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
 import { site } from "@/data/site";
@@ -75,7 +78,8 @@ export const Route = createFileRoute("/")({
  *  9  أين مشروعك        تبويبات زجاجية         عاجي
  * 10  قصص النجاح        شبكة غير متماثلة       سطح
  * 11  رؤية 2030         صورة بكشف وموازاة      عاجي
- * 12  الدعوة للتواصل    ملء الشاشة             حبري
+ * 12  الأسئلة الشائعة   طيّات، عمودان          سطح
+ * 13  الدعوة للتواصل    صورة مثبّتة             حبري
  *
  * لا يتكرر نوع تخطيط مرتين متتاليتين، ولا يظهر أكثر من سطحين
  * داكنين قبل استراحة فاتحة.
@@ -92,6 +96,7 @@ function Index() {
       <StagePicker />
       <CaseStudiesSection />
       <VisionSection />
+      <FAQSection />
       <CTASection />
     </>
   );
@@ -202,9 +207,14 @@ function Hero() {
 /* ═══════════ 2+3+4 — الممر الداكن: أرقام، شريط، تحديات ═══════════ */
 
 const heroStats = [
-  { value: 6, suffix: "", label: "مجالات خدمية", hint: "من الهوية إلى النمو ضمن منظومة واحدة" },
-  { value: 4, suffix: "", label: "مراحل رحلة", hint: "ابدأ، نظّم، انطلق، نمُ" },
-  { value: 1, suffix: "", label: "نقطة تواصل", hint: "شريك واحد بدل تعدد الجهات" },
+  {
+    value: 6,
+    icon: Compass,
+    label: "مجالات خدمية",
+    hint: "من الهوية إلى النمو ضمن منظومة واحدة",
+  },
+  { value: 4, icon: RouteIcon, label: "مراحل رحلة", hint: "ابدأ، نظّم، انطلق، نمُ" },
+  { value: 1, icon: Handshake, label: "نقطة تواصل", hint: "شريك واحد بدل تعدد الجهات" },
 ];
 
 const marqueeItems = [
@@ -239,17 +249,15 @@ function DarkPassage() {
        * الشريط يجلس على الحدّ بين الفاتح والداكن، مع بقاء معظم ارتفاعه
        * فوق الجانب الفاتح حتى يبقى النص الرمادي مقروءًا.
        */}
-      <div className="container-page relative z-20 -mt-24 sm:pointer-events-none sm:absolute sm:inset-x-0 sm:-top-28 sm:mt-0 lg:-top-32">
+      <div className="container-page relative z-20 -mt-16 sm:pointer-events-none sm:absolute sm:inset-x-0 sm:-top-28 sm:mt-0 lg:-top-32">
         <Rise className="sm:pointer-events-auto">
-          <dl className="glass-strong glass-edge grid gap-px overflow-hidden rounded-3xl sm:grid-cols-3">
-            {heroStats.map((stat, i) => (
+          <dl className="grid gap-4 sm:grid-cols-3">
+            {heroStats.map((stat) => (
               <div
                 key={stat.label}
-                className={
-                  "px-6 py-6 sm:px-7 " +
-                  (i > 0 ? "border-t border-border/60 sm:border-r sm:border-t-0" : "")
-                }
+                className="glass-strong glass-edge relative rounded-3xl px-6 pb-6 pt-10 sm:px-7"
               >
+                <IconBadge icon={stat.icon} overlap />
                 <dt className="eyebrow text-muted-foreground">{stat.label}</dt>
                 <dd className="mt-2 font-display text-3xl font-semibold text-primary">
                   <Counter to={stat.value} />
@@ -263,7 +271,7 @@ function DarkPassage() {
 
       <section className="grain relative overflow-hidden bg-ink text-ink-foreground">
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 blueprint opacity-[0.05]" />
+          <Constellation className="opacity-[0.14]" />
           <div className="absolute -right-1/4 top-0 h-[34rem] w-[34rem] rounded-full bg-accent/12 blur-[130px]" />
         </div>
 
@@ -390,9 +398,7 @@ function ServicesShowcase() {
                     className="relative"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="grid h-14 w-14 place-items-center rounded-2xl bg-primary text-primary-foreground">
-                        <Icon className="h-6 w-6" strokeWidth={1.6} />
-                      </span>
+                      <IconBadge icon={Icon} tone="solid" size="lg" />
                       <span className="eyebrow text-sand" data-num>
                         {String(active + 1).padStart(2, "0")} /{" "}
                         {String(services.length).padStart(2, "0")}
@@ -454,16 +460,7 @@ function ServicesShowcase() {
                     transition={{ duration: 0.45, ease: EASE.ui }}
                   />
                   <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pr-5 sm:gap-6">
-                    <span
-                      className={
-                        "grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors duration-500 " +
-                        (isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-secondary text-primary")
-                      }
-                    >
-                      <RowIcon className="h-5 w-5" strokeWidth={1.75} />
-                    </span>
+                    <IconBadge icon={RowIcon} tone={isActive ? "solid" : "plate"} />
                     <div className="min-w-0">
                       <h3 className="font-display text-lg font-semibold sm:text-xl">
                         {service.title}
@@ -521,9 +518,7 @@ function JourneySection() {
                       className="glass glass-edge group flex h-full flex-col rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1.5"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="grid h-12 w-12 place-items-center rounded-xl bg-card text-primary shadow-sm ring-1 ring-border">
-                          <Icon className="h-5 w-5" strokeWidth={1.75} />
-                        </span>
+                        <IconBadge icon={Icon} />
                         <span
                           className="font-display text-4xl font-semibold text-sand/45 transition-colors duration-500 group-hover:text-sand/80"
                           data-num
@@ -742,6 +737,47 @@ function CaseStudiesSection() {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════ 12 — الأسئلة الشائعة ═══════════════════ */
+
+/**
+ * الأسئلة كانت تُغذّي البيانات المنظّمة (JSON-LD) دون أن تُعرض للزائر.
+ * إظهارها هنا يزيل اعتراضًا شائعًا قبل الدعوة للتواصل مباشرة.
+ */
+function FAQSection() {
+  return (
+    <section className="border-y border-border bg-surface">
+      <div className="container-page grid gap-10 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <span className="flex items-center gap-3 text-accent">
+            <span aria-hidden className="h-px w-8 bg-sand" />
+            <span className="eyebrow">الأسئلة الشائعة</span>
+          </span>
+          <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl">
+            <SplitWords text="أسئلة نسمعها كثيرًا" />
+          </h2>
+          <Rise delay={120}>
+            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+              إن لم تجد إجابتك هنا، اسألنا مباشرة — نردّ بوضوح عن النطاق والمدد وما يحتاج جهة
+              مرخّصة.
+            </p>
+            <Link
+              to="/faq"
+              className="link-sweep mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary"
+            >
+              كل الأسئلة
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Rise>
+        </div>
+
+        <Rise delay={80}>
+          <FAQAccordion items={faqs.slice(0, 6)} />
+        </Rise>
       </div>
     </section>
   );

@@ -31,4 +31,3 @@ export const navLinks = [
   { to: "/knowledge", label: "المعرفة" },
   { to: "/contact", label: "تواصل معنا" },
 ] as const;
-

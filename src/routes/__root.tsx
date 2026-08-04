@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { FloatingDock } from "@/components/FloatingDock";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/data/site";
 
@@ -152,6 +153,7 @@ function RootComponent() {
         </main>
         <Footer />
       </div>
+      <FloatingDock />
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );

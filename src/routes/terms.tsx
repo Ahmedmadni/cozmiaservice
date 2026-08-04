@@ -48,15 +48,15 @@ function TermsPage() {
   return (
     <>
       <PageHero eyebrow="الصفحات النظامية" title="الشروط والأحكام" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="mx-auto max-w-3xl space-y-8">
           {sections.map((s) => (
             <div key={s.t}>
-              <h2 className="text-lg font-bold">{s.t}</h2>
+              <h2 className="font-display text-lg font-semibold">{s.t}</h2>
               <p className="mt-3 text-sm leading-8 text-muted-foreground">{s.b}</p>
             </div>
           ))}
-          <p className="rounded-xl border border-border bg-surface p-5 text-xs leading-7 text-muted-foreground">
+          <p className="panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
             {professionalDisclaimer}
           </p>
         </div>

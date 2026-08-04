@@ -45,10 +45,10 @@ function ScopePage() {
   return (
     <>
       <PageHero eyebrow="الصفحات النظامية" title="نطاق الخدمات" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-7">
-            <h2 className="text-lg font-bold">ما نقدّمه مباشرة</h2>
+          <div className="panel p-7">
+            <h2 className="font-display text-lg font-semibold">ما نقدّمه مباشرة</h2>
             <ul className="mt-5 space-y-4">
               {inScope.map((item) => (
                 <li key={item} className="flex gap-3 text-sm leading-7 text-muted-foreground">
@@ -59,8 +59,8 @@ function ScopePage() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-7">
-            <h2 className="text-lg font-bold">ما يُنفَّذ عبر مختصين مرخصين</h2>
+          <div className="panel bg-surface p-7">
+            <h2 className="font-display text-lg font-semibold">ما يُنفَّذ عبر مختصين مرخصين</h2>
             <ul className="mt-5 space-y-4">
               {outOfScope.map((item) => (
                 <li key={item} className="flex gap-3 text-sm leading-7 text-muted-foreground">
@@ -76,7 +76,7 @@ function ScopePage() {
           </div>
         </div>
 
-        <div className="mx-auto mt-8 max-w-5xl rounded-2xl border border-border bg-card p-7">
+        <div className="mx-auto mt-8 max-w-5xl panel p-7">
           <p className="text-sm leading-8 text-muted-foreground">{professionalDisclaimer}</p>
           <Link
             to="/contact"

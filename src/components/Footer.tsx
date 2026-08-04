@@ -23,7 +23,7 @@ const legalLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="container-page py-14 lg:py-20">
+      <div className="container-page py-16 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2">
@@ -54,7 +54,11 @@ export function Footer() {
           <FooterCol title="الخدمات">
             {services.map((s) => (
               <li key={s.slug}>
-                <Link to="/services/$slug" params={{ slug: s.slug }} className="hover:text-foreground">
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
+                  className="hover:text-foreground"
+                >
                   {s.title}
                 </Link>
               </li>
@@ -65,7 +69,6 @@ export function Footer() {
               </Link>
             </li>
           </FooterCol>
-
 
           <FooterCol title="الشركة">
             {companyLinks.map((l) => (
@@ -92,7 +95,7 @@ export function Footer() {
           <CredentialBadges />
         </div>
 
-        <div className="mt-6 flex flex-col gap-5 rounded-xl border border-border bg-card p-5 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-col gap-5 panel rounded-xl p-5 sm:flex-row sm:items-center">
           <img
             src={vision2030}
             alt="شعار رؤية السعودية 2030"
@@ -103,8 +106,6 @@ export function Footer() {
           />
           <p className="text-xs leading-7 text-muted-foreground">{professionalDisclaimer}</p>
         </div>
-
-
 
         <div className="mt-8 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <span>

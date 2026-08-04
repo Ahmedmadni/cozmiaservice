@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
+import landmarks from "@/assets/saudi-landmarks.jpg";
 import { CTASection } from "@/components/CTASection";
 import { site, professionalDisclaimer } from "@/data/site";
 import { stages } from "@/data/solutions";
@@ -27,22 +28,23 @@ export const Route = createFileRoute("/growth-stages")({
 function GrowthStagesPage() {
   return (
     <>
-      <PageHero eyebrow="مراحل النمو" title="رحلة من أربع مراحل" description={description} />
+      <PageHero
+        eyebrow="مراحل النمو"
+        title="رحلة من أربع مراحل"
+        description={description}
+        image={landmarks}
+      />
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="space-y-6">
           {stages.map((stage, i) => (
-            <article
-              key={stage.slug}
-              id={stage.slug}
-              className="scroll-mt-28 rounded-2xl border border-border bg-card p-7 lg:p-10"
-            >
+            <article key={stage.slug} id={stage.slug} className="scroll-mt-28 panel p-7 lg:p-10">
               <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
                   <span className="text-xs font-semibold tracking-widest text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="mt-3 text-2xl font-bold">{stage.title}</h2>
+                  <h2 className="mt-3 font-display text-2xl font-semibold">{stage.title}</h2>
                   <p className="mt-2 text-base font-medium">{stage.headline}</p>
                   <p className="mt-4 text-sm leading-8 text-muted-foreground">{stage.summary}</p>
                 </div>
@@ -59,7 +61,7 @@ function GrowthStagesPage() {
           ))}
         </div>
 
-        <p className="mt-10 rounded-xl border border-border bg-surface p-5 text-xs leading-7 text-muted-foreground">
+        <p className="mt-10 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
           {professionalDisclaimer}
         </p>
       </section>

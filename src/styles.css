@@ -334,6 +334,39 @@
   }
 }
 
+/* ── الأسطح: ثلاث معالجات فقط، تُستخدم في كل الموقع ────────── */
+
+/*
+ * panel        سطح ساكن يحمل محتوى (فقرات، قوائم، جداول).
+ * panel-glass  سطح مرتفع أو تفاعلي (روابط، بطاقات تستجيب للتحويم).
+ * panel-ink    سطح داكن داخل قسم فاتح، أو زجاج فوق سطح داكن.
+ *
+ * أي بطاقة في الموقع تنتمي إلى واحدة من هذه الثلاث. لا أسطح مرتجلة.
+ */
+@utility panel {
+  border-radius: var(--radius-2xl);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+}
+
+@utility panel-glass {
+  @apply backdrop-blur-lg backdrop-saturate-150;
+  position: relative;
+  border-radius: var(--radius-2xl);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@utility panel-ink {
+  @apply backdrop-blur-lg;
+  position: relative;
+  border-radius: var(--radius-2xl);
+  background: oklch(1 0 0 / 0.055);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  color: var(--color-ink-foreground);
+}
+
 /* ── الحبيبات: تكسر نعومة التدرجات وتزيل «مظهر الـ AI» ────── */
 
 @utility grain {
@@ -363,6 +396,20 @@
       transparent 1px
     );
   background-size: 88px 88px;
+}
+
+/*
+ * نسيج «كوكبة»: عقد رفيعة تربطها خطوط، تُرسم خلف الأسطح الداكنة.
+ * يؤدي وظيفة الشبكة الإنشائية — كسر السطح الأملس — بلغة أقرب إلى
+ * «الترابط»، وهي الرسالة التي يقوم عليها الموقع.
+ *
+ * بلاطة متكررة بمقاس ثابت لا SVG ممدود: المقاس الثابت يبقي كثافة
+ * النسيج واحدة مهما اختلف ارتفاع القسم.
+ */
+@utility constellation {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><g stroke='%23fff' stroke-width='0.6' opacity='0.45' fill='none'><path d='M18 44 L96 22 L162 70 L238 48'/><path d='M96 22 L74 112 L162 70'/><path d='M74 112 L26 178 L108 216 L196 168 L162 70'/><path d='M196 168 L244 232'/><path d='M26 178 L18 44'/></g><g fill='%23fff' opacity='0.8'><circle cx='18' cy='44' r='1.8'/><circle cx='96' cy='22' r='1.4'/><circle cx='162' cy='70' r='2'/><circle cx='238' cy='48' r='1.4'/><circle cx='74' cy='112' r='1.6'/><circle cx='26' cy='178' r='1.4'/><circle cx='108' cy='216' r='2'/><circle cx='196' cy='168' r='1.5'/><circle cx='244' cy='232' r='1.3'/></g></svg>");
+  background-size: 260px 260px;
+  background-repeat: repeat;
 }
 
 /* ── قواعد تحريرية ─────────────────────────────────────────── */

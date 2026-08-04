@@ -42,10 +42,10 @@ function FAQPage() {
   return (
     <>
       <PageHero eyebrow="الأسئلة الشائعة" title="أسئلة نسمعها كثيرًا" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="mx-auto max-w-3xl">
           <FAQAccordion items={faqs} />
-          <p className="mt-10 rounded-xl border border-border bg-surface p-5 text-xs leading-7 text-muted-foreground">
+          <p className="mt-10 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
             {professionalDisclaimer}
           </p>
         </div>

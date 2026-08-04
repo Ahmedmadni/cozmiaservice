@@ -27,18 +27,22 @@ export const Route = createFileRoute("/team")({
 function TeamPage() {
   return (
     <>
-      <PageHero eyebrow="الكفاءات والفرق" title="خبرات متنوعة تحت مظلة واحدة" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <PageHero
+        eyebrow="الكفاءات والفرق"
+        title="خبرات متنوعة تحت مظلة واحدة"
+        description={description}
+      />
+      <section className="container-page py-20 lg:py-28">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {teamCapabilities.map((c) => (
-            <div key={c.title} className="rounded-2xl border border-border bg-card p-6">
+            <div key={c.title} className="panel p-6">
               <h2 className="text-base font-semibold">{c.title}</h2>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{c.desc}</p>
             </div>
           ))}
         </div>
-        <div className="mt-10 rounded-2xl border border-border bg-surface p-7">
-          <h2 className="text-lg font-bold">تحتاج كفاءة ضمن فريقك؟</h2>
+        <div className="mt-10 panel bg-surface p-7">
+          <h2 className="font-display text-lg font-semibold">تحتاج كفاءة ضمن فريقك؟</h2>
           <p className="mt-3 max-w-2xl text-sm leading-8 text-muted-foreground">
             نساعدك على تحديد الأدوار المطلوبة، وفي استقطاب أو توفير الكفاءات المناسبة وفق احتياج
             المشروع، إضافة إلى تدريب الفريق على الأنظمة والبرامج.
