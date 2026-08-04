@@ -22,7 +22,7 @@ import heroServices from "@/assets/hero-services.jpg";
 import { site } from "@/data/site";
 import { processSteps, projectStages, stages, whyUs } from "@/data/solutions";
 import { services, stageHighlights, stageIcons } from "@/data/services";
-import { caseStudies } from "@/data/content";
+import { caseStudies, faqs } from "@/data/content";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
 const description =
@@ -36,11 +36,26 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.slice(0, 5).map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: Index,
 });
