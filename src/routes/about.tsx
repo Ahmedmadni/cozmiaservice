@@ -42,10 +42,10 @@ function AboutPage() {
         description={description}
       />
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-bold">لسنا مكتبًا تقليديًا</h2>
+            <h2 className="font-display text-2xl font-semibold">لسنا مكتبًا تقليديًا</h2>
             <div className="mt-5 space-y-4 text-base leading-8 text-muted-foreground">
               <p>
                 نحن لسنا مكتب محاسبة، ولسنا مكتب محاماة، ولسنا وكالة تسويق تقليدية. نحن منظومة حلول
@@ -61,8 +61,8 @@ function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h2 className="text-lg font-bold">ما الذي يشعر به عميلنا؟</h2>
+          <div className="panel p-8">
+            <h2 className="font-display text-lg font-semibold">ما الذي يشعر به عميلنا؟</h2>
             <ul className="mt-6 space-y-5">
               {[
                 { t: "بداية منظمة", d: "خطوات مرتبة بدل قرارات متفرقة." },
@@ -81,12 +81,12 @@ function AboutPage() {
       </section>
 
       <section className="border-y border-border bg-surface">
-        <div className="container-page py-16 lg:py-24">
+        <div className="container-page py-20 lg:py-28">
           <SectionHeader eyebrow="قيمنا" title="أربع قيم تحكم طريقة عملنا" />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 70}>
-                <div className="h-full rounded-2xl border border-border bg-card p-6">
+                <div className="h-full panel p-6">
                   <h3 className="text-base font-semibold">{v.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground">{v.desc}</p>
                 </div>
@@ -96,9 +96,9 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <SectionHeader eyebrow="لماذا نحن؟" title="حلول مترابطة صُممت حول احتياجات مشروعك" />
-        <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {whyUs.map((item) => (
             <div key={item.title} className="border-t border-border pt-5">
               <h3 className="text-base font-semibold">{item.title}</h3>
@@ -106,7 +106,7 @@ function AboutPage() {
             </div>
           ))}
         </div>
-        <p className="mt-12 rounded-xl border border-border bg-surface p-5 text-xs leading-7 text-muted-foreground">
+        <p className="mt-12 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
           {professionalDisclaimer}
         </p>
       </section>

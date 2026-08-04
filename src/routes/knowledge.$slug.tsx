@@ -50,7 +50,7 @@ function ArticlePage() {
   return (
     <>
       <PageHero eyebrow={article.category} title={article.title} />
-      <article className="container-page py-16 lg:py-24">
+      <article className="container-page py-20 lg:py-28">
         <div className="mx-auto max-w-2xl space-y-5 text-base leading-9 text-muted-foreground">
           {article.body.map((p, i) => (
             <p key={i}>{p}</p>

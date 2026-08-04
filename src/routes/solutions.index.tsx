@@ -36,16 +36,16 @@ function SolutionsPage() {
         description={description}
       />
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="grid gap-5 md:grid-cols-2">
           {solutionCategories.map((cat, i) => (
             <Reveal key={cat.slug} delay={i * 70}>
               <Link
                 to="/solutions/$slug"
                 params={{ slug: cat.slug }}
-                className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_22px_50px_-32px_var(--primary)]"
+                className="group flex h-full flex-col panel p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_22px_50px_-32px_var(--primary)]"
               >
-                <h2 className="text-xl font-bold">{cat.title}</h2>
+                <h2 className="font-display text-xl font-semibold">{cat.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{cat.short}</p>
                 <ul className="mt-5 space-y-2">
                   {cat.groups[0]?.items.slice(0, 3).map((item) => (
@@ -66,7 +66,7 @@ function SolutionsPage() {
       </section>
 
       <section className="border-y border-border bg-surface">
-        <div className="container-page py-16 lg:py-24">
+        <div className="container-page py-20 lg:py-28">
           <SectionHeader
             eyebrow="مراحل النمو"
             title="كل حل يرتبط بمرحلة واضحة من رحلة مشروعك"
@@ -84,7 +84,7 @@ function SolutionsPage() {
               </Link>
             ))}
           </div>
-          <p className="mt-10 rounded-xl border border-border bg-card p-5 text-xs leading-7 text-muted-foreground">
+          <p className="mt-10 panel rounded-xl p-5 text-xs leading-7 text-muted-foreground">
             {professionalDisclaimer}
           </p>
         </div>

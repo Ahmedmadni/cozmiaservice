@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
+import landmarks from "@/assets/saudi-landmarks.jpg";
 import { site, professionalDisclaimer } from "@/data/site";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -73,10 +74,15 @@ function ContactPage() {
 
   return (
     <>
-      <PageHero eyebrow="تواصل معنا" title="لنبدأ بمحادثة قصيرة" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <PageHero
+        eyebrow="تواصل معنا"
+        title="لنبدأ بمحادثة قصيرة"
+        description={description}
+        image={landmarks}
+      />
+      <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <form className="space-y-5 rounded-2xl border border-border bg-card p-7" onSubmit={handleSubmit}>
+          <form className="panel space-y-5 p-7" onSubmit={handleSubmit}>
             {summary ? (
               <div className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-xs leading-7 text-muted-foreground">
                 <span className="font-semibold text-foreground">ملخص نتيجة مقياس الجاهزية: </span>
@@ -117,7 +123,7 @@ function ContactPage() {
           </form>
 
           <aside className="space-y-5">
-            <div className="rounded-2xl border border-border bg-surface p-7">
+            <div className="panel bg-surface p-7">
               <h2 className="text-base font-semibold">معلومات التواصل</h2>
               <ul className="mt-4 space-y-2 text-sm leading-7 text-muted-foreground">
                 <li>البريد: {site.email}</li>
@@ -125,7 +131,7 @@ function ContactPage() {
                 <li>المقر: {site.city}</li>
               </ul>
             </div>
-            <p className="rounded-2xl border border-border bg-card p-6 text-xs leading-7 text-muted-foreground">
+            <p className="panel p-6 text-xs leading-7 text-muted-foreground">
               {professionalDisclaimer}
             </p>
           </aside>

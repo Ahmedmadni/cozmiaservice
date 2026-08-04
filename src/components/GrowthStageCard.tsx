@@ -7,12 +7,12 @@ export function GrowthStageCard({ stage, index }: { stage: Stage; index: number 
     <Link
       to="/growth-stages"
       hash={stage.slug}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_22px_50px_-32px_var(--primary)]"
+      className="group relative flex h-full flex-col overflow-hidden panel p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_22px_50px_-32px_var(--primary)]"
     >
       <span className="text-xs font-semibold tracking-widest text-accent">
         {String(index + 1).padStart(2, "0")}
       </span>
-      <h3 className="mt-3 text-xl font-bold">{stage.title}</h3>
+      <h3 className="mt-3 font-display text-xl font-semibold">{stage.title}</h3>
       <p className="mt-2 text-sm font-medium text-foreground/80">{stage.headline}</p>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">{stage.summary}</p>
 

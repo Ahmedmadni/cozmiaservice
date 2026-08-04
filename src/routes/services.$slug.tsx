@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { IconBadge } from "@/components/IconBadge";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Reveal } from "@/components/Reveal";
 import { getService, services, serviceProcess } from "@/data/services";
@@ -56,7 +57,7 @@ export const Route = createFileRoute("/services/$slug")({
 function ServiceNotFound() {
   return (
     <section className="container-page py-24 text-center">
-      <h1 className="text-2xl font-bold">الخدمة غير متوفرة</h1>
+      <h1 className="font-display text-2xl font-semibold">الخدمة غير متوفرة</h1>
       <Button asChild className="mt-6">
         <Link to="/services">عرض جميع الخدمات</Link>
       </Button>
@@ -98,7 +99,7 @@ function ServiceDetail() {
             </div>
           </div>
 
-          <figure className="overflow-hidden rounded-3xl border border-border bg-card shadow-[0_30px_80px_-55px_var(--primary)] fade-up">
+          <figure className="overflow-hidden panel rounded-3xl shadow-[0_30px_80px_-55px_var(--primary)] fade-up">
             <img
               src={service.image}
               alt={service.imageAlt}
@@ -110,15 +111,13 @@ function ServiceDetail() {
         </div>
       </section>
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <SectionHeader eyebrow="كيف نساعدك؟" title={`طريقتنا في ${service.title}`} />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
           {service.help.map((h, i) => (
             <Reveal key={h.title} delay={i * 70}>
-              <div className="h-full rounded-2xl border border-border bg-card p-6">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-soft text-accent">
-                  <service.icon className="h-5 w-5" strokeWidth={1.75} />
-                </span>
+              <div className="h-full panel p-6">
+                <IconBadge icon={service.icon} />
                 <h3 className="mt-4 text-base font-semibold">{h.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{h.desc}</p>
               </div>
@@ -135,7 +134,7 @@ function ServiceDetail() {
               {service.items.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 text-sm leading-7"
+                  className="flex items-start gap-3 panel rounded-xl p-4 text-sm leading-7"
                 >
                   <Check className="mt-1.5 h-4 w-4 shrink-0 text-accent" />
                   <span className="min-w-0">{item}</span>
@@ -149,7 +148,7 @@ function ServiceDetail() {
               {service.outcomes.map((o) => (
                 <li
                   key={o}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 text-sm leading-7 text-muted-foreground"
+                  className="flex items-start gap-3 panel rounded-xl p-4 text-sm leading-7 text-muted-foreground"
                 >
                   <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-sand" />
                   <span className="min-w-0">{o}</span>
@@ -160,9 +159,9 @@ function ServiceDetail() {
         </div>
       </section>
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <SectionHeader eyebrow="كيف نعمل؟" title="مسار تنفيذ واضح من البداية للنتيجة" />
-        <ol className="mt-12 grid gap-6 md:grid-cols-5">
+        <ol className="mt-14 grid gap-6 md:grid-cols-5">
           {serviceProcess.map((step, i) => (
             <Reveal key={step.title} delay={i * 70} as="li" className="relative h-full md:pt-8">
               <div className="contents">
@@ -170,7 +169,7 @@ function ServiceDetail() {
                   aria-hidden
                   className="absolute right-0 top-3 hidden h-px w-full bg-border md:block"
                 />
-                <span className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-accent bg-background text-xs font-bold text-accent md:absolute md:-top-1.5 md:right-0">
+                <span className="glass-strong glass-edge relative z-10 grid h-9 w-9 place-items-center rounded-full font-display text-xs font-semibold text-primary md:absolute md:-top-1.5 md:right-0">
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-base font-semibold md:mt-2">{step.title}</h3>
@@ -188,7 +187,7 @@ function ServiceDetail() {
         </div>
       </section>
 
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <SectionHeader eyebrow="خدمات ذات صلة" title="قد تحتاج أيضًا إلى" />
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {others.map((o) => (
@@ -196,11 +195,9 @@ function ServiceDetail() {
               key={o.slug}
               to="/services/$slug"
               params={{ slug: o.slug }}
-              className="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent/60"
+              className="group panel p-5 transition-colors hover:border-accent/60"
             >
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-soft text-accent">
-                <o.icon className="h-5 w-5" strokeWidth={1.75} />
-              </span>
+              <IconBadge icon={o.icon} />
               <h3 className="mt-4 text-sm font-semibold">{o.title}</h3>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{o.short}</p>
             </Link>
@@ -215,7 +212,7 @@ function ServiceDetail() {
             className="pointer-events-none absolute -left-16 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"
           />
           <div className="relative max-w-2xl">
-            <h2 className="text-2xl font-bold text-balance-ar sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-balance-ar sm:text-3xl">
               هل هذه الخدمة مناسبة لمشروعك؟
             </h2>
             <p className="mt-4 text-base leading-8 text-primary-foreground/80">

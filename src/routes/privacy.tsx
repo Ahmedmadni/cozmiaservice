@@ -48,11 +48,11 @@ function PrivacyPage() {
   return (
     <>
       <PageHero eyebrow="الصفحات النظامية" title="سياسة الخصوصية" description={description} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="mx-auto max-w-3xl space-y-8">
           {sections.map((s) => (
             <div key={s.t}>
-              <h2 className="text-lg font-bold">{s.t}</h2>
+              <h2 className="font-display text-lg font-semibold">{s.t}</h2>
               <p className="mt-3 text-sm leading-8 text-muted-foreground">{s.b}</p>
             </div>
           ))}

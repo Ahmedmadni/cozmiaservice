@@ -37,7 +37,7 @@ function CaseStudyDetail() {
   return (
     <>
       <PageHero eyebrow={item.sector} title={item.name} />
-      <section className="container-page py-16 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-8">
             <Block title="التحدي" body={item.challenge} />
@@ -45,7 +45,7 @@ function CaseStudyDetail() {
             <Block title="النتيجة" body={item.result} />
           </div>
           <aside className="space-y-6">
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="panel p-6">
               <h2 className="text-sm font-semibold">الخدمات المقدمة</h2>
               <ul className="mt-4 space-y-2">
                 {item.services.map((s) => (
@@ -56,13 +56,13 @@ function CaseStudyDetail() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="panel p-6">
               <h2 className="text-sm font-semibold">المؤشرات</h2>
               <dl className="mt-4 space-y-4">
                 {item.metrics.map((m) => (
                   <div key={m.label}>
                     <dt className="text-xs text-muted-foreground">{m.label}</dt>
-                    <dd className="mt-1 text-xl font-bold">{m.value}</dd>
+                    <dd className="mt-1 font-display text-xl font-semibold">{m.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -78,7 +78,7 @@ function CaseStudyDetail() {
 function Block({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h2 className="text-lg font-bold">{title}</h2>
+      <h2 className="font-display text-lg font-semibold">{title}</h2>
       <p className="mt-3 text-base leading-8 text-muted-foreground">{body}</p>
     </div>
   );

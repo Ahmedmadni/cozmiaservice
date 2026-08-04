@@ -334,6 +334,39 @@
   }
 }
 
+/* ── الأسطح: ثلاث معالجات فقط، تُستخدم في كل الموقع ────────── */
+
+/*
+ * panel        سطح ساكن يحمل محتوى (فقرات، قوائم، جداول).
+ * panel-glass  سطح مرتفع أو تفاعلي (روابط، بطاقات تستجيب للتحويم).
+ * panel-ink    سطح داكن داخل قسم فاتح، أو زجاج فوق سطح داكن.
+ *
+ * أي بطاقة في الموقع تنتمي إلى واحدة من هذه الثلاث. لا أسطح مرتجلة.
+ */
+@utility panel {
+  border-radius: var(--radius-2xl);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+}
+
+@utility panel-glass {
+  @apply backdrop-blur-lg backdrop-saturate-150;
+  position: relative;
+  border-radius: var(--radius-2xl);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@utility panel-ink {
+  @apply backdrop-blur-lg;
+  position: relative;
+  border-radius: var(--radius-2xl);
+  background: oklch(1 0 0 / 0.055);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  color: var(--color-ink-foreground);
+}
+
 /* ── الحبيبات: تكسر نعومة التدرجات وتزيل «مظهر الـ AI» ────── */
 
 @utility grain {

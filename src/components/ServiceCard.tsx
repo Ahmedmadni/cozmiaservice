@@ -18,7 +18,7 @@ export function ServiceCard({
   const content = (
     <div
       className={cn(
-        "group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_40px_-28px_var(--primary)]",
+        "group h-full panel p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_40px_-28px_var(--primary)]",
         className,
       )}
     >

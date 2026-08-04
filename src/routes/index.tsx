@@ -18,6 +18,7 @@ import {
 } from "@/components/motion";
 import { HeroComposition } from "@/components/HeroComposition";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
 import { site } from "@/data/site";
@@ -75,7 +76,8 @@ export const Route = createFileRoute("/")({
  *  9  أين مشروعك        تبويبات زجاجية         عاجي
  * 10  قصص النجاح        شبكة غير متماثلة       سطح
  * 11  رؤية 2030         صورة بكشف وموازاة      عاجي
- * 12  الدعوة للتواصل    ملء الشاشة             حبري
+ * 12  الأسئلة الشائعة   طيّات، عمودان          سطح
+ * 13  الدعوة للتواصل    صورة مثبّتة             حبري
  *
  * لا يتكرر نوع تخطيط مرتين متتاليتين، ولا يظهر أكثر من سطحين
  * داكنين قبل استراحة فاتحة.
@@ -92,6 +94,7 @@ function Index() {
       <StagePicker />
       <CaseStudiesSection />
       <VisionSection />
+      <FAQSection />
       <CTASection />
     </>
   );
@@ -742,6 +745,47 @@ function CaseStudiesSection() {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════ 12 — الأسئلة الشائعة ═══════════════════ */
+
+/**
+ * الأسئلة كانت تُغذّي البيانات المنظّمة (JSON-LD) دون أن تُعرض للزائر.
+ * إظهارها هنا يزيل اعتراضًا شائعًا قبل الدعوة للتواصل مباشرة.
+ */
+function FAQSection() {
+  return (
+    <section className="border-y border-border bg-surface">
+      <div className="container-page grid gap-10 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <span className="flex items-center gap-3 text-accent">
+            <span aria-hidden className="h-px w-8 bg-sand" />
+            <span className="eyebrow">الأسئلة الشائعة</span>
+          </span>
+          <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl">
+            <SplitWords text="أسئلة نسمعها كثيرًا" />
+          </h2>
+          <Rise delay={120}>
+            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+              إن لم تجد إجابتك هنا، اسألنا مباشرة — نردّ بوضوح عن النطاق والمدد وما يحتاج جهة
+              مرخّصة.
+            </p>
+            <Link
+              to="/faq"
+              className="link-sweep mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary"
+            >
+              كل الأسئلة
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Rise>
+        </div>
+
+        <Rise delay={80}>
+          <FAQAccordion items={faqs.slice(0, 6)} />
+        </Rise>
       </div>
     </section>
   );
