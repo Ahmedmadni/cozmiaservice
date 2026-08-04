@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUp, MessageCircle } from "lucide-react";
+import { ArrowUp, MessageCircle, Phone } from "lucide-react";
 import { EASE } from "@/components/motion";
 import { site } from "@/data/site";
 
 /**
- * رصيف الإجراءات العائم: تواصل مباشر + العودة إلى الأعلى.
+ * رصيف الإجراءات العائم.
  *
- * زر الواتساب حاضر دائمًا لأنه قناة التواصل الأولى فعليًا لدى
- * أصحاب المشاريع هنا. زر الصعود يظهر فقط بعد مغادرة أول شاشة،
- * فلا يزاحم المحتوى في بدايته.
+ * الترتيب مأخوذ عن مواقع خدمات الأعمال السعودية: قنوات التواصل
+ * المباشر على الحافة اليمنى، وزر الصعود أسفلها، ولسان «احجز استشارة»
+ * على الحافة المقابلة حتى لا تتزاحم الإجراءات في ركن واحد.
+ *
+ * زر الصعود يظهر بعد أول شاشة فقط، فلا يزاحم المحتوى في بدايته.
  */
 export function FloatingDock() {
   const reduced = useReducedMotion();
@@ -23,39 +26,54 @@ export function FloatingDock() {
   }, []);
 
   const whatsapp = `https://wa.me/${site.whatsapp.replace(/[^\d]/g, "")}`;
+  const tel = `tel:${site.phone.replace(/\s/g, "")}`;
 
   return (
-    <div className="pointer-events-none fixed bottom-5 left-5 z-40 flex flex-col items-center gap-3">
-      <AnimatePresence>
-        {showTop ? (
-          <motion.button
-            type="button"
-            aria-label="العودة إلى أعلى الصفحة"
-            onClick={() => window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" })}
-            initial={{ opacity: 0, y: 12, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.9 }}
-            transition={{ duration: 0.3, ease: EASE.ui }}
-            className="glass-strong glass-edge pointer-events-auto grid h-11 w-11 place-items-center rounded-full text-primary transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            <ArrowUp className="h-4 w-4" strokeWidth={2} />
-          </motion.button>
-        ) : null}
-      </AnimatePresence>
+    <>
+      <div className="pointer-events-none fixed bottom-6 right-5 z-40 flex flex-col items-center gap-3">
+        <a
+          href={tel}
+          aria-label="اتصال هاتفي"
+          className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_16px_36px_-16px_var(--primary)] transition-transform duration-300 hover:-translate-y-0.5"
+        >
+          <Phone className="h-5 w-5" strokeWidth={1.75} />
+        </a>
 
-      <a
-        href={whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group pointer-events-auto flex items-center gap-2.5 rounded-full bg-primary py-3 pr-3 pl-4 text-primary-foreground shadow-[0_18px_40px_-18px_var(--primary)] transition-transform duration-300 hover:-translate-y-0.5"
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="مراسلة عبر واتساب"
+          className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_16px_36px_-16px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5"
+        >
+          <MessageCircle className="h-5 w-5" strokeWidth={1.75} />
+        </a>
+
+        <AnimatePresence>
+          {showTop ? (
+            <motion.button
+              type="button"
+              aria-label="العودة إلى أعلى الصفحة"
+              onClick={() => window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" })}
+              initial={{ opacity: 0, y: 12, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.9 }}
+              transition={{ duration: 0.3, ease: EASE.ui }}
+              className="glass-strong glass-edge pointer-events-auto grid h-10 w-10 place-items-center rounded-full text-primary transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <ArrowUp className="h-4 w-4" strokeWidth={2} />
+            </motion.button>
+          ) : null}
+        </AnimatePresence>
+      </div>
+
+      {/* لسان الاستشارة — على الحافة المقابلة، ومخفي على الشاشات الضيقة */}
+      <Link
+        to="/contact"
+        className="glass-strong glass-edge fixed bottom-24 left-0 z-40 hidden rounded-l-none rounded-r-full py-3 pl-4 pr-5 text-xs font-semibold text-primary shadow-[0_16px_36px_-20px_var(--primary)] transition-transform duration-300 hover:translate-x-1 sm:block"
       >
-        <span className="grid h-6 w-6 place-items-center rounded-full bg-accent text-accent-foreground">
-          <MessageCircle className="h-3.5 w-3.5" strokeWidth={2.25} />
-        </span>
-        <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-medium opacity-0 transition-all duration-500 group-hover:max-w-[9rem] group-hover:opacity-100 sm:max-w-[9rem] sm:opacity-100">
-          تواصل واتساب
-        </span>
-      </a>
-    </div>
+        احجز استشارة مجانية
+      </Link>
+    </>
   );
 }

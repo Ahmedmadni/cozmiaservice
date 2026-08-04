@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Constellation } from "@/components/Constellation";
 import { cn } from "@/lib/utils";
 
 /**
@@ -56,7 +57,7 @@ export function PinnedSection({
           veil === "strong" ? "bg-ink/92" : "bg-gradient-to-t from-ink/96 via-ink/86 to-ink/90",
         )}
       />
-      <div aria-hidden className="absolute inset-0 blueprint opacity-[0.05]" />
+      <Constellation className="opacity-[0.12]" />
 
       <div className={cn("container-page relative", pad, innerClassName)}>{children}</div>
     </section>
