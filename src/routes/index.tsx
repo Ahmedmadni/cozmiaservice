@@ -208,6 +208,9 @@ function HeroVisual() {
           alt="رسم توضيحي لخدمات الشركة: بناء الهوية، الموقع والمتجر، الأنظمة، والتسويق ونمو الأعمال"
           width={1280}
           height={1024}
+          sizes="(min-width: 1024px) 46vw, 100vw"
+          fetchPriority="high"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </figure>
