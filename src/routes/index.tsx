@@ -185,7 +185,8 @@ function Hero() {
             >
               <dt className="text-xs text-muted-foreground">{stat.label}</dt>
               <dd className="mt-2 text-2xl font-bold text-primary">{stat.value}</dd>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</p>
+              <dd className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</dd>
+
             </div>
           ))}
         </dl>
@@ -207,6 +208,9 @@ function HeroVisual() {
           alt="رسم توضيحي لخدمات الشركة: بناء الهوية، الموقع والمتجر، الأنظمة، والتسويق ونمو الأعمال"
           width={1280}
           height={1024}
+          sizes="(min-width: 1024px) 46vw, 100vw"
+          fetchPriority="high"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </figure>
@@ -392,8 +396,8 @@ function ProcessSection() {
         <SectionHeader eyebrow="كيف نعمل؟" title="رحلة واضحة من الاحتياج إلى التنفيذ" />
         <ol className="mt-12 grid gap-6 md:grid-cols-5">
           {processSteps.map((step, i) => (
-            <Reveal key={step.title} delay={i * 80}>
-              <li className="relative h-full md:pt-8">
+            <Reveal key={step.title} delay={i * 80} as="li" className="relative h-full md:pt-8">
+              <div className="contents">
                 <span
                   aria-hidden
                   className="absolute right-0 top-3 hidden h-px w-full bg-border md:block"
@@ -403,7 +407,7 @@ function ProcessSection() {
                 </span>
                 <h3 className="mt-4 text-base font-semibold md:mt-2">{step.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
-              </li>
+              </div>
             </Reveal>
           ))}
         </ol>
