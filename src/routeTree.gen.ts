@@ -17,6 +17,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GrowthStagesRouteImport } from './routes/growth-stages'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ScopeRouteImport } from './routes/scope'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -67,6 +68,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const ScopeRoute = ScopeRouteImport.update({
   id: '/scope',
   path: '/scope',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemsRoute = SystemsRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
   '/scope': typeof ScopeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
   '/scope': typeof ScopeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/growth-stages': typeof GrowthStagesRoute
   '/privacy': typeof PrivacyRoute
   '/scope': typeof ScopeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/systems': typeof SystemsRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/growth-stages'
     | '/privacy'
     | '/scope'
+    | '/sitemap.xml'
     | '/systems'
     | '/team'
     | '/terms'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/growth-stages'
     | '/privacy'
     | '/scope'
+    | '/sitemap.xml'
     | '/systems'
     | '/team'
     | '/terms'
@@ -242,6 +253,7 @@ export interface FileRouteTypes {
     | '/growth-stages'
     | '/privacy'
     | '/scope'
+    | '/sitemap.xml'
     | '/systems'
     | '/team'
     | '/terms'
@@ -264,6 +276,7 @@ export interface RootRouteChildren {
   GrowthStagesRoute: typeof GrowthStagesRoute
   PrivacyRoute: typeof PrivacyRoute
   ScopeRoute: typeof ScopeRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SystemsRoute: typeof SystemsRoute
   TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
@@ -333,6 +346,13 @@ declare module '@tanstack/react-router' {
       path: '/scope'
       fullPath: '/scope'
       preLoaderRoute: typeof ScopeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/systems': {
@@ -424,6 +444,7 @@ const rootRouteChildren: RootRouteChildren = {
   GrowthStagesRoute: GrowthStagesRoute,
   PrivacyRoute: PrivacyRoute,
   ScopeRoute: ScopeRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SystemsRoute: SystemsRoute,
   TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
