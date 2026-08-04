@@ -131,14 +131,14 @@ function ServicesPage() {
         <SectionHeader eyebrow="كيف نعمل؟" title="خمس خطوات واضحة من الاحتياج إلى النتيجة" />
         <ol className="mt-12 grid gap-6 md:grid-cols-5">
           {serviceProcess.map((step, i) => (
-            <Reveal key={step.title} delay={i * 70}>
-              <li className="h-full rounded-2xl border border-border bg-card p-5">
+            <Reveal key={step.title} delay={i * 70} as="li" className="h-full rounded-2xl border border-border bg-card p-5">
+              <div className="contents">
                 <span className="grid h-9 w-9 place-items-center rounded-full border border-accent text-xs font-bold text-accent">
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-base font-semibold">{step.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
-              </li>
+              </div>
             </Reveal>
           ))}
         </ol>

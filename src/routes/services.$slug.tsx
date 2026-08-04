@@ -164,8 +164,8 @@ function ServiceDetail() {
         <SectionHeader eyebrow="كيف نعمل؟" title="مسار تنفيذ واضح من البداية للنتيجة" />
         <ol className="mt-12 grid gap-6 md:grid-cols-5">
           {serviceProcess.map((step, i) => (
-            <Reveal key={step.title} delay={i * 70}>
-              <li className="relative h-full md:pt-8">
+            <Reveal key={step.title} delay={i * 70} as="li" className="relative h-full md:pt-8">
+              <div className="contents">
                 <span
                   aria-hidden
                   className="absolute right-0 top-3 hidden h-px w-full bg-border md:block"
@@ -175,7 +175,7 @@ function ServiceDetail() {
                 </span>
                 <h3 className="mt-4 text-base font-semibold md:mt-2">{step.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
-              </li>
+              </div>
             </Reveal>
           ))}
         </ol>
