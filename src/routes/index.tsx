@@ -128,7 +128,7 @@ function Hero() {
             حلول أعمال ونمو للشركات الناشئة والمنشآت الصغيرة
           </motion.span>
 
-          <h1 className="mt-7 text-[2.1rem] font-semibold leading-[1.28] text-balance-ar sm:text-5xl lg:text-[3.6rem] lg:leading-[1.2]">
+          <h1 className="mt-7 text-[2.1rem] font-bold leading-[1.28] text-balance-ar sm:text-5xl lg:text-[3.6rem] lg:leading-[1.2]">
             <SplitWords text="نبني أساس مشروعك" delay={0.1} />
             <br />
             <SplitWords text="ونساعده على النمو" className="text-accent" delay={0.28} />
@@ -288,7 +288,7 @@ function DarkPassage() {
         <div className="container-page relative grid gap-12 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:py-28">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <span className="eyebrow text-sand">التحديات</span>
-            <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl">
+            <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
               <SplitWords text="إدارة مشروعك لا يجب أن تعني" />{" "}
               <SplitWords text="التعامل مع عشرات الجهات" delay={0.12} className="text-accent" />
             </h2>
@@ -557,7 +557,7 @@ function WhyUsSection() {
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <span className="eyebrow text-accent">لماذا نحن؟</span>
-          <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl">
+          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="حلول مترابطة صُممت حول احتياجات مشروعك" />
           </h2>
           <span aria-hidden className="mt-10 hidden h-px w-24 bg-sand lg:block" />
@@ -757,7 +757,7 @@ function FAQSection() {
             <span aria-hidden className="h-px w-8 bg-sand" />
             <span className="eyebrow">الأسئلة الشائعة</span>
           </span>
-          <h2 className="mt-5 text-[1.75rem] font-semibold leading-[1.3] text-balance-ar sm:text-4xl">
+          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="أسئلة نسمعها كثيرًا" />
           </h2>
           <Rise delay={120}>

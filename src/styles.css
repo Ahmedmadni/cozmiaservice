@@ -2,6 +2,25 @@
 @source "../src";
 @import "tw-animate-css";
 
+/*
+ * الخطوط مستضافة ذاتيًا (Fontsource) لا عبر Google Fonts.
+ *
+ * السبب: طلب الخط من نطاق خارجي يجعل ظهور العناوين رهينة شبكة
+ * الزائر — وإن تأخّر أو حُجب سقطت العناوين إلى خط النظام، فيبدو
+ * الموقع بلا هوية. الاستضافة الذاتية تضمن الخط من أول رسم،
+ * وتلغي طلبين خارجيين وارتباط DNS بنطاقين.
+ */
+@import "@fontsource-variable/alexandria/wght.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-300.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-500.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-600.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-600.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-500.css";
+
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -210,14 +229,30 @@
     text-rendering: optimizeLegibility;
   }
 
+  /*
+   * العناوين: وزن 700 وتتبّع سالب. الخط العربي الهندسي يحتاج وزنًا
+   * أثقل من اللاتيني ليحمل نفس الحضور عند الأحجام الكبيرة، والتتبّع
+   * السالب يشدّ الكلمات فتُقرأ ككتلة واحدة لا كحروف متجاورة.
+   */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.32;
+  }
+
+  /* الأحجام الكبيرة تحتمل تتبّعًا أشدّ */
+  h1 {
+    letter-spacing: -0.035em;
+  }
+
+  h3,
+  h4 {
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.34;
+    letter-spacing: -0.015em;
   }
 
   /* الأرقام اللاتينية داخل نص عربي — عرض ثابت ومحاذاة سليمة */
@@ -337,25 +372,17 @@
 /* ── الأسطح: ثلاث معالجات فقط، تُستخدم في كل الموقع ────────── */
 
 /*
- * panel        سطح ساكن يحمل محتوى (فقرات، قوائم، جداول).
- * panel-glass  سطح مرتفع أو تفاعلي (روابط، بطاقات تستجيب للتحويم).
- * panel-ink    سطح داكن داخل قسم فاتح، أو زجاج فوق سطح داكن.
+ * panel      سطح ساكن يحمل محتوى (فقرات، قوائم، جداول).
+ * panel-ink  سطح داكن داخل قسم فاتح، أو زجاج فوق سطح داكن.
  *
- * أي بطاقة في الموقع تنتمي إلى واحدة من هذه الثلاث. لا أسطح مرتجلة.
+ * للأسطح الزجاجية استخدم glass / glass-strong، وبشرط أن يكون خلفها
+ * ما يستحق الانكسار: صورة، تدرّج، أو حدّ بين قسمين. الزجاج فوق سطح
+ * عاجي سادة لا يقرأ كزجاج، بل كصندوق شاحب منخفض التباين.
  */
 @utility panel {
   border-radius: var(--radius-2xl);
   background: var(--color-card);
   border: 1px solid var(--color-border);
-}
-
-@utility panel-glass {
-  @apply backdrop-blur-lg backdrop-saturate-150;
-  position: relative;
-  border-radius: var(--radius-2xl);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
 }
 
 @utility panel-ink {

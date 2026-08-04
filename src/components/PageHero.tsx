@@ -30,7 +30,7 @@ export function PageHero({
         </span>
       </Rise>
 
-      <h1 className="mt-5 max-w-4xl text-[2rem] font-semibold leading-[1.26] text-balance-ar sm:text-4xl lg:text-[3.15rem] lg:leading-[1.2]">
+      <h1 className="mt-5 max-w-4xl text-[2rem] font-bold leading-[1.26] text-balance-ar sm:text-4xl lg:text-[3.15rem] lg:leading-[1.2]">
         <SplitWords text={title} />
       </h1>
 

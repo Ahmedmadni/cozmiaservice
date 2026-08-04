@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Magnetic, Rise, SplitWords } from "@/components/motion";
 import { PinnedSection } from "@/components/PinnedSection";
-import landmarks from "@/assets/saudi-landmarks.jpg";
+import skyline from "@/assets/hero-skyline.webp";
 
 /**
  * خاتمة الصفحة — صورة معالم المملكة مثبّتة خلف القسم.
@@ -26,7 +26,7 @@ export function CTASection({
   secondaryTo?: string;
 }) {
   return (
-    <PinnedSection image={landmarks} veil="soft" size="lg" innerClassName="text-center">
+    <PinnedSection image={skyline} veil="soft" size="lg" innerClassName="text-center">
       <Rise>
         <span className="flex items-center justify-center gap-3 text-accent">
           <span aria-hidden className="h-px w-8 bg-sand" />
@@ -35,7 +35,7 @@ export function CTASection({
         </span>
       </Rise>
 
-      <h2 className="mx-auto mt-6 max-w-3xl text-[1.9rem] font-semibold leading-[1.28] text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.22]">
+      <h2 className="mx-auto mt-6 max-w-3xl text-[1.9rem] font-bold leading-[1.28] text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.22]">
         <SplitWords text={title} />
       </h2>
 

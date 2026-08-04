@@ -3,6 +3,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
 import { IconBadge } from "@/components/IconBadge";
+import { ServicePlate } from "@/components/ServicePlate";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Reveal } from "@/components/Reveal";
 import { getService, services, serviceProcess } from "@/data/services";
@@ -68,6 +69,7 @@ function ServiceNotFound() {
 function ServiceDetail() {
   const { slug } = Route.useParams();
   const service = getService(slug)!;
+  const serviceIndex = services.findIndex((s) => s.slug === service.slug);
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   return (
@@ -99,15 +101,9 @@ function ServiceDetail() {
             </div>
           </div>
 
-          <figure className="overflow-hidden panel rounded-3xl shadow-[0_30px_80px_-55px_var(--primary)] fade-up">
-            <img
-              src={service.image}
-              alt={service.imageAlt}
-              width={1200}
-              height={900}
-              className="h-full w-full object-cover"
-            />
-          </figure>
+          <div className="fade-up">
+            <ServicePlate service={service} index={serviceIndex} />
+          </div>
         </div>
       </section>
 
