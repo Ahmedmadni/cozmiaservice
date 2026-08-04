@@ -5,8 +5,16 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * نظام التصميم — كل الألوان كـ tokens.
- * لتغيير هوية الموقع، عدّل القيم في :root فقط.
+ * ─────────────────────────────────────────────────────────────
+ * نظام التصميم
+ * ─────────────────────────────────────────────────────────────
+ * توزيع الهوية اللونية (قاعدة 60 / 30 / 10):
+ *   60%  القماش  → ivory / ink   (خلفيات وأسطح)
+ *   30%  الحبر   → primary navy  (النصوص والأقسام الداكنة)
+ *    7%  الإبراز → accent teal   (التفاعل، المؤشرات، الروابط)
+ *    3%  الذهبي  → sand          (الأرقام الفهرسية والخطوط الرفيعة فقط)
+ *
+ * لا يُستخدم accent كخلفية لمساحة كبيرة — يبقى خطًا أو نقطة أو توهجًا خفيفًا.
  */
 
 @theme inline {
@@ -17,8 +25,11 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
   --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Readex Pro", "IBM Plex Sans Arabic", ui-sans-serif, sans-serif;
+  --font-display: "Alexandria", "IBM Plex Sans Arabic", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -37,6 +48,9 @@
   --color-accent-soft: var(--accent-soft);
   --color-sand: var(--sand);
   --color-sand-foreground: var(--sand-foreground);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -60,100 +74,123 @@
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.75rem;
 
-  /* أبيض دافئ */
-  --background: oklch(0.991 0.004 95);
-  --foreground: oklch(0.22 0.035 255);
+  /* 60% — القماش: عاجي دافئ، وليس أبيض. الفارق هو ما يصنع الطابع التحريري. */
+  --background: oklch(0.977 0.007 85);
+  --surface: oklch(0.955 0.01 84);
+  --foreground: oklch(0.21 0.032 254);
 
-  --surface: oklch(0.968 0.006 95);
+  --card: oklch(0.995 0.004 85);
+  --card-foreground: oklch(0.21 0.032 254);
+  --popover: oklch(0.995 0.004 85);
+  --popover-foreground: oklch(0.21 0.032 254);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.035 255);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.035 255);
+  /* 30% — الحبر الكحلي */
+  --primary: oklch(0.27 0.07 255);
+  --primary-foreground: oklch(0.98 0.006 85);
+  --primary-soft: oklch(0.935 0.022 255);
 
-  /* كحلي عميق */
-  --primary: oklch(0.29 0.075 258);
-  --primary-foreground: oklch(0.985 0.005 95);
-  --primary-soft: oklch(0.94 0.02 258);
+  --ink: oklch(0.185 0.035 253);
+  --ink-foreground: oklch(0.965 0.008 85);
+  --ink-muted: oklch(0.71 0.022 250);
 
-  --secondary: oklch(0.955 0.008 250);
-  --secondary-foreground: oklch(0.29 0.075 258);
+  --secondary: oklch(0.945 0.01 250);
+  --secondary-foreground: oklch(0.27 0.07 255);
+  --muted: oklch(0.945 0.01 250);
+  --muted-foreground: oklch(0.505 0.026 253);
 
-  --muted: oklch(0.955 0.008 250);
-  --muted-foreground: oklch(0.52 0.028 255);
+  /* 7% — الإبراز: تركوازي أعمق وأقل «نيون» */
+  --accent: oklch(0.56 0.088 191);
+  --accent-foreground: oklch(0.985 0.006 85);
+  --accent-soft: oklch(0.935 0.03 191);
 
-  /* تركوازي هادئ للنمو */
-  --accent: oklch(0.63 0.088 195);
-  --accent-foreground: oklch(0.16 0.03 255);
-  --accent-soft: oklch(0.945 0.028 195);
-
-  /* رملي/ذهبي محدود */
-  --sand: oklch(0.83 0.075 82);
-  --sand-foreground: oklch(0.28 0.05 82);
+  /* 3% — الذهبي الرملي: خطوط وأرقام فقط */
+  --sand: oklch(0.775 0.093 77);
+  --sand-foreground: oklch(0.28 0.055 77);
 
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0.005 95);
+  --destructive-foreground: oklch(0.985 0.005 85);
 
-  --border: oklch(0.912 0.008 255);
-  --input: oklch(0.912 0.008 255);
-  --ring: oklch(0.63 0.088 195);
+  --border: oklch(0.885 0.011 254);
+  --input: oklch(0.885 0.011 254);
+  --ring: oklch(0.56 0.088 191);
 
-  --chart-1: oklch(0.29 0.075 258);
-  --chart-2: oklch(0.63 0.088 195);
-  --chart-3: oklch(0.83 0.075 82);
-  --chart-4: oklch(0.52 0.028 255);
-  --chart-5: oklch(0.72 0.06 195);
+  /* ── طبقة الزجاج (Glassmorphism) ─────────────────────────── */
+  --glass-bg: oklch(1 0 0 / 0.55);
+  --glass-bg-strong: oklch(1 0 0 / 0.74);
+  --glass-border: oklch(1 0 0 / 0.7);
+  --glass-edge: oklch(0.27 0.07 255 / 0.1);
+  --glass-highlight: oklch(1 0 0 / 0.85);
+  --glass-shadow: 0 24px 60px -34px oklch(0.27 0.07 255 / 0.45);
+  --glass-nav-bg: oklch(0.977 0.007 85 / 0.9);
 
-  --sidebar: oklch(0.985 0.005 95);
-  --sidebar-foreground: oklch(0.22 0.035 255);
-  --sidebar-primary: oklch(0.29 0.075 258);
-  --sidebar-primary-foreground: oklch(0.985 0.005 95);
-  --sidebar-accent: oklch(0.955 0.008 250);
-  --sidebar-accent-foreground: oklch(0.29 0.075 258);
-  --sidebar-border: oklch(0.912 0.008 255);
-  --sidebar-ring: oklch(0.63 0.088 195);
+  --chart-1: oklch(0.27 0.07 255);
+  --chart-2: oklch(0.56 0.088 191);
+  --chart-3: oklch(0.775 0.093 77);
+  --chart-4: oklch(0.505 0.026 253);
+  --chart-5: oklch(0.68 0.06 191);
+
+  --sidebar: oklch(0.977 0.007 85);
+  --sidebar-foreground: oklch(0.21 0.032 254);
+  --sidebar-primary: oklch(0.27 0.07 255);
+  --sidebar-primary-foreground: oklch(0.98 0.006 85);
+  --sidebar-accent: oklch(0.945 0.01 250);
+  --sidebar-accent-foreground: oklch(0.27 0.07 255);
+  --sidebar-border: oklch(0.885 0.011 254);
+  --sidebar-ring: oklch(0.56 0.088 191);
 }
 
 .dark {
-  --background: oklch(0.17 0.03 258);
-  --foreground: oklch(0.965 0.006 95);
-  --surface: oklch(0.22 0.035 258);
-  --card: oklch(0.22 0.035 258);
-  --card-foreground: oklch(0.965 0.006 95);
-  --popover: oklch(0.22 0.035 258);
-  --popover-foreground: oklch(0.965 0.006 95);
+  --background: oklch(0.16 0.03 253);
+  --surface: oklch(0.205 0.033 253);
+  --foreground: oklch(0.962 0.007 85);
+  --card: oklch(0.212 0.034 253);
+  --card-foreground: oklch(0.962 0.007 85);
+  --popover: oklch(0.212 0.034 253);
+  --popover-foreground: oklch(0.962 0.007 85);
   --primary: oklch(0.9 0.02 250);
-  --primary-foreground: oklch(0.19 0.035 258);
-  --primary-soft: oklch(0.28 0.05 258);
-  --secondary: oklch(0.27 0.04 258);
-  --secondary-foreground: oklch(0.965 0.006 95);
-  --muted: oklch(0.27 0.04 258);
-  --muted-foreground: oklch(0.72 0.02 255);
-  --accent: oklch(0.7 0.09 195);
-  --accent-foreground: oklch(0.16 0.03 255);
-  --accent-soft: oklch(0.3 0.05 195);
-  --sand: oklch(0.83 0.075 82);
-  --sand-foreground: oklch(0.2 0.04 82);
+  --primary-foreground: oklch(0.18 0.033 253);
+  --primary-soft: oklch(0.27 0.048 255);
+  --ink: oklch(0.13 0.028 253);
+  --ink-foreground: oklch(0.965 0.008 85);
+  --ink-muted: oklch(0.68 0.022 250);
+  --secondary: oklch(0.26 0.038 253);
+  --secondary-foreground: oklch(0.962 0.007 85);
+  --muted: oklch(0.26 0.038 253);
+  --muted-foreground: oklch(0.715 0.02 252);
+  --accent: oklch(0.68 0.088 191);
+  --accent-foreground: oklch(0.15 0.03 253);
+  --accent-soft: oklch(0.3 0.05 191);
+  --sand: oklch(0.8 0.09 77);
+  --sand-foreground: oklch(0.19 0.04 77);
   --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0.005 95);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.7 0.09 195);
+  --destructive-foreground: oklch(0.985 0.005 85);
+  --border: oklch(1 0 0 / 0.12);
+  --input: oklch(1 0 0 / 0.16);
+  --ring: oklch(0.68 0.088 191);
+
+  --glass-bg: oklch(1 0 0 / 0.06);
+  --glass-bg-strong: oklch(1 0 0 / 0.1);
+  --glass-border: oklch(1 0 0 / 0.14);
+  --glass-edge: oklch(1 0 0 / 0.08);
+  --glass-highlight: oklch(1 0 0 / 0.28);
+  --glass-shadow: 0 24px 60px -34px oklch(0 0 0 / 0.7);
+  --glass-nav-bg: oklch(0.16 0.03 253 / 0.9);
+
   --chart-1: oklch(0.9 0.02 250);
-  --chart-2: oklch(0.7 0.09 195);
-  --chart-3: oklch(0.83 0.075 82);
-  --chart-4: oklch(0.72 0.02 255);
-  --chart-5: oklch(0.6 0.07 195);
-  --sidebar: oklch(0.19 0.035 258);
-  --sidebar-foreground: oklch(0.965 0.006 95);
+  --chart-2: oklch(0.68 0.088 191);
+  --chart-3: oklch(0.8 0.09 77);
+  --chart-4: oklch(0.715 0.02 252);
+  --chart-5: oklch(0.58 0.07 191);
+  --sidebar: oklch(0.18 0.033 253);
+  --sidebar-foreground: oklch(0.962 0.007 85);
   --sidebar-primary: oklch(0.9 0.02 250);
-  --sidebar-primary-foreground: oklch(0.19 0.035 258);
-  --sidebar-accent: oklch(0.27 0.04 258);
-  --sidebar-accent-foreground: oklch(0.965 0.006 95);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.7 0.09 195);
+  --sidebar-primary-foreground: oklch(0.18 0.033 253);
+  --sidebar-accent: oklch(0.26 0.038 253);
+  --sidebar-accent-foreground: oklch(0.962 0.007 85);
+  --sidebar-border: oklch(1 0 0 / 0.12);
+  --sidebar-ring: oklch(0.68 0.088 191);
 }
 
 @layer base {
@@ -161,11 +198,16 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -174,19 +216,45 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.015em;
-    line-height: 1.4;
+    letter-spacing: -0.02em;
+    line-height: 1.34;
+  }
+
+  /* الأرقام اللاتينية داخل نص عربي — عرض ثابت ومحاذاة سليمة */
+  [data-num] {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
+
+/* ── تخطيط ─────────────────────────────────────────────────── */
 
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 80rem;
+  max-width: 84rem;
   padding-inline: 1.25rem;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     padding-inline: 2rem;
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: 3rem;
   }
 }
 
@@ -194,8 +262,135 @@
   text-wrap: balance;
 }
 
+/* ── الزجاج ────────────────────────────────────────────────── */
+
+/*
+ * الضبابية تأتي من أدوات Tailwind لا من backdrop-filter مكتوب يدويًا:
+ * مُجمِّع CSS يُسقط التصريح اليدوي، فيتحوّل الزجاج إلى مستطيل شفاف.
+ */
+@utility glass {
+  @apply backdrop-blur-lg backdrop-saturate-150;
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@utility glass-strong {
+  @apply backdrop-blur-xl backdrop-saturate-150;
+  position: relative;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/*
+ * زجاج الشريط العلوي: أعتم من البقية عمدًا.
+ * الشريط يمرّ فوق نصوص كبيرة، وأي شفافية أعلى من هذا تجعل
+ * النص المارّ تحته يُقرأ من خلال القائمة.
+ */
+@utility glass-nav {
+  @apply backdrop-blur-xl backdrop-saturate-150;
+  position: relative;
+  background: var(--glass-nav-bg);
+}
+
+/* زجاج فوق الأسطح الداكنة */
+@utility glass-dark {
+  @apply backdrop-blur-lg backdrop-saturate-150;
+  position: relative;
+  background: oklch(1 0 0 / 0.055);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  box-shadow: 0 24px 60px -40px oklch(0 0 0 / 0.8);
+}
+
+/*
+ * الحافة المضيئة — التفصيلة التي تجعل الزجاج يبدو انكسارًا حقيقيًا
+ * للضوء بدل «مستطيل شفاف».
+ */
+@utility glass-edge {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      var(--glass-highlight) 0%,
+      transparent 38%,
+      transparent 62%,
+      var(--glass-edge) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* ── الحبيبات: تكسر نعومة التدرجات وتزيل «مظهر الـ AI» ────── */
+
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+}
+
+/* ── شبكة إنشائية خفيفة (مرجع تحريري لا زخرفة) ────────────── */
+
+@utility blueprint {
+  background-image:
+    linear-gradient(
+      to left,
+      color-mix(in oklab, var(--color-border) 70%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-border) 70%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 88px 88px;
+}
+
+/* ── قواعد تحريرية ─────────────────────────────────────────── */
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+/* رابط بخط سفلي يُرسم عند التحويم */
+@utility link-sweep {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 0% 1px;
+  transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* ── الحركة ────────────────────────────────────────────────── */
+
 @utility fade-up {
-  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeUp {
@@ -206,5 +401,34 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@utility marquee-track {
+  animation: marquee-rtl var(--marquee-duration, 42s) linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
