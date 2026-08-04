@@ -4,7 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
-import landmarks from "@/assets/saudi-landmarks.jpg";
+import skyline from "@/assets/hero-skyline.webp";
 import { site, professionalDisclaimer } from "@/data/site";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -78,7 +78,7 @@ function ContactPage() {
         eyebrow="تواصل معنا"
         title="لنبدأ بمحادثة قصيرة"
         description={description}
-        image={landmarks}
+        image={skyline}
       />
       <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">

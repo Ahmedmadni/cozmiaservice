@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { IconBadge } from "@/components/IconBadge";
+import { ServicePlate } from "@/components/ServicePlate";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { services, serviceProcess } from "@/data/services";
@@ -68,16 +69,7 @@ function ServicesPage() {
             <div className="container-page py-20 lg:py-28">
               <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                 <Reveal className={flipped ? "lg:order-2" : ""}>
-                  <figure className="overflow-hidden panel rounded-3xl shadow-[0_30px_80px_-55px_var(--primary)]">
-                    <img
-                      src={service.image}
-                      alt={service.imageAlt}
-                      width={1200}
-                      height={900}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </figure>
+                  <ServicePlate service={service} index={i} />
                 </Reveal>
 
                 <div className={flipped ? "lg:order-1" : undefined}>

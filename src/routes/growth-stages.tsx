@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
-import landmarks from "@/assets/saudi-landmarks.jpg";
+import skyline from "@/assets/hero-skyline.webp";
 import { CTASection } from "@/components/CTASection";
 import { site, professionalDisclaimer } from "@/data/site";
 import { stages } from "@/data/solutions";
@@ -32,7 +32,7 @@ function GrowthStagesPage() {
         eyebrow="مراحل النمو"
         title="رحلة من أربع مراحل"
         description={description}
-        image={landmarks}
+        image={skyline}
       />
 
       <section className="container-page py-20 lg:py-28">
