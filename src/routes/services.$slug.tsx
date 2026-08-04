@@ -25,11 +25,28 @@ export const Route = createFileRoute("/services/$slug")({
         { property: "og:title", content: t },
         { property: "og:description", content: service.description },
         { property: "og:type", content: "website" },
+        { property: "og:url", content: `/services/${service.slug}` },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: t },
         { name: "twitter:description", content: service.description },
       ],
       links: [{ rel: "canonical", href: `/services/${service.slug}` }],
+      scripts: service.faqs?.length
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: service.faqs.map((f) => ({
+                  "@type": "Question",
+                  name: f.q,
+                  acceptedAnswer: { "@type": "Answer", text: f.a },
+                })),
+              }),
+            },
+          ]
+        : [],
     };
   },
   notFoundComponent: ServiceNotFound,
