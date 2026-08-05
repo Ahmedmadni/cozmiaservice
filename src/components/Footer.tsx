@@ -3,7 +3,8 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { professionalDisclaimer, site } from "@/data/site";
 import vision2030 from "@/assets/vision-2030-logo.svg";
 import { services } from "@/data/services";
-import { CredentialBadges } from "@/components/CredentialBadges";
+// شارات التوثيق (CredentialBadges) مخفية مؤقتًا: الصور والبيانات الحالية
+// توضيحية وتشير لروابط معاينة داخلية غير متاحة خارج بيئة Lovable.
 
 const companyLinks = [
   { to: "/about", label: "من نحن" },
@@ -91,11 +92,7 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        <div className="mt-12">
-          <CredentialBadges />
-        </div>
-
-        <div className="mt-6 flex flex-col gap-5 panel rounded-xl p-5 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col gap-5 panel rounded-xl p-5 sm:flex-row sm:items-center">
           <img
             src={vision2030}
             alt="شعار رؤية السعودية 2030"
