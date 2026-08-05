@@ -6,9 +6,8 @@ import type { Service } from "@/data/services";
 /**
  * بطاقة خدمة.
  *
- * معالجة الصورة: تُعرض كلوحة ثنائية اللون (mix-blend-luminosity فوق
- * تدرّج الهوية) بدل عرضها كرسم توضيحي صريح — فتقرأ كنسيج بصري
- * منسجم مع الهوية، ويعود لونها الكامل عند التحويم فقط.
+ * معالجة الصورة: تُعرض بألوانها ووضوحها الكاملين. تدرّج خفيف أسفل
+ * الصورة فقط يؤمّن تباين الرقم والأيقونة، دون تعتيم الصورة كلها.
  */
 export function ServiceGridCard({ service, index }: { service: Service; index?: number }) {
   const Icon = service.icon;
@@ -27,11 +26,11 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
             width={1200}
             height={900}
             loading="lazy"
-            className="h-full w-full object-cover opacity-70 mix-blend-luminosity transition-all duration-700 group-hover:scale-[1.04] group-hover:opacity-100 group-hover:mix-blend-normal"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent transition-opacity duration-700 group-hover:opacity-40"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-primary/55 to-transparent"
           />
           {typeof index === "number" ? (
             <span
