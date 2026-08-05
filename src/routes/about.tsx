@@ -4,7 +4,6 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { professionalDisclaimer, site } from "@/data/site";
-import { whyUs } from "@/data/solutions";
 
 const title = `من نحن | ${site.name}`;
 const description =
@@ -33,6 +32,25 @@ const values = [
   { title: "الاستمرارية", desc: "علاقة تمتد بعد التسليم، بمتابعة ومؤشرات." },
 ];
 
+const audiences = [
+  {
+    title: "أصحاب الأفكار الجديدة",
+    desc: "لم تبدأ بعد، وتحتاج ترتيب الخطوات الأولى قبل الصرف على التفاصيل.",
+  },
+  {
+    title: "الشركات الناشئة",
+    desc: "انطلقت فعلًا، وتحتاج هوية وحضورًا رقميًا يعكس مستوى ما تقدمه.",
+  },
+  {
+    title: "المنشآت الصغيرة والمتوسطة",
+    desc: "العمل قائم، لكن الإجراءات والأنظمة تحتاج تنظيمًا يقلّل الفوضى اليومية.",
+  },
+  {
+    title: "منشآت تستعد للتوسع",
+    desc: "تبحث عن نمو مدروس، وعن كفاءات مناسبة تسند التشغيل في المرحلة القادمة.",
+  },
+];
+
 function AboutPage() {
   return (
     <>
@@ -54,6 +72,11 @@ function AboutPage() {
               <p>
                 نساعدك على تحويل فكرتك إلى عمل منظم: بناء الهوية والحضور الرقمي، وتنظيم العمليات
                 واختيار الأدوات المناسبة، ثم التسويق والتوسع بخطة واضحة.
+              </p>
+              <p>
+                طريقتنا ثابتة مهما اختلف الاحتياج: نفهم وضعك الحالي، ونرتّب الأولويات، ونقترح المسار
+                المناسب، ثم نوفّر الدعم أو الكفاءات التي يحتاجها التنفيذ، ونبقى معك في المتابعة
+                والتنسيق.
               </p>
               <p>
                 ما تحتاجه من أعمال مهنية أو نظامية تتطلب تراخيص خاصة، ننسّق فيه مع الجهات والمختصين
@@ -97,13 +120,19 @@ function AboutPage() {
       </section>
 
       <section className="container-page py-20 lg:py-28">
-        <SectionHeader eyebrow="لماذا نحن؟" title="حلول مترابطة صُممت حول احتياجات مشروعك" />
-        <div className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {whyUs.map((item) => (
-            <div key={item.title} className="border-t border-border pt-5">
-              <h3 className="text-base font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
-            </div>
+        <SectionHeader
+          eyebrow="من نخدم"
+          title="مع من نعمل عادة؟"
+          description="نعمل مع أصحاب المشاريع في المراحل التي يصنع فيها التنظيم فارقًا حقيقيًا."
+        />
+        <div className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          {audiences.map((item, i) => (
+            <Reveal key={item.title} delay={i * 70}>
+              <div className="border-t border-border pt-5">
+                <h3 className="text-base font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
         <p className="mt-12 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
@@ -111,7 +140,14 @@ function AboutPage() {
         </p>
       </section>
 
-      <CTASection />
+      <CTASection
+        title="دعنا نفهم احتياج منشأتك"
+        description="ابدأ بمحادثة قصيرة نتعرّف فيها على وضعك الحالي، ونوضح لك كيف يمكننا المساعدة."
+        primaryLabel="تحدث مع فريقنا"
+        primaryTo="/contact"
+        secondaryLabel="تعرّف على خدماتنا"
+        secondaryTo="/services"
+      />
     </>
   );
 }
