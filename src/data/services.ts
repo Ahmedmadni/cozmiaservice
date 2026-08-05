@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Workflow,
   Users,
+  ClipboardList,
   Compass,
   Boxes,
   Rocket,
