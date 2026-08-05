@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import branding from "@/assets/service-branding.jpg";
+import accounting from "@/assets/service-accounting.jpg";
 import web from "@/assets/service-web.jpg";
 import marketing from "@/assets/service-marketing.jpg";
 import systems from "@/assets/service-systems.jpg";
