@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import skyline from "@/assets/hero-skyline.webp";
 import { site, professionalDisclaimer } from "@/data/site";
+import { getService } from "@/data/services";
 import { supabase } from "@/integrations/supabase/client";
 
 const title = `تواصل معنا | ${site.name}`;
@@ -13,6 +14,8 @@ const description = "احجز استشارة أولية أو أرسل تفاصي
 
 const searchSchema = z.object({
   summary: z.string().optional(),
+  /** معرّف الخدمة التي جاء منها الزائر — يُعرض كسياق للطلب فقط. */
+  service: z.string().optional(),
 });
 
 export const Route = createFileRoute("/contact")({
@@ -35,7 +38,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const { summary } = Route.useSearch();
+  const { summary, service } = Route.useSearch();
+  const requestedService = service ? getService(service) : undefined;
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -83,6 +87,13 @@ function ContactPage() {
       <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <form className="panel space-y-5 p-7" onSubmit={handleSubmit}>
+            {requestedService ? (
+              <div className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-xs leading-7 text-muted-foreground">
+                <span className="font-semibold text-foreground">الخدمة المطلوبة: </span>
+                {requestedService.title}
+              </div>
+            ) : null}
+
             {summary ? (
               <div className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-xs leading-7 text-muted-foreground">
                 <span className="font-semibold text-foreground">ملخص نتيجة مقياس الجاهزية: </span>

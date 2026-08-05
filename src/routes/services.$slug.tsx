@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { IconBadge } from "@/components/IconBadge";
 import { ServicePlate } from "@/components/ServicePlate";
 import { FAQAccordion } from "@/components/FAQAccordion";
+import { SpecialistSupportCTA } from "@/components/SpecialistSupportCTA";
 import { Reveal } from "@/components/Reveal";
 import { getService, services, serviceProcess } from "@/data/services";
 import { professionalDisclaimer, site } from "@/data/site";
@@ -154,6 +155,12 @@ function ServiceDetail() {
           </div>
         </div>
       </section>
+
+      {service.slug === "accounting-operations" ? (
+        <section className="container-page pt-16 lg:pt-24">
+          <SpecialistSupportCTA serviceSlug={service.slug} />
+        </section>
+      ) : null}
 
       <section className="container-page py-20 lg:py-28">
         <SectionHeader eyebrow="كيف نعمل؟" title="مسار تنفيذ واضح من البداية للنتيجة" />
