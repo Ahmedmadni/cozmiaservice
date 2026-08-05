@@ -16,7 +16,6 @@ import {
   useParallax,
 } from "@/components/motion";
 import { HeroComposition } from "@/components/HeroComposition";
-import { IconBadge } from "@/components/IconBadge";
 import { Constellation } from "@/components/Constellation";
 import { ServiceGridCard } from "@/components/ServiceGridCard";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
@@ -24,8 +23,8 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
 import { site } from "@/data/site";
-import { processSteps, projectStages, stages, whyUs } from "@/data/solutions";
-import { services, stageHighlights, stageIcons } from "@/data/services";
+import { processSteps, projectStages, whyUs } from "@/data/solutions";
+import { services } from "@/data/services";
 import { caseStudies, faqs } from "@/data/content";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
@@ -81,7 +80,6 @@ function Index() {
   return (
     <>
       <Hero />
-      <JourneyStrip />
       <ServicesSection />
       <ChallengesSection />
       <ProcessSection />
@@ -92,11 +90,11 @@ function Index() {
       <FAQSection />
       <CTASection
         title="ابدأ بخطوة واضحة لمشروعك"
-        description="شاركنا مرحلة مشروعك واحتياجاته، وسنساعدك على تحديد المسار المناسب."
-        primaryLabel="قيّم احتياجات مشروعك"
-        primaryTo="/assessment"
-        secondaryLabel="تواصل معنا"
-        secondaryTo="/contact"
+        description="شاركنا مرحلة مشروعك واحتياجاته، وسنساعدك على تحديد المسار المناسب وترتيب الأولويات."
+        primaryLabel="تحدث مع فريقنا"
+        primaryTo="/contact"
+        secondaryLabel="قيّم احتياجات مشروعك"
+        secondaryTo="/assessment"
       />
     </>
   );
@@ -190,60 +188,7 @@ function Hero() {
   );
 }
 
-/* ═══════════ 2 — شريط رحلة المشروع ═══════════ */
-
-function JourneyStrip() {
-  return (
-    <section className="border-y border-border bg-surface">
-      <div className="container-page py-12 lg:py-16">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <span className="eyebrow text-accent">رحلة المشروع</span>
-          <Link
-            to="/growth-stages"
-            className="link-sweep inline-flex items-center gap-2 text-sm font-medium text-primary"
-          >
-            تفاصيل المراحل
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <RiseGroup className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.07}>
-          {stages.map((stage, i) => {
-            const Icon = stageIcons[stage.slug]!;
-            return (
-              <RiseItem key={stage.slug}>
-                <Link
-                  to="/growth-stages"
-                  hash={stage.slug}
-                  className="glass glass-edge group flex h-full items-start gap-4 rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1"
-                >
-                  <IconBadge icon={Icon} />
-                  <span className="min-w-0">
-                    <span className="flex items-center gap-2">
-                      <span className="font-display text-base font-semibold">{stage.title}</span>
-                      <span className="eyebrow text-sand" data-num>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </span>
-                    <span className="mt-1.5 block text-sm leading-7 text-muted-foreground">
-                      {stage.headline}
-                    </span>
-                  </span>
-                  <ArrowLeft
-                    aria-hidden
-                    className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-500 group-hover:-translate-x-1"
-                  />
-                </Link>
-              </RiseItem>
-            );
-          })}
-        </RiseGroup>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════ 3 — الخدمات (أهم قسم) ═══════════════════ */
+/* ═══════════════════ 2 — الخدمات (أهم قسم) ═══════════════════ */
 
 function ServicesSection() {
   return (
@@ -400,7 +345,16 @@ function StagePicker() {
 
   return (
     <section className="container-page py-20 lg:py-28">
-      <SectionHeader eyebrow="أين مشروعك الآن؟" title="الحلول حسب مرحلة المشروع" />
+      <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <SectionHeader eyebrow="أين مشروعك الآن؟" title="الحلول حسب مرحلة المشروع" />
+        <Link
+          to="/growth-stages"
+          className="link-sweep hidden items-center gap-2 pb-2 text-sm font-medium text-primary sm:inline-flex"
+        >
+          تفاصيل المراحل
+          <ArrowLeft className="h-4 w-4" />
+        </Link>
+      </div>
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="grid gap-3 sm:grid-cols-2">
