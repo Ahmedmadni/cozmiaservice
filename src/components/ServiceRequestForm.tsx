@@ -147,12 +147,14 @@ export function ServiceRequestForm({
   async function onSubmit(values: FormValues) {
     setLoading(true);
     // تُرسل الأعمدة القائمة فقط — الحقول الجديدة تنتظر تطبيق الـMigration.
+    // ريثما تُطبَّق، تُضمَّن كنص منظم داخل message نفسه.
+    const message = buildMessage(values);
     const { error } = await supabase.from("contact_requests").insert({
       name: values.name,
       email: values.email,
       company: values.company || null,
       phone: values.phone || null,
-      message: values.needDetails,
+      message,
       assessment_summary: assessmentSummary ?? null,
     });
     setLoading(false);
@@ -395,6 +397,28 @@ export function ServiceRequestForm({
 }
 
 /* ─────────────────────────── أجزاء داخلية ─────────────────────────── */
+
+/**
+ * يبني نص `message` منظمًا يحمل بيانات الخدمة والمرحلة ووقت البدء —
+ * ريثما تُطبَّق الـMigration وتصبح لها أعمدة مستقلة في Supabase.
+ */
+function buildMessage(values: FormValues): string {
+  const serviceTitle = getService(values.serviceSlug)?.title ?? values.serviceSlug;
+  const lines = [
+    "الخدمة المطلوبة:",
+    serviceTitle,
+    "",
+    "مرحلة المشروع:",
+    values.projectStage,
+    "",
+    "وقت البدء المفضل:",
+    values.preferredStart || "لم يُحدَّد",
+    "",
+    "تفاصيل الاحتياج:",
+    values.needDetails,
+  ];
+  return lines.join("\n");
+}
 
 function Stepper({ step }: { step: number }) {
   return (
