@@ -108,7 +108,7 @@ function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden pb-16 lg:pb-24">
+    <section className="relative overflow-hidden pb-24 lg:pb-24">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 blueprint opacity-[0.55] [mask-image:radial-gradient(78%_62%_at_72%_28%,black,transparent)]" />
         <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
