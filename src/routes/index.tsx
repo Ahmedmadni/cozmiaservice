@@ -263,17 +263,13 @@ function ServicesSection() {
         </Link>
       </div>
 
-      <RiseGroup
-        className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        stagger={0.06}
-        as="ul"
-      >
+      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, i) => (
-          <RiseItem key={service.slug} as="li" className="h-full">
+          <Rise as="li" key={service.slug} delay={(i % 3) * 70} className="h-full">
             <ServiceGridCard service={service} index={i} />
-          </RiseItem>
+          </Rise>
         ))}
-      </RiseGroup>
+      </ul>
 
       <div className="mt-10 sm:hidden">
         <Button asChild className="w-full">
