@@ -5,6 +5,7 @@ import { PageHero } from "@/components/PageHero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { IconBadge } from "@/components/IconBadge";
 import { ServicePlate } from "@/components/ServicePlate";
+import { ServiceGridCard } from "@/components/ServiceGridCard";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { services, serviceProcess } from "@/data/services";
@@ -12,7 +13,7 @@ import { professionalDisclaimer, site } from "@/data/site";
 
 const title = `الخدمات | ${site.name}`;
 const description =
-  "ستة مجالات خدمات مترابطة: الهوية والتصميم، المواقع والمتاجر، التسويق والحضور الرقمي، البرامج والأنظمة، دعم التنظيم والتشغيل، والكفاءات ودعم الفرق.";
+  "سبعة مجالات من الحلول المتكاملة تساعد الشركات الناشئة والمنشآت على بناء هويتها، وتطوير حضورها الرقمي، وتنظيم عملياتها، والوصول إلى الكفاءات المناسبة، ودعم نموها.";
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
@@ -55,6 +56,38 @@ function ServicesPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="container-page py-20 lg:py-24">
+        <SectionHeader
+          eyebrow="نظرة عامة"
+          title="استكشف خدماتنا"
+          description="حلول متكاملة تساعد منشأتك على الانطلاق والتنظيم والنمو، مع إمكانية اختيار الخدمة التي تناسب احتياجك."
+        />
+
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, i) => (
+            <Reveal key={service.slug} as="li" delay={(i % 3) * 70} className="relative h-full">
+              <ServiceGridCard service={service} index={i} />
+              {service.slug === "accounting-operations" ? (
+                <span className="pointer-events-none absolute right-4 top-4 z-10 max-w-[calc(100%-2rem)] rounded-full bg-card/90 px-3 py-1.5 text-[11px] font-medium leading-5 text-primary shadow-sm backdrop-blur">
+                  توفير كفاءات ودعم تنظيمي لعملياتك
+                </span>
+              ) : null}
+            </Reveal>
+          ))}
+        </ul>
+      </section>
+
+      <section className="border-t border-border bg-surface">
+        <div className="container-page py-16 lg:py-20">
+          <SectionHeader
+            eyebrow="التفاصيل"
+            title="تعرّف على تفاصيل خدماتنا"
+            description="استعرض نطاق كل خدمة وكيف يمكن أن تدعم احتياجات منشأتك في مراحل النمو المختلفة."
+            align="center"
+          />
         </div>
       </section>
 

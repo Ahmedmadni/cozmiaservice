@@ -47,7 +47,11 @@ export type Database = {
           id: string
           message: string | null
           name: string
+          need_details: string | null
           phone: string | null
+          preferred_start: string | null
+          project_stage: string | null
+          service_slug: string | null
         }
         Insert: {
           assessment_summary?: string | null
@@ -57,7 +61,11 @@ export type Database = {
           id?: string
           message?: string | null
           name: string
+          need_details?: string | null
           phone?: string | null
+          preferred_start?: string | null
+          project_stage?: string | null
+          service_slug?: string | null
         }
         Update: {
           assessment_summary?: string | null
@@ -67,7 +75,11 @@ export type Database = {
           id?: string
           message?: string | null
           name?: string
+          need_details?: string | null
           phone?: string | null
+          preferred_start?: string | null
+          project_stage?: string | null
+          service_slug?: string | null
         }
         Relationships: []
       }

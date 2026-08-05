@@ -1,18 +1,17 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
+import { ServiceRequestForm } from "@/components/ServiceRequestForm";
 import skyline from "@/assets/hero-skyline.webp";
 import { site, professionalDisclaimer } from "@/data/site";
-import { supabase } from "@/integrations/supabase/client";
 
 const title = `تواصل معنا | ${site.name}`;
 const description = "احجز استشارة أولية أو أرسل تفاصيل مشروعك وسنعود إليك بخطوات واضحة.";
 
 const searchSchema = z.object({
   summary: z.string().optional(),
+  /** معرّف الخدمة التي جاء منها الزائر — تُختار مسبقًا في النموذج. */
+  service: z.string().optional(),
 });
 
 export const Route = createFileRoute("/contact")({
@@ -35,42 +34,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const { summary } = Route.useSearch();
-  const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-
-    if (!name || !email) {
-      toast.error("يرجى تعبئة الاسم والبريد الإلكتروني.");
-      return;
-    }
-
-    setLoading(true);
-    const { error } = await supabase.from("contact_requests").insert({
-      name,
-      email,
-      company: String(data.get("company") ?? "").trim() || null,
-      phone: String(data.get("phone") ?? "").trim() || null,
-      message: String(data.get("message") ?? "").trim() || null,
-      assessment_summary: summary ?? null,
-    });
-    setLoading(false);
-
-    if (error) {
-      toast.error("تعذّر إرسال الطلب، يرجى المحاولة مرة أخرى.");
-      return;
-    }
-
-    form.reset();
-    setDone(true);
-    toast.success("تم استلام طلبك، سنعود إليك قريبًا.");
-  }
+  const { summary, service } = Route.useSearch();
 
   return (
     <>
@@ -82,7 +46,7 @@ function ContactPage() {
       />
       <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <form className="panel space-y-5 p-7" onSubmit={handleSubmit}>
+          <div className="space-y-5">
             {summary ? (
               <div className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-xs leading-7 text-muted-foreground">
                 <span className="font-semibold text-foreground">ملخص نتيجة مقياس الجاهزية: </span>
@@ -90,37 +54,11 @@ function ContactPage() {
               </div>
             ) : null}
 
-            <Field label="الاسم" name="name" required />
-            <Field label="اسم المنشأة" name="company" />
-            <Field label="البريد الإلكتروني" name="email" type="email" required />
-            <Field label="رقم الجوال" name="phone" />
-            <div>
-              <label htmlFor="message" className="text-sm font-medium">
-                نبذة عن مشروعك
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                maxLength={1000}
-                className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
-            >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-              {loading ? "جارٍ الإرسال…" : "إرسال الطلب"}
-            </button>
-
-            {done ? (
-              <p className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-sm leading-7">
-                وصلنا طلبك بنجاح، وسيتواصل معك فريقنا خلال يوم عمل.
-              </p>
-            ) : null}
-          </form>
+            <ServiceRequestForm
+              initialServiceSlug={service ?? ""}
+              {...(summary ? { assessmentSummary: summary } : {})}
+            />
+          </div>
 
           <aside className="space-y-5">
             <div className="panel bg-surface p-7">
@@ -138,34 +76,5 @@ function ContactPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-  required,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  required?: boolean;
-}) {
-  return (
-    <div>
-      <label htmlFor={name} className="text-sm font-medium">
-        {label}
-        {required ? <span className="text-accent"> *</span> : null}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        maxLength={120}
-        className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
-      />
-    </div>
   );
 }
