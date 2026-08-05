@@ -1,11 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowLeft, Check, Compass, Handshake, MoveDown, Route as RouteIcon } from "lucide-react";
+import { ArrowLeft, Check, MoveDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
-  Counter,
   EASE,
   Magnetic,
   Marquee,
@@ -19,6 +18,7 @@ import {
 import { HeroComposition } from "@/components/HeroComposition";
 import { IconBadge } from "@/components/IconBadge";
 import { Constellation } from "@/components/Constellation";
+import { ServiceGridCard } from "@/components/ServiceGridCard";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
@@ -30,7 +30,7 @@ import { caseStudies, faqs } from "@/data/content";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
 const description =
-  "من الهوية والموقع إلى تنظيم العمليات واختيار الأنظمة والتسويق، نجمع احتياجات مشروعك في رحلة واحدة واضحة ومتكاملة.";
+  "حلول مترابطة للشركات الناشئة والمنشآت الصغيرة: الهوية والتصميم، المواقع والمتاجر، التسويق، الأنظمة، التنظيم والتشغيل، الكفاءات، ودعم العمليات.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,52 +65,50 @@ export const Route = createFileRoute("/")({
 });
 
 /*
- * ترتيب الصفحة الرئيسية — سرد متدرّج بإيقاع متغيّر:
+ * ترتيب الصفحة الرئيسية — الخدمات أولًا:
  *
- *  1  الهيرو            انقسام غير متماثل      عاجي
- *  2  الأرقام           شريط زجاجي على الحدّ   على الفاصل
- *  3  الشريط المتحرك    حركة أفقية             حبري
- *  4  التحديات          عنوان ثابت + صفوف      حبري  ← اللحظة الداكنة الكبرى
- *  5  الخدمات           لوح ثابت + قائمة       عاجي  ← اللحظة التفاعلية الكبرى
- *  6  رحلة المشروع      أربعة أعمدة بخط رابط   سطح
- *  7  لماذا نحن         نص تحريري بلا صناديق   عاجي  ← مساحة تنفّس
- *  8  كيف نعمل          خط زمني بتقدّم مربوط   سطح
- *  9  أين مشروعك        تبويبات زجاجية         عاجي
- * 10  قصص النجاح        شبكة غير متماثلة       سطح
- * 11  رؤية 2030         صورة بكشف وموازاة      عاجي
- * 12  الأسئلة الشائعة   طيّات، عمودان          سطح
- * 13  الدعوة للتواصل    صورة مثبّتة             حبري
- *
- * لا يتكرر نوع تخطيط مرتين متتاليتين، ولا يظهر أكثر من سطحين
- * داكنين قبل استراحة فاتحة.
+ *  1  الهيرو            رسالة واحدة + دعوتان
+ *  2  شريط رحلة المشروع ابدأ ← نظّم ← انطلق ← نمُ
+ *  3  الخدمات           سبع بطاقات — أهم قسم في الصفحة
+ *  4  التحديات          ممر داكن مختصر
+ *  5  كيف نساعدك        خمس خطوات
+ *  6  حسب مرحلة المشروع أربع حالات
+ *  7  القيمة            حلول مترابطة
+ *  8  قصص النجاح / رؤية 2030 / الأسئلة
+ *  9  الدعوة الختامية
  */
 function Index() {
   return (
     <>
       <Hero />
-      <DarkPassage />
-      <ServicesShowcase />
-      <JourneySection />
-      <WhyUsSection />
+      <JourneyStrip />
+      <ServicesSection />
+      <ChallengesSection />
       <ProcessSection />
       <StagePicker />
+      <ValueSection />
       <CaseStudiesSection />
       <VisionSection />
       <FAQSection />
-      <CTASection />
+      <CTASection
+        title="ابدأ بخطوة واضحة لمشروعك"
+        description="شاركنا مرحلة مشروعك واحتياجاته، وسنساعدك على تحديد المسار المناسب."
+        primaryLabel="قيّم احتياجات مشروعك"
+        primaryTo="/assessment"
+        secondaryLabel="تواصل معنا"
+        secondaryTo="/contact"
+      />
     </>
   );
 }
 
 /* ═══════════════════════ 1 — الهيرو ═══════════════════════ */
 
-const trustPoints = ["حلول متكاملة", "تجربة مخصصة", "فريق متعدد التخصصات", "دعم مستمر للنمو"];
-
 function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden pb-36 lg:pb-44">
+    <section className="relative overflow-hidden pb-16 lg:pb-24">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 blueprint opacity-[0.55] [mask-image:radial-gradient(78%_62%_at_72%_28%,black,transparent)]" />
         <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
@@ -125,7 +123,7 @@ function Hero() {
             className="glass glass-edge inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            حلول أعمال ونمو للشركات الناشئة والمنشآت الصغيرة
+            شريك حلول أعمال للشركات الناشئة والمنشآت الصغيرة
           </motion.span>
 
           <h1 className="mt-7 text-[2.1rem] font-bold leading-[1.28] text-balance-ar sm:text-5xl lg:text-[3.6rem] lg:leading-[1.2]">
@@ -140,8 +138,8 @@ function Hero() {
             transition={{ duration: 0.8, ease: EASE.cinematic, delay: 0.55 }}
             className="mt-7 max-w-xl text-base leading-8 text-muted-foreground lg:text-[1.0625rem]"
           >
-            من الهوية والموقع إلى تنظيم العمليات واختيار الأنظمة والتسويق، نجمع احتياجات مشروعك في
-            رحلة واحدة واضحة ومتكاملة.
+            حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
+            الأعمال — ضمن مسار واحد واضح.
           </motion.p>
 
           <motion.div
@@ -152,7 +150,9 @@ function Hero() {
           >
             <Magnetic>
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link to="/services">استكشف خدماتنا</Link>
+                <Link to="/" hash="services">
+                  استكشف خدماتنا
+                </Link>
               </Button>
             </Magnetic>
             <Button
@@ -161,30 +161,16 @@ function Hero() {
               variant="outline"
               className="glass glass-edge border-transparent"
             >
-              <Link to="/assessment">ابدأ تقييم مشروعك</Link>
+              <Link to="/assessment">قيّم احتياجات مشروعك</Link>
             </Button>
           </motion.div>
-
-          <motion.ul
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.85 }}
-            className="mt-9 flex flex-wrap gap-x-7 gap-y-3"
-          >
-            {trustPoints.map((point) => (
-              <li key={point} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Check className="h-4 w-4 shrink-0 text-accent" strokeWidth={2.25} />
-                {point}
-              </li>
-            ))}
-          </motion.ul>
 
           <motion.div
             aria-hidden
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.4 }}
-            className="mt-14 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
+            className="mt-12 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
           >
             <motion.span
               {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
@@ -204,165 +190,69 @@ function Hero() {
   );
 }
 
-/* ═══════════ 2+3+4 — الممر الداكن: أرقام، شريط، تحديات ═══════════ */
+/* ═══════════ 2 — شريط رحلة المشروع ═══════════ */
 
-const heroStats = [
-  {
-    value: 6,
-    icon: Compass,
-    label: "مجالات خدمية",
-    hint: "من الهوية إلى النمو ضمن منظومة واحدة",
-  },
-  { value: 4, icon: RouteIcon, label: "مراحل رحلة", hint: "ابدأ، نظّم، انطلق، نمُ" },
-  { value: 1, icon: Handshake, label: "نقطة تواصل", hint: "شريك واحد بدل تعدد الجهات" },
-];
-
-const marqueeItems = [
-  "الهوية البصرية",
-  "المواقع والمتاجر",
-  "تنظيم العمليات",
-  "ترشيح الأنظمة",
-  "تدريب الفرق",
-  "التسويق الرقمي",
-  "قياس الأداء",
-  "خطط النمو",
-];
-
-const challenges = [
-  { title: "تعدد مزودي الخدمات", desc: "جهة للهوية وأخرى للموقع وثالثة للتسويق… بلا تنسيق بينها." },
-  { title: "عدم وضوح الأولويات", desc: "جهد يتوزّع على مهام كثيرة قبل إنجاز الأساسيات." },
-  { title: "صعوبة اختيار الحلول", desc: "خيارات كثيرة وأنظمة متشابهة دون معيار واضح للمفاضلة." },
-  { title: "تشتت الجهود التسويقية", desc: "نشاط متقطّع بلا خطة ولا مؤشرات قياس." },
-  { title: "ضعف تنظيم العمليات", desc: "إجراءات غير مكتوبة ومعلومات متفرقة يصعب الرجوع إليها." },
-  { title: "صعوبة بناء فريق مناسب", desc: "تحديد الأدوار المطلوبة والوصول إلى الكفاءات المناسبة." },
-];
-
-/**
- * ممر داكن واحد متصل: يبدأ بشريط كلمات رفيع ثم ينفتح على القسم
- * التحريري. الاستمرارية البصرية تجعل الانتقال مشهدًا واحدًا بدل قطعين.
- */
-function DarkPassage() {
+function JourneyStrip() {
   return (
-    <div className="relative">
-      {/* شريط الأرقام الزجاجي — يجلس على الحدّ بين الفاتح والداكن */}
-      {/*
-       * الشريط يجلس على الحدّ بين الفاتح والداكن، مع بقاء معظم ارتفاعه
-       * فوق الجانب الفاتح حتى يبقى النص الرمادي مقروءًا.
-       */}
-      <div className="container-page relative z-20 -mt-16 sm:pointer-events-none sm:absolute sm:inset-x-0 sm:-top-28 sm:mt-0 lg:-top-32">
-        <Rise className="sm:pointer-events-auto">
-          <dl className="grid gap-4 sm:grid-cols-3">
-            {heroStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-strong glass-edge relative rounded-3xl px-6 pb-6 pt-10 sm:px-7"
-              >
-                <IconBadge icon={stat.icon} overlap />
-                <dt className="eyebrow text-muted-foreground">{stat.label}</dt>
-                <dd className="mt-2 font-display text-3xl font-semibold text-primary">
-                  <Counter to={stat.value} />
-                </dd>
-                <dd className="mt-2 text-xs leading-6 text-muted-foreground">{stat.hint}</dd>
-              </div>
-            ))}
-          </dl>
-        </Rise>
-      </div>
-
-      <section className="grain relative overflow-hidden bg-ink text-ink-foreground">
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <Constellation className="opacity-[0.14]" />
-          <div className="absolute -right-1/4 top-0 h-[34rem] w-[34rem] rounded-full bg-accent/12 blur-[130px]" />
+    <section className="border-y border-border bg-surface">
+      <div className="container-page py-12 lg:py-16">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <span className="eyebrow text-accent">رحلة المشروع</span>
+          <Link
+            to="/growth-stages"
+            className="link-sweep inline-flex items-center gap-2 text-sm font-medium text-primary"
+          >
+            تفاصيل المراحل
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
         </div>
 
-        {/* الشريط المتحرك */}
-        <div className="relative border-b border-white/10 pt-24 lg:pt-28">
-          <Marquee
-            items={marqueeItems}
-            duration={46}
-            className="py-5 text-sm text-ink-muted [mask-image:linear-gradient(to_left,transparent,black_12%,black_88%,transparent)]"
-          />
-        </div>
-
-        {/* التحديات — عنوان ثابت وصفوف مرقّمة، لا بطاقات متطابقة */}
-        <div className="container-page relative grid gap-12 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:py-28">
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <span className="eyebrow text-sand">التحديات</span>
-            <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
-              <SplitWords text="إدارة مشروعك لا يجب أن تعني" />{" "}
-              <SplitWords text="التعامل مع عشرات الجهات" delay={0.12} className="text-accent" />
-            </h2>
-            <p className="mt-6 max-w-md text-sm leading-8 text-ink-muted">
-              أكثر ما يعطّل المشاريع الناشئة ليس نقص الجهد، بل تشتّته بين جهات وأدوات وأولويات غير
-              مرتبطة.
-            </p>
-            <div aria-hidden className="mt-10 hidden h-px w-24 bg-sand/50 lg:block" />
-          </div>
-
-          <RiseGroup as="ol" className="grid" stagger={0.06}>
-            {challenges.map((c, i) => (
-              <RiseItem key={c.title} as="li">
-                <div className="group grid grid-cols-[auto_1fr] gap-5 border-t border-white/10 py-6 transition-colors duration-500 last:border-b hover:bg-white/[0.03] sm:gap-7 sm:py-7">
-                  <span
-                    className="eyebrow pt-1.5 text-sand/70 transition-colors duration-500 group-hover:text-sand"
-                    data-num
-                  >
-                    {String(i + 1).padStart(2, "0")}
+        <RiseGroup className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.07}>
+          {stages.map((stage, i) => {
+            const Icon = stageIcons[stage.slug]!;
+            return (
+              <RiseItem key={stage.slug}>
+                <Link
+                  to="/growth-stages"
+                  hash={stage.slug}
+                  className="glass glass-edge group flex h-full items-start gap-4 rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1"
+                >
+                  <IconBadge icon={Icon} />
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-2">
+                      <span className="font-display text-base font-semibold">{stage.title}</span>
+                      <span className="eyebrow text-sand" data-num>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </span>
+                    <span className="mt-1.5 block text-sm leading-7 text-muted-foreground">
+                      {stage.headline}
+                    </span>
                   </span>
-                  <div className="min-w-0">
-                    <h3 className="text-lg font-semibold sm:text-xl">{c.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-ink-muted">{c.desc}</p>
-                  </div>
-                </div>
+                  <ArrowLeft
+                    aria-hidden
+                    className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-500 group-hover:-translate-x-1"
+                  />
+                </Link>
               </RiseItem>
-            ))}
-          </RiseGroup>
-        </div>
-
-        {/* الانتقال إلى الحل */}
-        <div className="container-page relative pb-20 lg:pb-28">
-          <Rise className="glass-dark glass-edge rounded-3xl px-6 py-10 text-center sm:px-12">
-            <p className="mx-auto max-w-2xl font-display text-xl font-semibold leading-9 text-balance-ar sm:text-2xl sm:leading-[1.6]">
-              لهذا جمعنا أهم احتياجات المشروع ضمن منظومة واحدة.
-            </p>
-            <ul className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-              {stages.map((s, i) => (
-                <li key={s.slug} className="flex items-center gap-2.5">
-                  <span className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-sm font-medium">
-                    {s.title}
-                  </span>
-                  {i < stages.length - 1 ? (
-                    <ArrowLeft aria-hidden className="h-4 w-4 text-accent/70" />
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          </Rise>
-        </div>
-      </section>
-    </div>
+            );
+          })}
+        </RiseGroup>
+      </div>
+    </section>
   );
 }
 
-/* ═══════════════════ 5 — الخدمات (اللحظة التفاعلية) ═══════════════════ */
+/* ═══════════════════ 3 — الخدمات (أهم قسم) ═══════════════════ */
 
-/**
- * لوح ثابت + قائمة: العنصر المعروض يتبدّل مكان اللوح نفسه بدل أن
- * يُهدَم ويُبنى في مكان آخر — هذا ما يعطي إحساس «العنصر المشترك».
- * على الجوال يختفي اللوح ويظهر الوصف داخل كل صف.
- */
-function ServicesShowcase() {
-  const [active, setActive] = useState(0);
-  const current = services[active]!;
-  const Icon = current.icon;
-
+function ServicesSection() {
   return (
-    <section className="container-page py-20 lg:py-28">
+    <section id="services" className="container-page scroll-mt-24 py-20 lg:py-28">
       <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
         <SectionHeader
           eyebrow="الخدمات"
-          title="ستة مجالات مترابطة تغطي احتياجات مشروعك"
-          description="كل مجال يمكن أن يبدأ مستقلًا، لكن قيمته الحقيقية تظهر حين ترتبط المجالات ببعضها ضمن خطة واحدة."
+          title="ما الذي نقدمه لمشروعك؟"
+          description="مجالات مترابطة يمكن أن تبدأ بأيّها، وتزداد قيمتها حين ترتبط ضمن خطة واحدة."
         />
         <Link
           to="/services"
@@ -373,116 +263,17 @@ function ServicesShowcase() {
         </Link>
       </div>
 
-      <div className="mt-14 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-        {/* اللوح الزجاجي الثابت — يسار الشاشة، كما في الهيرو */}
-        <div className="order-2 hidden lg:block">
-          <div className="sticky top-32">
-            <PointerGlow className="overflow-hidden rounded-[1.75rem]">
-              <div className="glass-strong glass-edge relative min-h-[26rem] overflow-hidden rounded-[1.75rem] p-8">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 blueprint opacity-[0.5]"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-accent-soft/60 blur-3xl"
-                />
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={current.slug}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.42, ease: EASE.ui }}
-                    className="relative"
-                  >
-                    <div className="flex items-center justify-between">
-                      <IconBadge icon={Icon} tone="solid" size="lg" />
-                      <span className="eyebrow text-sand" data-num>
-                        {String(active + 1).padStart(2, "0")} /{" "}
-                        {String(services.length).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-7 font-display text-2xl font-semibold">{current.title}</h3>
-                    <p className="mt-4 text-sm leading-8 text-muted-foreground">
-                      {current.description}
-                    </p>
-
-                    <ul className="mt-7 flex flex-wrap gap-2">
-                      {current.items.map((item) => (
-                        <li
-                          key={item}
-                          className="rounded-full border border-border bg-card/70 px-3.5 py-1.5 text-xs text-muted-foreground"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Link
-                      to="/services/$slug"
-                      params={{ slug: current.slug }}
-                      className="link-sweep mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-                    >
-                      استكشف الخدمة
-                      <ArrowLeft className="h-4 w-4" />
-                    </Link>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </PointerGlow>
-          </div>
-        </div>
-
-        {/* القائمة — العمود الأساسي، على يمين الشاشة */}
-        <ul className="order-1 grid">
-          {services.map((service, i) => {
-            const RowIcon = service.icon;
-            const isActive = i === active;
-            return (
-              <li key={service.slug}>
-                <Link
-                  to="/services/$slug"
-                  params={{ slug: service.slug }}
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  className="group relative block border-t border-border py-6 last:border-b lg:py-7"
-                >
-                  {/* مؤشر الحالة النشطة — خط رفيع لا خلفية ملوّنة */}
-                  <motion.span
-                    aria-hidden
-                    className="absolute inset-y-0 right-0 w-px bg-accent"
-                    initial={false}
-                    animate={{ scaleY: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
-                    style={{ originY: 0 }}
-                    transition={{ duration: 0.45, ease: EASE.ui }}
-                  />
-                  <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pr-5 sm:gap-6">
-                    <IconBadge icon={RowIcon} tone={isActive ? "solid" : "plate"} />
-                    <div className="min-w-0">
-                      <h3 className="font-display text-lg font-semibold sm:text-xl">
-                        {service.title}
-                      </h3>
-                      <p className="mt-1.5 text-sm leading-7 text-muted-foreground lg:hidden">
-                        {service.description}
-                      </p>
-                      <p className="mt-1.5 hidden text-sm leading-7 text-muted-foreground lg:block">
-                        {service.short}
-                      </p>
-                    </div>
-                    <ArrowLeft
-                      aria-hidden
-                      className="h-4 w-4 shrink-0 text-muted-foreground transition-all duration-500 group-hover:-translate-x-1 group-hover:text-accent"
-                    />
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <RiseGroup
+        className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        stagger={0.06}
+        as="ul"
+      >
+        {services.map((service, i) => (
+          <RiseItem key={service.slug} as="li" className="h-full">
+            <ServiceGridCard service={service} index={i} />
+          </RiseItem>
+        ))}
+      </RiseGroup>
 
       <div className="mt-10 sm:hidden">
         <Button asChild className="w-full">
@@ -493,82 +284,61 @@ function ServicesShowcase() {
   );
 }
 
-/* ═══════════════════ 6 — رحلة المشروع ═══════════════════ */
+/* ═══════════ 4 — التحديات (ممر داكن مختصر) ═══════════ */
 
-function JourneySection() {
+const marqueeItems = [
+  "الهوية البصرية",
+  "المواقع والمتاجر",
+  "تنظيم العمليات",
+  "ترشيح الأنظمة",
+  "توفير الكفاءات",
+  "التسويق الرقمي",
+  "دعم السجلات",
+  "خطط النمو",
+];
+
+const challenges = [
+  { title: "تعدد مزودي الخدمات", desc: "جهة للهوية وأخرى للموقع وثالثة للتسويق بلا تنسيق." },
+  { title: "صعوبة ترتيب الأولويات", desc: "جهد يتوزّع قبل إنجاز الأساسيات." },
+  { title: "صعوبة اختيار الحلول والأنظمة", desc: "خيارات كثيرة دون معيار واضح للمفاضلة." },
+  { title: "تشتت العمليات", desc: "إجراءات غير مكتوبة ومعلومات يصعب الرجوع إليها." },
+  { title: "ضعف الحضور الرقمي", desc: "ظهور غير منتظم لا يعكس مستوى المشروع." },
+  { title: "صعوبة توفير الكفاءات", desc: "تحديد الأدوار والوصول إلى الأشخاص المناسبين." },
+];
+
+function ChallengesSection() {
   return (
-    <section className="border-y border-border bg-surface">
-      <div className="container-page py-20 lg:py-28">
-        <SectionHeader
-          eyebrow="رحلة المشروع"
-          title="حلول متكاملة لمراحل مشروعك"
-          description="ابدأ ← نظّم ← انطلق ← نمُ. نبدأ من حيث أنت، لا من حيث تبدأ القوائم."
-        />
-
-        <div className="relative mt-14">
-          <RiseGroup className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.09}>
-            {stages.map((stage, i) => {
-              const Icon = stageIcons[stage.slug]!;
-              return (
-                <RiseItem key={stage.slug}>
-                  <PointerGlow className="h-full rounded-2xl">
-                    <Link
-                      to="/growth-stages"
-                      hash={stage.slug}
-                      className="glass glass-edge group flex h-full flex-col rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1.5"
-                    >
-                      <div className="flex items-center justify-between">
-                        <IconBadge icon={Icon} />
-                        <span
-                          className="font-display text-4xl font-semibold text-sand/45 transition-colors duration-500 group-hover:text-sand/80"
-                          data-num
-                        >
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-                      <h3 className="mt-6 font-display text-xl font-semibold">{stage.title}</h3>
-                      <p className="mt-2 text-sm font-medium text-foreground/75">
-                        {stage.headline}
-                      </p>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                        {stageHighlights[stage.slug]}
-                      </p>
-                      <span className="link-sweep mt-auto inline-flex items-center gap-2 self-start pt-6 text-sm font-medium text-primary">
-                        اعرف كيف نساعدك
-                        <ArrowLeft className="h-4 w-4 transition-transform duration-500 group-hover:-translate-x-1" />
-                      </span>
-                    </Link>
-                  </PointerGlow>
-                </RiseItem>
-              );
-            })}
-          </RiseGroup>
-        </div>
+    <section className="grain relative overflow-hidden bg-ink text-ink-foreground">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Constellation className="opacity-[0.14]" />
+        <div className="absolute -right-1/4 top-0 h-[34rem] w-[34rem] rounded-full bg-accent/12 blur-[130px]" />
       </div>
-    </section>
-  );
-}
 
-/* ═══════════════════ 7 — لماذا نحن (مساحة تنفّس) ═══════════════════ */
+      <div className="relative border-b border-white/10">
+        <Marquee
+          items={marqueeItems}
+          duration={46}
+          className="py-5 text-sm text-ink-muted [mask-image:linear-gradient(to_left,transparent,black_12%,black_88%,transparent)]"
+        />
+      </div>
 
-function WhyUsSection() {
-  return (
-    <section className="container-page py-20 lg:py-28">
-      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div className="container-page relative grid gap-10 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:py-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
-          <span className="eyebrow text-accent">لماذا نحن؟</span>
-          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
-            <SplitWords text="حلول مترابطة صُممت حول احتياجات مشروعك" />
+          <span className="eyebrow text-sand">التحديات</span>
+          <h2 className="mt-5 text-[1.6rem] font-bold leading-[1.32] text-balance-ar sm:text-[2rem]">
+            <SplitWords text="ما الذي يعطّل المشاريع عادة؟" />
           </h2>
-          <span aria-hidden className="mt-10 hidden h-px w-24 bg-sand lg:block" />
+          <p className="mt-5 max-w-md text-sm leading-8 text-ink-muted">
+            ليست المشكلة نقص الجهد، بل تشتّته بين جهات وأدوات وأولويات غير مرتبطة.
+          </p>
         </div>
 
-        <RiseGroup className="grid gap-x-12 gap-y-9 sm:grid-cols-2" stagger={0.06}>
-          {whyUs.map((item) => (
-            <RiseItem key={item.title}>
-              <div className="group border-t border-border pt-5 transition-colors duration-500 hover:border-accent">
-                <h3 className="font-display text-base font-semibold">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+        <RiseGroup as="ul" className="grid gap-3 sm:grid-cols-2" stagger={0.05}>
+          {challenges.map((c) => (
+            <RiseItem key={c.title} as="li">
+              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-ink-muted">{c.desc}</p>
               </div>
             </RiseItem>
           ))}
@@ -578,9 +348,8 @@ function WhyUsSection() {
   );
 }
 
-/* ═══════════════════ 8 — كيف نعمل ═══════════════════ */
+/* ═══════════════════ 5 — كيف نساعدك ═══════════════════ */
 
-/** خط زمني رأسي: التقدّم مربوط بموضع التمرير، فيقرأ كـ«مسار يُقطع». */
 function ProcessSection() {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -594,8 +363,8 @@ function ProcessSection() {
     <section className="border-y border-border bg-surface">
       <div className="container-page py-20 lg:py-28">
         <SectionHeader
-          eyebrow="كيف نعمل؟"
-          title="رحلة واضحة من الاحتياج إلى التنفيذ"
+          eyebrow="كيف نساعدك؟"
+          title="خمس خطوات من الاحتياج إلى النتيجة"
           align="center"
         />
 
@@ -627,7 +396,7 @@ function ProcessSection() {
   );
 }
 
-/* ═══════════════════ 9 — أين مشروعك الآن؟ ═══════════════════ */
+/* ═══════════════════ 6 — أين مشروعك الآن؟ ═══════════════════ */
 
 function StagePicker() {
   const [active, setActive] = useState(projectStages[0]!.id);
@@ -695,7 +464,7 @@ function StagePicker() {
             </AnimatePresence>
             <Button asChild variant="outline" className="mt-8 w-full">
               <Link to="/growth-stages" hash={current.stage}>
-                شاهد حلول هذه المرحلة
+                اعرف المزيد عن هذه المرحلة
               </Link>
             </Button>
           </div>
@@ -705,49 +474,74 @@ function StagePicker() {
   );
 }
 
-/* ═══════════════════ 10 — قصص النجاح ═══════════════════ */
+/* ═══════════════════ 7 — القيمة ═══════════════════ */
 
-function CaseStudiesSection() {
-  const { ref, y } = useParallax(28);
-
+function ValueSection() {
   return (
     <section className="border-y border-border bg-surface">
-      <div className="container-page py-20 lg:py-28">
-        <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
-          <SectionHeader eyebrow="قصص النجاح" title="نتائج من مشاريع عملنا معها" />
-          <Link
-            to="/case-studies"
-            className="link-sweep hidden items-center gap-2 pb-2 text-sm font-medium text-primary sm:inline-flex"
-          >
-            كل القصص
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
+      <div className="container-page grid gap-12 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <span className="eyebrow text-accent">القيمة</span>
+          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
+            <SplitWords text="حلول مترابطة… حول احتياجات مشروعك" />
+          </h2>
+          <Rise delay={120}>
+            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+              بدل تنسيق العمل بين جهات متعددة لكل احتياج، تُدار احتياجات مشروعك ضمن خطة واحدة وفريق
+              يعرف سياق عملك.
+            </p>
+          </Rise>
+          <span aria-hidden className="mt-10 hidden h-px w-24 bg-sand lg:block" />
         </div>
 
-        {/*
-         * القصة الأولى تتميّز بسطحها (زجاج أعتم + توهج) وبموازاة خفيفة،
-         * لا بمساحة مضاعفة — فالمساحة المضاعفة تترك فجوة في الشبكة.
-         */}
-        <div ref={ref} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {caseStudies.map((item, i) => (
-            <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
-              <Rise delay={i * 70} className="h-full">
-                <CaseStudyCard item={item} featured={i === 0} />
-              </Rise>
-            </motion.div>
+        <RiseGroup className="grid gap-x-12 gap-y-9 sm:grid-cols-2" stagger={0.06}>
+          {whyUs.map((item) => (
+            <RiseItem key={item.title}>
+              <div className="group border-t border-border pt-5 transition-colors duration-500 hover:border-accent">
+                <h3 className="font-display text-base font-semibold">{item.title}</h3>
+                <p className="mt-2.5 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+              </div>
+            </RiseItem>
           ))}
-        </div>
+        </RiseGroup>
       </div>
     </section>
   );
 }
 
-/* ═══════════════════ 12 — الأسئلة الشائعة ═══════════════════ */
+/* ═══════════════════ 8 — قصص النجاح ═══════════════════ */
 
-/**
- * الأسئلة كانت تُغذّي البيانات المنظّمة (JSON-LD) دون أن تُعرض للزائر.
- * إظهارها هنا يزيل اعتراضًا شائعًا قبل الدعوة للتواصل مباشرة.
- */
+function CaseStudiesSection() {
+  const { ref, y } = useParallax(28);
+
+  return (
+    <section className="container-page py-20 lg:py-28">
+      <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <SectionHeader eyebrow="قصص النجاح" title="نتائج من مشاريع عملنا معها" />
+        <Link
+          to="/case-studies"
+          className="link-sweep hidden items-center gap-2 pb-2 text-sm font-medium text-primary sm:inline-flex"
+        >
+          كل القصص
+          <ArrowLeft className="h-4 w-4" />
+        </Link>
+      </div>
+
+      <div ref={ref} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {caseStudies.map((item, i) => (
+          <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
+            <Rise delay={i * 70} className="h-full">
+              <CaseStudyCard item={item} featured={i === 0} />
+            </Rise>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════ 9 — الأسئلة الشائعة ═══════════════════ */
+
 function FAQSection() {
   return (
     <section className="border-y border-border bg-surface">
