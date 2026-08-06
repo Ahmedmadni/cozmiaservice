@@ -36,21 +36,21 @@ function GrowthStagesPage() {
       />
 
       <section className="container-page py-20 lg:py-28">
-        <div className="space-y-6">
+        <div className="space-y-8">
           {stages.map((stage, i) => (
-            <article key={stage.slug} id={stage.slug} className="scroll-mt-28 panel p-7 lg:p-10">
+            <article key={stage.slug} id={stage.slug} className="scroll-mt-28 panel p-8 lg:p-12">
               <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
-                  <span className="text-xs font-semibold tracking-widest text-accent">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="mt-3 font-display text-2xl font-semibold">{stage.title}</h2>
+                  <span className="eyebrow text-accent">{String(i + 1).padStart(2, "0")}</span>
+                  <h2 className="mt-4 font-display text-2xl font-semibold">{stage.title}</h2>
                   <p className="mt-2 text-base font-medium">{stage.headline}</p>
-                  <p className="mt-4 text-sm leading-8 text-muted-foreground">{stage.summary}</p>
+                  <p className="mt-4 text-sm leading-[1.9] text-muted-foreground">
+                    {stage.summary}
+                  </p>
                 </div>
                 <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
                   {stage.services.map((s) => (
-                    <li key={s} className="flex gap-2 text-sm leading-7 text-muted-foreground">
+                    <li key={s} className="flex gap-2 text-sm leading-[1.8] text-muted-foreground">
                       <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-accent" />
                       {s}
                     </li>

@@ -81,7 +81,10 @@ function ServicesPage() {
       </section>
 
       <section className="relative overflow-hidden border-t border-border bg-surface">
-        <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]"
+        />
         <div className="container-page relative py-20 lg:py-28">
           <SectionHeader
             eyebrow="التفاصيل"
@@ -124,11 +127,14 @@ function ServicesPage() {
                     ))}
                   </ul>
 
-                  <div className="mt-6 panel p-5">
+                  <div className="mt-6 panel p-6">
                     <h3 className="text-sm font-semibold">أبرز ما ستحصل عليه</h3>
-                    <ul className="mt-3 space-y-2">
+                    <ul className="mt-3 space-y-2.5">
                       {service.outcomes.slice(0, 3).map((o) => (
-                        <li key={o} className="flex gap-2 text-sm leading-7 text-muted-foreground">
+                        <li
+                          key={o}
+                          className="flex gap-2 text-sm leading-[1.8] text-muted-foreground"
+                        >
                           <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-accent" />
                           <span className="min-w-0">{o}</span>
                         </li>
@@ -153,13 +159,13 @@ function ServicesPage() {
         <SectionHeader eyebrow="كيف نعمل؟" title="خمس خطوات واضحة من الاحتياج إلى النتيجة" />
         <ol className="mt-14 grid gap-6 md:grid-cols-5">
           {serviceProcess.map((step, i) => (
-            <Reveal key={step.title} delay={i * 70} as="li" className="h-full panel p-5">
+            <Reveal key={step.title} delay={i * 70} as="li" className="h-full panel p-6">
               <div className="contents">
                 <span className="glass-strong glass-edge grid h-9 w-9 place-items-center rounded-full font-display text-xs font-semibold text-primary">
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-base font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
+                <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{step.desc}</p>
               </div>
             </Reveal>
           ))}

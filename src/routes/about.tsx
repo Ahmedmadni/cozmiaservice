@@ -67,7 +67,7 @@ function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 className="font-display text-2xl font-semibold">لسنا مكتبًا تقليديًا</h2>
-            <div className="mt-5 space-y-4 text-base leading-8 text-muted-foreground">
+            <div className="mt-5 space-y-5 text-base leading-[1.9] text-muted-foreground">
               <p>
                 نحن لسنا مكتب محاسبة، ولسنا مكتب محاماة، ولسنا وكالة تسويق تقليدية. نحن منظومة حلول
                 تجمع الاحتياجات الأساسية لصاحب المشروع في مكان واحد.
@@ -92,7 +92,10 @@ function AboutPage() {
       </section>
 
       <section className="relative overflow-hidden border-y border-border bg-surface">
-        <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_80%_40%,black,transparent)]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_80%_40%,black,transparent)]"
+        />
         <div className="container-page relative py-20 lg:py-28">
           <SectionHeader eyebrow="لماذا نحن؟" title="ما الذي يشعر به عميلنا؟" />
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -103,12 +106,12 @@ function AboutPage() {
               { t: "نمو قابل للقياس", d: "مؤشرات واضحة تدعم قرارك التالي." },
             ].map((item, i) => (
               <Reveal key={item.t} delay={i * 70}>
-                <div className="h-full panel p-6">
-                  <span className="font-display text-3xl font-bold text-sand/30" data-num>
+                <div className="h-full panel p-7">
+                  <span className="font-display text-4xl font-bold text-sand/25" data-num>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-3 text-base font-semibold">{item.t}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.d}</p>
+                  <h3 className="mt-4 text-base font-semibold">{item.t}</h3>
+                  <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{item.d}</p>
                 </div>
               </Reveal>
             ))}
@@ -122,9 +125,9 @@ function AboutPage() {
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 70}>
-                <div className="h-full panel p-6">
+                <div className="h-full panel p-7">
                   <h3 className="text-base font-semibold">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{v.desc}</p>
+                  <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{v.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -138,12 +141,12 @@ function AboutPage() {
           title="مع من نعمل عادة؟"
           description="نعمل مع أصحاب المشاريع في المراحل التي يصنع فيها التنظيم فارقًا حقيقيًا."
         />
-        <div className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {audiences.map((item, i) => (
             <Reveal key={item.title} delay={i * 70}>
-              <div className="border-t border-border pt-5">
+              <div className="border-t border-border pt-6">
                 <h3 className="text-base font-semibold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+                <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{item.desc}</p>
               </div>
             </Reveal>
           ))}

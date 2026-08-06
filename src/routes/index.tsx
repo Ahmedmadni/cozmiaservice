@@ -279,12 +279,12 @@ function ChallengesSection() {
           </p>
         </div>
 
-        <RiseGroup as="ul" className="grid gap-3 sm:grid-cols-2" stagger={0.05}>
+        <RiseGroup as="ul" className="grid gap-4 sm:grid-cols-2" stagger={0.05}>
           {challenges.map((c) => (
             <RiseItem key={c.title} as="li">
-              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6">
                 <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-ink-muted">{c.desc}</p>
+                <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{c.desc}</p>
               </div>
             </RiseItem>
           ))}
@@ -332,7 +332,7 @@ function ProcessSection() {
                   {i + 1}
                 </span>
                 <h3 className="font-display text-lg font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
+                <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{step.desc}</p>
               </Rise>
             ))}
           </ol>
@@ -372,7 +372,7 @@ function StagePicker() {
                 onClick={() => setActive(s.id)}
                 aria-pressed={isActive}
                 className={
-                  "relative overflow-hidden rounded-2xl p-5 text-right transition-all duration-500 " +
+                  "relative overflow-hidden rounded-2xl p-6 text-right transition-all duration-500 " +
                   (isActive
                     ? "glass-strong glass-edge -translate-y-0.5"
                     : "border border-border bg-card/50 hover:border-accent/50")
@@ -407,9 +407,9 @@ function StagePicker() {
                 transition={{ duration: 0.35, ease: EASE.ui }}
               >
                 <h3 className="mt-2.5 font-display text-lg font-semibold">{current.title}</h3>
-                <ul className="mt-6 space-y-3.5">
+                <ul className="mt-6 space-y-4">
                   {current.solutions.map((sol) => (
-                    <li key={sol} className="flex gap-3 text-sm leading-7">
+                    <li key={sol} className="flex gap-3 text-sm leading-[1.8]">
                       <Check className="mt-1.5 h-4 w-4 shrink-0 text-accent" strokeWidth={2.25} />
                       <span className="min-w-0">{sol}</span>
                     </li>
@@ -449,12 +449,12 @@ function ValueSection() {
           <span aria-hidden className="mt-10 hidden h-px w-24 bg-sand lg:block" />
         </div>
 
-        <RiseGroup className="grid gap-x-12 gap-y-9 sm:grid-cols-2" stagger={0.06}>
+        <RiseGroup className="grid gap-x-14 gap-y-10 sm:grid-cols-2" stagger={0.06}>
           {whyUs.map((item) => (
             <RiseItem key={item.title}>
-              <div className="group border-t border-border pt-5 transition-colors duration-500 hover:border-accent">
+              <div className="group border-t border-border pt-6 transition-colors duration-500 hover:border-accent">
                 <h3 className="font-display text-base font-semibold">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+                <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{item.desc}</p>
               </div>
             </RiseItem>
           ))}
@@ -482,7 +482,7 @@ function CaseStudiesSection() {
         </Link>
       </div>
 
-      <div ref={ref} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div ref={ref} className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {caseStudies.map((item, i) => (
           <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
             <Rise delay={i * 70} className="h-full">
@@ -501,7 +501,7 @@ function CityBand() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative h-48 overflow-hidden sm:h-64 lg:h-80">
+    <section className="relative h-56 overflow-hidden sm:h-72 lg:h-[26rem]">
       <motion.img
         src={riyadhSkyline}
         alt=""
@@ -512,7 +512,10 @@ function CityBand() {
         transition={{ duration: 1.8, ease: EASE.cinematic }}
         className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
       />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"
+      />
       <div aria-hidden className="absolute inset-0 bg-ink/30" />
     </section>
   );
