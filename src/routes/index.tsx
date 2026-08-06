@@ -138,7 +138,7 @@ function Hero() {
             initial={reduced ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE.cinematic, delay: 0.55 }}
-            className="mt-7 max-w-xl text-base leading-8 text-muted-foreground lg:text-[1.0625rem]"
+            className="mt-7 max-w-lg text-base leading-[1.85] text-muted-foreground lg:text-[1.0625rem]"
           >
             حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
             الأعمال — ضمن مسار واحد واضح.
@@ -274,7 +274,7 @@ function ChallengesSection() {
           <h2 className="mt-5 text-[1.6rem] font-bold leading-[1.32] text-balance-ar sm:text-[2rem]">
             <SplitWords text="ما الذي يعطّل المشاريع عادة؟" />
           </h2>
-          <p className="mt-5 max-w-md text-sm leading-8 text-ink-muted">
+          <p className="mt-6 max-w-xs text-sm leading-[1.8] text-ink-muted">
             ليست المشكلة نقص الجهد، بل تشتّته بين جهات وأدوات وأولويات غير مرتبطة.
           </p>
         </div>
@@ -322,7 +322,7 @@ function ProcessSection() {
             style={{ scaleY }}
           />
 
-          <ol className="grid gap-8">
+          <ol className="grid gap-10">
             {processSteps.map((step, i) => (
               <Rise as="li" key={step.title} delay={i * 60} className="relative pr-14">
                 <span
@@ -441,7 +441,7 @@ function ValueSection() {
             <SplitWords text="حلول مترابطة… حول احتياجات مشروعك" />
           </h2>
           <Rise delay={120}>
-            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+            <p className="mt-6 max-w-sm text-base leading-[1.85] text-muted-foreground">
               بدل تنسيق العمل بين جهات متعددة لكل احتياج، تُدار احتياجات مشروعك ضمن خطة واحدة وفريق
               يعرف سياق عملك.
             </p>
@@ -529,14 +529,14 @@ function FAQSection() {
       <div className="container-page grid gap-10 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <span className="flex items-center gap-3 text-accent">
-            <span aria-hidden className="h-px w-8 bg-sand" />
+            <span aria-hidden className="h-px w-10 bg-sand" />
             <span className="eyebrow">الأسئلة الشائعة</span>
           </span>
           <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="أسئلة نسمعها كثيرًا" />
           </h2>
           <Rise delay={120}>
-            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+            <p className="mt-6 max-w-sm text-base leading-[1.85] text-muted-foreground">
               إن لم تجد إجابتك هنا، اسألنا مباشرة — نردّ بوضوح عن النطاق والمدد وما يحتاج جهة
               مرخّصة.
             </p>

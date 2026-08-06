@@ -114,7 +114,7 @@ function ServicesPage() {
                   <h2 className="mt-5 font-display text-2xl font-semibold text-balance-ar sm:text-3xl">
                     {service.title}
                   </h2>
-                  <p className="mt-4 text-base leading-8 text-muted-foreground">
+                  <p className="mt-4 text-base leading-[1.85] text-muted-foreground">
                     {service.description}
                   </p>
 

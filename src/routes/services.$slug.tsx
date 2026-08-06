@@ -93,7 +93,7 @@ function ServiceDetail() {
             <h1 className="mt-5 text-3xl font-bold text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.25]">
               {service.title}
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-8 text-muted-foreground">
+            <p className="mt-5 max-w-lg text-base leading-[1.85] text-muted-foreground">
               {service.description}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

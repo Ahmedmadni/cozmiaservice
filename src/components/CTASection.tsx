@@ -29,9 +29,9 @@ export function CTASection({
     <PinnedSection image={skyline} veil="soft" size="lg" innerClassName="text-center">
       <Rise>
         <span className="flex items-center justify-center gap-3 text-accent">
-          <span aria-hidden className="h-px w-8 bg-sand" />
+          <span aria-hidden className="h-px w-10 bg-sand" />
           <span className="eyebrow">الخطوة التالية</span>
-          <span aria-hidden className="h-px w-8 bg-sand" />
+          <span aria-hidden className="h-px w-10 bg-sand" />
         </span>
       </Rise>
 
@@ -40,7 +40,9 @@ export function CTASection({
       </h2>
 
       <Rise delay={120}>
-        <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-ink-muted">{description}</p>
+        <p className="mx-auto mt-6 max-w-lg text-base leading-[1.85] text-ink-muted">
+          {description}
+        </p>
       </Rise>
 
       <Rise delay={200}>

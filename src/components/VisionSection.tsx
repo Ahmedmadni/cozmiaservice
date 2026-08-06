@@ -33,7 +33,7 @@ export function VisionSection() {
         <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div>
             <span className="flex items-center gap-3 text-accent">
-              <span aria-hidden className="h-px w-8 bg-sand" />
+              <span aria-hidden className="h-px w-10 bg-sand" />
               <span className="eyebrow">منسجمون مع رؤية المملكة</span>
             </span>
 
@@ -48,24 +48,24 @@ export function VisionSection() {
                 width={198}
                 height={133}
                 loading="lazy"
-                className="mt-7 h-20 w-auto sm:h-24"
+                className="mt-9 h-20 w-auto opacity-90 sm:h-24"
               />
             </Rise>
 
             <Rise delay={160}>
-              <p className="mt-7 max-w-xl text-base leading-8 text-muted-foreground">
+              <p className="mt-8 max-w-lg text-base leading-[1.85] text-muted-foreground">
                 تمكين المنشآت الصغيرة والمتوسطة أحد أهم مستهدفات رؤية 2030. نساعد أصحاب المشاريع على
                 بناء أساس نظامي منظم، وحضور رقمي احترافي، وأدوات تشغيل حديثة تدعم استدامة أعمالهم
                 ونموها.
               </p>
             </Rise>
 
-            <RiseGroup className="mt-10 grid gap-6 sm:grid-cols-3" stagger={0.08}>
+            <RiseGroup className="mt-11 grid gap-7 sm:grid-cols-3" stagger={0.08}>
               {pillars.map((p) => (
                 <RiseItem key={p.title}>
-                  <div className="border-t border-border pt-4 transition-colors duration-500 hover:border-accent">
+                  <div className="border-t border-border pt-5 transition-colors duration-500 hover:border-accent">
                     <h3 className="font-display text-sm font-semibold">{p.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground">{p.desc}</p>
+                    <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{p.desc}</p>
                   </div>
                 </RiseItem>
               ))}
