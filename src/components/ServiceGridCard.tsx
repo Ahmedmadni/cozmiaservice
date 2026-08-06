@@ -26,7 +26,7 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
             width={1200}
             height={900}
             loading="lazy"
-            className="h-full w-full object-cover saturate-[0.92] transition-transform duration-700 group-hover:scale-[1.03]"
+            className="h-full w-full object-cover saturate-[0.92] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.06] group-hover:saturate-100 motion-reduce:transform-none"
           />
           <span
             aria-hidden
@@ -40,7 +40,8 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
               {String(index + 1).padStart(2, "0")}
             </span>
           ) : null}
-          <span className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-xl bg-card/92 text-primary shadow-sm backdrop-blur">
+          {/* الأيقونة ترتفع مع البطاقة: طبقة أمامية تتحرّك أسرع من الصورة خلفها. */}
+          <span className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-xl bg-card/92 text-primary shadow-sm backdrop-blur transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:shadow-md motion-reduce:transform-none">
             <Icon className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.75} />
           </span>
         </div>
@@ -62,7 +63,7 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
           </ul>
           <span className="link-sweep mt-auto inline-flex items-center gap-2 self-start pt-7 text-sm font-medium text-primary">
             استكشف الخدمة
-            <ArrowLeft className="h-4 w-4 transition-transform duration-500 group-hover:-translate-x-1" />
+            <ArrowLeft className="h-4 w-4 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1.5 motion-reduce:transform-none" />
           </span>
         </div>
       </Link>

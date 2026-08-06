@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUp, MessageCircle, Phone } from "lucide-react";
-import { EASE } from "@/components/motion";
+import { DUR, EASE } from "@/components/motion";
 import { site } from "@/data/site";
 
 /**
@@ -58,7 +58,7 @@ export function FloatingDock() {
               initial={{ opacity: 0, y: 12, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.9 }}
-              transition={{ duration: 0.3, ease: EASE.ui }}
+              transition={{ duration: DUR.fast, ease: EASE.spring }}
               className="glass-strong glass-edge pointer-events-auto grid h-10 w-10 place-items-center rounded-full text-primary transition-transform duration-300 hover:-translate-y-0.5"
             >
               <ArrowUp className="h-4 w-4" strokeWidth={2} />

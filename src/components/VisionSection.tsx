@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import landmarks from "@/assets/saudi-landmarks.jpg";
 import vision2030 from "@/assets/vision-2030-logo.svg";
-import { EASE, Rise, RiseGroup, RiseItem, SplitWords, useParallax } from "@/components/motion";
+import { DUR, EASE, Rise, RiseGroup, RiseItem, SplitWords, useParallax } from "@/components/motion";
 
 const pillars = [
   {
@@ -81,7 +81,7 @@ export function VisionSection() {
               initial={reduced ? false : { clipPath: "inset(100% 0% 0% 0% round 1.5rem)" }}
               whileInView={{ clipPath: "inset(0% 0% 0% 0% round 1.5rem)" }}
               viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-              transition={{ duration: 1.15, ease: EASE.cinematic }}
+              transition={{ duration: DUR.hero * 1.15, ease: EASE.cinematic }}
               className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-[0_40px_100px_-60px_var(--primary)]"
             >
               <motion.img
@@ -91,7 +91,12 @@ export function VisionSection() {
                 height={960}
                 loading="lazy"
                 style={{ y }}
-                className="h-full w-full scale-110 object-cover saturate-[0.88]"
+                /* التقريب يستقر عند 1.1 لا عند 1: الفائض ضروري لتغطية إزاحة الموازاة. */
+                initial={reduced ? false : { scale: 1.2 }}
+                whileInView={{ scale: 1.1 }}
+                viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+                transition={{ duration: DUR.hero * 2.4, ease: EASE.cinematic }}
+                className="h-full w-full object-cover saturate-[0.88]"
               />
               {/* تدرّج حبري خفيف: يثبّت الصورة داخل الهوية بدل تركها لوحة مستقلة. */}
               <span

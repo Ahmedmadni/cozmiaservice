@@ -69,7 +69,7 @@ export function CaseStudyCard({ item, featured = false }: { item: CaseStudy; fea
 
         <span className="link-sweep relative mt-auto inline-flex items-center gap-2 self-start pt-6 text-sm font-medium text-primary">
           اقرأ القصة
-          <ArrowLeft className="h-4 w-4 transition-transform duration-500 group-hover:-translate-x-1" />
+          <ArrowLeft className="h-4 w-4 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1.5 motion-reduce:transform-none" />
         </span>
       </Link>
     </PointerGlow>

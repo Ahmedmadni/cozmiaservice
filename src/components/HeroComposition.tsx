@@ -11,7 +11,7 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { Compass, LineChart, MonitorSmartphone, Workflow } from "lucide-react";
 import { useRef } from "react";
-import { EASE } from "@/components/motion";
+import { DUR, EASE, STAGGER } from "@/components/motion";
 import skyline from "@/assets/hero-skyline.webp";
 import { cn } from "@/lib/utils";
 
@@ -117,7 +117,7 @@ export function HeroComposition({ className }: { className?: string }) {
           vectorEffect="non-scaling-stroke"
           initial={reduced ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{ duration: 2.1, ease: EASE.inOut, delay: 0.5 }}
+          transition={{ duration: DUR.hero * 2.1, ease: EASE.inOut, delay: STAGGER.section * 4 }}
         />
       </svg>
 
@@ -194,7 +194,11 @@ function NodeCard({
       }}
       initial={reduced ? false : { opacity: 0, y: 26, filter: "blur(6px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 0.9, ease: EASE.cinematic, delay: 0.25 + index * 0.13 }}
+      transition={{
+        duration: DUR.hero,
+        ease: EASE.cinematic,
+        delay: STAGGER.section * 2 + index * STAGGER.section,
+      }}
     >
       <div className="glass-dark glass-edge rounded-2xl p-4 text-ink-foreground">
         <div className="flex items-center gap-2.5">
@@ -228,7 +232,7 @@ function Sparkline() {
         vectorEffect="non-scaling-stroke"
         initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 1.5, ease: EASE.inOut, delay: 1.2 }}
+        transition={{ duration: DUR.hero * 1.5, ease: EASE.inOut, delay: STAGGER.section * 10 }}
       />
       <motion.circle
         cx="100"
@@ -237,7 +241,7 @@ function Sparkline() {
         fill="var(--color-sand)"
         initial={reduced ? { opacity: 1 } : { opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, ease: EASE.ui, delay: 2.5 }}
+        transition={{ duration: DUR.normal, ease: EASE.spring, delay: STAGGER.section * 21 }}
       />
     </svg>
   );
@@ -262,7 +266,7 @@ function ReadinessStrip({
       style={{ x: tx, y: ty }}
       initial={reduced ? false : { opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, ease: EASE.cinematic, delay: 0.95 }}
+      transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: STAGGER.section * 8 }}
     >
       <div className="glass-strong glass-edge flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
         <div className="flex items-center gap-2.5">

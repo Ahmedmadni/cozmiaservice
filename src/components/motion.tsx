@@ -26,16 +26,62 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-/** منحنيات التسارع — واحدة للواجهة وواحدة للمشاهد السينمائية. */
+/**
+ * منحنيات التسارع. لا حركة خطية في الواجهة: كل انتقال يبدأ أو ينتهي
+ * بتسارع طبيعي، وإلا قُرئ كقفزة آلية لا كحركة مادية.
+ */
 export const EASE = {
+  /** انتقالات الواجهة القصيرة — خروج حاسم وهبوط ناعم. */
   ui: [0.22, 1, 0.36, 1],
+  /** الكشف والمشاهد الطويلة — بداية أسرع واستقرار أطول. */
   cinematic: [0.16, 1, 0.3, 1],
+  /** حركات الذهاب والعودة والرسم المستمر. */
   inOut: [0.65, 0, 0.35, 1],
+  /** ارتداد خفيف — للمس والضغط فقط، لا للكشف. */
+  spring: [0.34, 1.4, 0.64, 1],
+} as const;
+
+/**
+ * سُلّم التوقيت — مصدر واحد لكل مدد الحركة في الموقع.
+ * الأرقام العشوائية هي ما يجعل الحركة تبدو غير مقصودة؛ السلّم
+ * يجعل الصفحة كلها تتنفّس بإيقاع واحد.
+ */
+export const DUR = {
+  /** استجابة فورية: تحويم، ضغط، تبديل حالة. */
+  fast: 0.25,
+  /** الافتراضي: ظهور عناصر الواجهة وانتقالاتها. */
+  normal: 0.45,
+  /** الكشف عند التمرير — المدّة الأساسية للأقسام. */
+  large: 0.7,
+  /** مشاهد الافتتاح والصور الكبيرة. */
+  hero: 1,
+} as const;
+
+/** فواصل التتابع — داخل المجموعة الواحدة، وبين كتل القسم. */
+export const STAGGER = {
+  item: 0.08,
+  section: 0.12,
 } as const;
 
 const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 
 /* ─────────────────────────── الظهور عند التمرير ─────────────── */
+
+/**
+ * الحالة المخفية الموحّدة للكشف.
+ *
+ * التلاشي وحده يقرأ كـ«ظهور عنصر»؛ إضافة الإزاحة والتقريب والضباب
+ * تجعله يقرأ كـ«اقتراب من العمق». الضباب صغير (4px) والتقريب صغير
+ * (1.5%) عن قصد: الأثر يُحسّ ولا يُلاحظ، والنص يصل حادًّا دائمًا.
+ */
+const hiddenState = (distance: number) => ({
+  opacity: 0,
+  y: distance,
+  scale: 0.985,
+  filter: "blur(4px)",
+});
+
+const shownState = { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" };
 
 type RiseProps = {
   children: ReactNode;
@@ -53,10 +99,17 @@ export function Rise({ children, delay = 0, distance = 18, className, as = "div"
   return (
     <Tag
       className={className}
-      initial={reduced ? false : { opacity: 0, y: distance }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduced ? false : hiddenState(distance)}
+      whileInView={shownState}
       viewport={VIEWPORT}
-      transition={{ duration: 0.75, ease: EASE.cinematic, delay: delay / 1000 }}
+      transition={{
+        duration: DUR.large,
+        ease: EASE.cinematic,
+        delay: delay / 1000,
+        // الضباب يسبق البقية بقليل حتى تصل الحدّة قبل استقرار الموضع،
+        // فيُقرأ الوصول كحسم لا كتردّد.
+        filter: { duration: DUR.normal, ease: EASE.ui, delay: delay / 1000 },
+      }}
     >
       {children}
     </Tag>
@@ -67,7 +120,7 @@ export function Rise({ children, delay = 0, distance = 18, className, as = "div"
 export function RiseGroup({
   children,
   className,
-  stagger = 0.07,
+  stagger = STAGGER.item,
   delay = 0,
   as = "div",
 }: {
@@ -77,16 +130,25 @@ export function RiseGroup({
   delay?: number;
   as?: "div" | "ul" | "ol";
 }) {
+  const reduced = useReducedMotion();
   const Tag = motion[as];
+
+  /*
+   * الحاوية هي التي تحترم تفضيل تقليل الحركة، لا الأبناء. لو أسقط الابن
+   * متغيّراته بينما تبقى الحاوية تبثّ "hidden"، بقي الابن معلّقًا في حالته
+   * المخفية بلا شيء ينقله إلى النهائية. القرار في مكان واحد: الحاوية.
+   */
   return (
     <Tag
       className={className}
-      initial="hidden"
+      initial={reduced ? "show" : "hidden"}
       whileInView="show"
       viewport={VIEWPORT}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: delay } },
+        show: {
+          transition: reduced ? {} : { staggerChildren: stagger, delayChildren: delay },
+        },
       }}
     >
       {children}
@@ -95,8 +157,15 @@ export function RiseGroup({
 }
 
 const riseItemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE.cinematic } },
+  hidden: hiddenState(20),
+  show: {
+    ...shownState,
+    transition: {
+      duration: DUR.large,
+      ease: EASE.cinematic,
+      filter: { duration: DUR.normal, ease: EASE.ui },
+    },
+  },
 };
 
 export function RiseItem({
@@ -108,10 +177,9 @@ export function RiseItem({
   className?: string;
   as?: "div" | "li";
 }) {
-  const reduced = useReducedMotion();
   const Tag = motion[as];
   return (
-    <Tag className={className} {...(reduced ? {} : { variants: riseItemVariants })}>
+    <Tag className={className} variants={riseItemVariants}>
       {children}
     </Tag>
   );
@@ -181,10 +249,74 @@ export function SplitWords({
   );
 }
 
+/*
+ * الكلمة ترتفع من خلف قناعها مع تقريب طفيف: التقريب يمنح الحرف
+ * إحساس الاقتراب من العمق بدل الانزلاق على سطح مستوٍ. لا ضباب هنا —
+ * القناع يقصّه فيظهر كحافة متسخة على النص العربي.
+ */
 const wordVariants: Variants = {
-  hidden: { y: "110%" },
-  show: { y: 0, transition: { duration: 0.85, ease: EASE.cinematic } },
+  hidden: { y: "112%", scale: 0.97 },
+  show: { y: 0, scale: 1, transition: { duration: DUR.hero, ease: EASE.cinematic } },
 };
+
+/* ─────────────────────────── كشف الصور ──────────────────────── */
+
+/**
+ * كشف صورة بقناع + تقريب بطيء.
+ *
+ * حركتان تخدمان بعضهما: الإطار يُفتح من الأسفل بينما الصورة داخله
+ * تتراجع من 1.08 إلى 1. النتيجة أن الصورة تبدو مستقرّة خلف نافذة
+ * تُفتح، لا لوحة تُدفع إلى الأعلى. لا تلاشي — التلاشي على الصور
+ * يقرأ كتحميل بطيء لا ككشف مقصود.
+ */
+export function ImageReveal({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  imgClassName,
+  loading = "lazy",
+  radius = "1.5rem",
+  children,
+}: {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  imgClassName?: string;
+  loading?: "lazy" | "eager";
+  radius?: string;
+  children?: ReactNode;
+}) {
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.div
+      className={cn("relative overflow-hidden", className)}
+      initial={reduced ? false : { clipPath: `inset(100% 0% 0% 0% round ${radius})` }}
+      whileInView={{ clipPath: `inset(0% 0% 0% 0% round ${radius})` }}
+      viewport={VIEWPORT}
+      transition={{ duration: DUR.hero * 1.15, ease: EASE.cinematic }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        {...(width ? { width } : {})}
+        {...(height ? { height } : {})}
+        loading={loading}
+        decoding="async"
+        className={cn("h-full w-full object-cover", imgClassName)}
+        initial={reduced ? false : { scale: 1.08 }}
+        whileInView={{ scale: 1 }}
+        viewport={VIEWPORT}
+        transition={{ duration: DUR.hero * 1.9, ease: EASE.cinematic }}
+      />
+      {children}
+    </motion.div>
+  );
+}
 
 /* ─────────────────────────── تفاعلات المؤشر ─────────────────── */
 

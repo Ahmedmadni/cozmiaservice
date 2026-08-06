@@ -3,7 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { EASE, Magnetic, ScrollProgress } from "@/components/motion";
+import { DUR, EASE, Magnetic, ScrollProgress } from "@/components/motion";
 import { navLinks, site } from "@/data/site";
 import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
@@ -143,7 +143,7 @@ export function Navigation() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28, ease: EASE.ui }}
+            transition={{ duration: DUR.fast, ease: EASE.ui }}
             className="glass-nav absolute inset-x-0 top-full hidden border-b border-border/70 lg:block"
           >
             <div className="container-page py-8">
@@ -153,7 +153,7 @@ export function Navigation() {
                     key={s.slug}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: EASE.ui, delay: 0.04 + i * 0.035 }}
+                    transition={{ duration: DUR.normal, ease: EASE.ui, delay: 0.04 + i * 0.035 }}
                   >
                     <Link
                       to="/services/$slug"
@@ -193,7 +193,7 @@ export function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.32, ease: EASE.ui }}
+            transition={{ duration: DUR.normal, ease: EASE.ui }}
             className="glass-nav overflow-hidden border-t border-border/70 lg:hidden"
           >
             <ul className="container-page grid max-h-[calc(100dvh-4rem)] gap-1 overflow-y-auto py-4">

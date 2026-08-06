@@ -5,7 +5,9 @@ import { ArrowLeft, Check, MoveDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
+  DUR,
   EASE,
+  STAGGER,
   Magnetic,
   Marquee,
   PointerGlow,
@@ -104,6 +106,20 @@ function Index() {
 
 /* ═══════════════════════ 1 — الهيرو ═══════════════════════ */
 
+/*
+ * تسلسل الافتتاح — رقم واحد لكل كتلة، مشتق من فاصل القسم (0.12s).
+ * وجود السلّم في مكان واحد يمنع انزلاق التوقيت عند أي تعديل لاحق:
+ * تُحرّك الكتلة، لا الأرقام المتناثرة في الوسم.
+ */
+const HERO_BEAT = {
+  badge: 0,
+  titleTop: STAGGER.section,
+  titleBottom: STAGGER.section * 2.4,
+  lead: STAGGER.section * 4.6,
+  actions: STAGGER.section * 5.8,
+  hint: STAGGER.section * 10,
+} as const;
+
 function Hero() {
   const reduced = useReducedMotion();
 
@@ -119,9 +135,9 @@ function Hero() {
       <div className="container-page relative grid gap-14 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:pt-20">
         <div>
           <motion.span
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE.ui }}
+            initial={reduced ? false : { opacity: 0, y: 10, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: DUR.large, ease: EASE.cinematic, delay: HERO_BEAT.badge }}
             className="glass glass-edge inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -129,15 +145,24 @@ function Hero() {
           </motion.span>
 
           <h1 className="mt-7 text-[2.1rem] font-bold leading-[1.28] text-balance-ar sm:text-5xl lg:text-[3.6rem] lg:leading-[1.2]">
-            <SplitWords text="نبني أساس مشروعك" delay={0.1} />
+            <SplitWords text="نبني أساس مشروعك" delay={HERO_BEAT.titleTop} />
             <br />
-            <SplitWords text="ونساعده على النمو" className="text-accent" delay={0.28} />
+            <SplitWords
+              text="ونساعده على النمو"
+              className="text-accent"
+              delay={HERO_BEAT.titleBottom}
+            />
           </h1>
 
           <motion.p
-            initial={reduced ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE.cinematic, delay: 0.55 }}
+            initial={reduced ? false : { opacity: 0, y: 14, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: DUR.hero,
+              ease: EASE.cinematic,
+              delay: HERO_BEAT.lead,
+              filter: { duration: DUR.large, ease: EASE.ui, delay: HERO_BEAT.lead },
+            }}
             className="mt-7 max-w-lg text-base leading-[1.85] text-muted-foreground lg:text-[1.0625rem]"
           >
             حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
@@ -145,9 +170,9 @@ function Hero() {
           </motion.p>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE.cinematic, delay: 0.68 }}
+            initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: HERO_BEAT.actions }}
             className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
           >
             <Magnetic>
@@ -171,12 +196,17 @@ function Hero() {
             aria-hidden
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.4 }}
+            transition={{ duration: DUR.hero, ease: EASE.ui, delay: HERO_BEAT.hint }}
             className="mt-12 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
           >
             <motion.span
               {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
-              transition={{ duration: 2.4, repeat: Infinity, ease: EASE.inOut }}
+              transition={{
+                duration: 2.4,
+                repeat: Infinity,
+                ease: EASE.inOut,
+                delay: HERO_BEAT.hint,
+              }}
             >
               <MoveDown className="h-4 w-4" />
             </motion.span>
@@ -214,7 +244,7 @@ function ServicesSection() {
 
       <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, i) => (
-          <Rise as="li" key={service.slug} delay={(i % 3) * 70} className="h-full">
+          <Rise as="li" key={service.slug} delay={(i % 3) * STAGGER.item * 1000} className="h-full">
             <ServiceGridCard service={service} index={i} />
           </Rise>
         ))}
@@ -372,10 +402,10 @@ function StagePicker() {
                 onClick={() => setActive(s.id)}
                 aria-pressed={isActive}
                 className={
-                  "relative overflow-hidden rounded-2xl p-6 text-right transition-all duration-500 " +
+                  "relative overflow-hidden rounded-2xl p-6 text-right will-change-transform transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.99] active:duration-[90ms] motion-reduce:transform-none " +
                   (isActive
-                    ? "glass-strong glass-edge -translate-y-0.5"
-                    : "border border-border bg-card/50 hover:border-accent/50")
+                    ? "glass-strong glass-edge -translate-y-1 scale-[1.008]"
+                    : "border border-border bg-card/50 hover:-translate-y-0.5 hover:border-accent/50")
                 }
               >
                 <span className="eyebrow text-sand" data-num>
@@ -388,7 +418,7 @@ function StagePicker() {
                   className="absolute inset-x-0 bottom-0 h-0.5 origin-right bg-accent"
                   initial={false}
                   animate={{ scaleX: isActive ? 1 : 0 }}
-                  transition={{ duration: 0.5, ease: EASE.ui }}
+                  transition={{ duration: DUR.normal, ease: EASE.ui }}
                 />
               </button>
             );
@@ -401,10 +431,10 @@ function StagePicker() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: EASE.ui }}
+                initial={{ opacity: 0, y: 12, filter: "blur(3px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -10, filter: "blur(3px)" }}
+                transition={{ duration: DUR.normal, ease: EASE.ui }}
               >
                 <h3 className="mt-2.5 font-display text-lg font-semibold">{current.title}</h3>
                 <ul className="mt-6 space-y-4">
@@ -485,7 +515,7 @@ function CaseStudiesSection() {
       <div ref={ref} className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {caseStudies.map((item, i) => (
           <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
-            <Rise delay={i * 70} className="h-full">
+            <Rise delay={i * STAGGER.item * 1000} className="h-full">
               <CaseStudyCard item={item} featured={i === 0} />
             </Rise>
           </motion.div>
@@ -509,7 +539,7 @@ function CityBand() {
         initial={reduced ? false : { scale: 1.12 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.8, ease: EASE.cinematic }}
+        transition={{ duration: DUR.hero * 2.2, ease: EASE.cinematic }}
         className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
       />
       <div

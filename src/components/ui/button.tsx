@@ -5,7 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold cursor-pointer transition-all duration-200 ease-out select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  /*
+   * إحساس الزر: يرتفع عند التحويم وينضغط عند اللمس. الضغط أسرع بكثير
+   * من الارتفاع (90ms مقابل 250ms) — الاستجابة الفورية هي ما يجعل
+   * الزر يبدو ماديًا، بينما العودة البطيئة تجعله يبدو ثقيلًا لا هشًّا.
+   */
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold cursor-pointer select-none transition-all duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.965] active:duration-[90ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-all [&_svg]:duration-[450ms] [&_svg]:ease-[cubic-bezier(0.22,1,0.36,1)]",
   {
     variants: {
       variant: {

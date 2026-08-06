@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Constellation } from "@/components/Constellation";
 import { IconBadge } from "@/components/IconBadge";
-import { EASE } from "@/components/motion";
+import { DUR, EASE, STAGGER } from "@/components/motion";
 import skyline from "@/assets/hero-skyline.webp";
 import type { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
@@ -73,7 +73,11 @@ export function ServicePlate({
                 initial={reduced ? false : { opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-                transition={{ duration: 0.5, ease: EASE.ui, delay: 0.08 + i * 0.06 }}
+                transition={{
+                  duration: DUR.large,
+                  ease: EASE.cinematic,
+                  delay: 0.08 + i * STAGGER.item,
+                }}
                 className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[11px] text-ink-foreground/85 backdrop-blur-sm"
               >
                 {item}

@@ -410,15 +410,32 @@
   box-shadow: var(--shadow-sm);
 }
 
+/*
+ * رفع البطاقة عند التحويم.
+ *
+ * ثلاث طبقات تتحرّك معًا: الارتفاع، والتقريب الطفيف، والظل الذي
+ * يتمدّد. الظل هو ما يبيع العمق — الارتفاع وحده يقرأ كانزلاق على
+ * سطح مستوٍ. العودة أبطأ قليلًا من الذهاب لأن السقوط تحت الجاذبية
+ * يستقر ولا ينقطع.
+ */
 @utility card-hover {
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1);
   transition:
-    transform 0.45s var(--ease-out),
-    box-shadow 0.45s var(--ease-out),
-    border-color 0.2s ease;
+    transform 0.55s var(--ease-out),
+    box-shadow 0.55s var(--ease-out),
+    border-color 0.25s ease;
 
-  &:hover {
-    transform: translateY(-6px);
+  &:hover,
+  &:focus-visible {
+    transform: translate3d(0, -8px, 0) scale(1.012);
     box-shadow: var(--shadow-card);
+    transition-duration: 0.45s;
+  }
+
+  &:active {
+    transform: translate3d(0, -3px, 0) scale(1.004);
+    transition-duration: 0.12s;
   }
 }
 
