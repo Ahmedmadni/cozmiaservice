@@ -15,7 +15,7 @@ export function CaseStudyCard({ item, featured = false }: { item: CaseStudy; fea
         to="/case-studies/$slug"
         params={{ slug: item.slug }}
         className={cn(
-          "group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_70px_-28px_var(--primary)]",
+          "group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 card-hover",
           featured ? "glass-strong glass-edge lg:p-8" : "glass glass-edge",
         )}
       >

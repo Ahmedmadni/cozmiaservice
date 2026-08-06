@@ -61,7 +61,7 @@ export function IconBadge({
         className,
       )}
     >
-      <Icon className={s.icon} strokeWidth={1.6} />
+      <Icon className={s.icon} strokeWidth={1.75} />
     </span>
   );
 }
