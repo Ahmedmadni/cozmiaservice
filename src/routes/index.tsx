@@ -26,6 +26,7 @@ import { site } from "@/data/site";
 import { processSteps, projectStages, whyUs } from "@/data/solutions";
 import { services } from "@/data/services";
 import { caseStudies, faqs } from "@/data/content";
+import riyadhSkyline from "@/assets/band-wide.webp";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
 const description =
@@ -86,6 +87,7 @@ function Index() {
       <StagePicker />
       <ValueSection />
       <CaseStudiesSection />
+      <CityBand />
       <VisionSection />
       <FAQSection />
       <CTASection
@@ -106,10 +108,12 @@ function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden pb-24 lg:pb-24">
+    <section className="relative overflow-hidden pb-28 lg:pb-32">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 blueprint opacity-[0.55] [mask-image:radial-gradient(78%_62%_at_72%_28%,black,transparent)]" />
+        <div className="absolute inset-0 arabesque opacity-50 [mask-image:radial-gradient(55%_50%_at_80%_25%,black,transparent)]" />
+        <div className="absolute inset-0 blueprint opacity-40 [mask-image:radial-gradient(60%_55%_at_30%_60%,black,transparent)]" />
         <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
+        <div className="absolute -right-32 -top-16 h-72 w-72 rounded-full bg-sand/6 blur-[100px]" />
       </div>
 
       <div className="container-page relative grid gap-14 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:pt-20">
@@ -252,6 +256,7 @@ function ChallengesSection() {
     <section className="grain relative overflow-hidden bg-ink text-ink-foreground">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Constellation className="opacity-[0.14]" />
+        <div className="absolute inset-0 arabesque opacity-[0.18] [mask-image:radial-gradient(50%_50%_at_50%_50%,black,transparent)]" />
         <div className="absolute -right-1/4 top-0 h-[34rem] w-[34rem] rounded-full bg-accent/12 blur-[130px]" />
       </div>
 
@@ -486,6 +491,29 @@ function CaseStudiesSection() {
           </motion.div>
         ))}
       </div>
+    </section>
+  );
+}
+
+/* ═══════════ الشريط البصري السعودي — أفق الرياض ═══════════ */
+
+function CityBand() {
+  const reduced = useReducedMotion();
+
+  return (
+    <section className="relative h-48 overflow-hidden sm:h-64 lg:h-80">
+      <motion.img
+        src={riyadhSkyline}
+        alt=""
+        aria-hidden
+        initial={reduced ? false : { scale: 1.12 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: EASE.cinematic }}
+        className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+      />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      <div aria-hidden className="absolute inset-0 bg-ink/30" />
     </section>
   );
 }

@@ -76,9 +76,10 @@ function ServiceDetail() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-border bg-surface">
+        <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-30 [mask-image:radial-gradient(45%_50%_at_90%_30%,black,transparent)]" />
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-accent-soft blur-3xl"
+          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent-soft/80 blur-3xl"
         />
         <div className="container-page relative grid items-center gap-10 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
           <div className="fade-up">
@@ -217,10 +218,11 @@ function ServiceDetail() {
       </section>
 
       <section className="container-page py-20 lg:pb-24">
-        <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-14 text-primary-foreground sm:px-12">
+        <div className="grain relative overflow-hidden rounded-3xl bg-primary px-6 py-16 text-primary-foreground sm:px-12 lg:py-20">
+          <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-[0.06] [mask-image:radial-gradient(60%_60%_at_70%_40%,black,transparent)]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-16 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"
+            className="pointer-events-none absolute -left-16 -top-24 h-80 w-80 rounded-full bg-accent/25 blur-3xl"
           />
           <div className="relative max-w-2xl">
             <h2 className="font-display text-2xl font-semibold text-balance-ar sm:text-3xl">

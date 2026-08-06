@@ -439,6 +439,24 @@
   background-repeat: repeat;
 }
 
+/*
+ * نسيج هندسي إسلامي — شبكة المعين المزدوج.
+ *
+ * مستلهم من المشربية والزخارف الهندسية في العمارة السعودية.
+ * الكثافة منخفضة جدًا: النسيج يُحسّ أكثر مما يُرى.
+ * يُستخدم خلف الترويسات والقيم لإضفاء هوية سعودية دون إرباك.
+ */
+@utility arabesque {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none'><path d='M24 0l24 24-24 24L0 24z' stroke='%23354670' stroke-width='0.5' opacity='0.055'/><path d='M24 8l16 16-16 16L8 24z' stroke='%23354670' stroke-width='0.35' opacity='0.035'/></svg>");
+  background-size: 48px 48px;
+  background-repeat: repeat;
+}
+
+.dark .arabesque,
+:is(.dark *) .arabesque {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none'><path d='M24 0l24 24-24 24L0 24z' stroke='%23fff' stroke-width='0.5' opacity='0.04'/><path d='M24 8l16 16-16 16L8 24z' stroke='%23fff' stroke-width='0.35' opacity='0.025'/></svg>");
+}
+
 /* ── قواعد تحريرية ─────────────────────────────────────────── */
 
 @utility eyebrow {

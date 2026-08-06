@@ -23,8 +23,9 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <div className="container-page py-16 lg:py-24">
+    <footer className="relative border-t border-border bg-surface">
+      <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-30 [mask-image:radial-gradient(50%_40%_at_80%_20%,black,transparent)]" />
+      <div className="container-page relative py-16 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2">

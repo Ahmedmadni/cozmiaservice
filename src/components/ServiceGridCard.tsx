@@ -17,7 +17,7 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
       <Link
         to="/services/$slug"
         params={{ slug: service.slug }}
-        className="group glass glass-edge flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-500 hover:-translate-y-1.5"
+        className="group glass glass-edge flex h-full flex-col overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_32px_80px_-30px_var(--primary)]"
       >
         <div className="relative aspect-[16/10] overflow-hidden bg-primary">
           <img

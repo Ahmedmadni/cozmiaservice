@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { EASE, Rise, useParallax } from "@/components/motion";
 import { professionalDisclaimer, site } from "@/data/site";
+import riyadhSkyline from "@/assets/band-wide.webp";
 
 const title = `من نحن | ${site.name}`;
 const description =
@@ -61,7 +64,7 @@ function AboutPage() {
       />
 
       <section className="container-page py-20 lg:py-28">
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 className="font-display text-2xl font-semibold">لسنا مكتبًا تقليديًا</h2>
             <div className="mt-5 space-y-4 text-base leading-8 text-muted-foreground">
@@ -84,21 +87,31 @@ function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="panel p-8">
-            <h2 className="font-display text-lg font-semibold">ما الذي يشعر به عميلنا؟</h2>
-            <ul className="mt-6 space-y-5">
-              {[
-                { t: "بداية منظمة", d: "خطوات مرتبة بدل قرارات متفرقة." },
-                { t: "حضور احترافي", d: "هوية وقنوات رقمية تعبّر عن قيمة مشروعك." },
-                { t: "تشغيل أكثر كفاءة", d: "إجراءات وأنظمة تقلّل الفوضى اليومية." },
-                { t: "نمو قابل للقياس", d: "مؤشرات واضحة تدعم قرارك التالي." },
-              ].map((item) => (
-                <li key={item.t}>
-                  <h3 className="text-sm font-semibold">{item.t}</h3>
-                  <p className="mt-1 text-sm leading-7 text-muted-foreground">{item.d}</p>
-                </li>
-              ))}
-            </ul>
+          <AboutImage />
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden border-y border-border bg-surface">
+        <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_80%_40%,black,transparent)]" />
+        <div className="container-page relative py-20 lg:py-28">
+          <SectionHeader eyebrow="لماذا نحن؟" title="ما الذي يشعر به عميلنا؟" />
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { t: "بداية منظمة", d: "خطوات مرتبة بدل قرارات متفرقة." },
+              { t: "حضور احترافي", d: "هوية وقنوات رقمية تعبّر عن قيمة مشروعك." },
+              { t: "تشغيل أكثر كفاءة", d: "إجراءات وأنظمة تقلّل الفوضى اليومية." },
+              { t: "نمو قابل للقياس", d: "مؤشرات واضحة تدعم قرارك التالي." },
+            ].map((item, i) => (
+              <Reveal key={item.t} delay={i * 70}>
+                <div className="h-full panel p-6">
+                  <span className="font-display text-3xl font-bold text-sand/30" data-num>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 text-base font-semibold">{item.t}</h3>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.d}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -149,5 +162,36 @@ function AboutPage() {
         secondaryTo="/services"
       />
     </>
+  );
+}
+
+function AboutImage() {
+  const reduced = useReducedMotion();
+  const { ref, y } = useParallax(28);
+
+  return (
+    <div ref={ref} className="relative">
+      <motion.figure
+        initial={reduced ? false : { clipPath: "inset(100% 0% 0% 0% round 1.5rem)" }}
+        whileInView={{ clipPath: "inset(0% 0% 0% 0% round 1.5rem)" }}
+        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+        transition={{ duration: 1.15, ease: EASE.cinematic }}
+        className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-[0_40px_100px_-60px_var(--primary)]"
+      >
+        <motion.img
+          src={riyadhSkyline}
+          alt="أفق مركز الملك عبدالله المالي في الرياض عند الغروب"
+          width={1920}
+          height={960}
+          loading="lazy"
+          style={{ y }}
+          className="h-full w-full scale-110 object-cover saturate-[0.9]"
+        />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent"
+        />
+      </motion.figure>
+    </div>
   );
 }

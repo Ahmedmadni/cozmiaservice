@@ -80,8 +80,9 @@ function ServicesPage() {
         </ul>
       </section>
 
-      <section className="border-t border-border bg-surface">
-        <div className="container-page py-16 lg:py-20">
+      <section className="relative overflow-hidden border-t border-border bg-surface">
+        <div aria-hidden className="pointer-events-none absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]" />
+        <div className="container-page relative py-20 lg:py-28">
           <SectionHeader
             eyebrow="التفاصيل"
             title="تعرّف على تفاصيل خدماتنا"

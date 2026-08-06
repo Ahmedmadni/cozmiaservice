@@ -24,10 +24,10 @@ export function VisionSection() {
 
   return (
     <section className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 blueprint opacity-40 [mask-image:radial-gradient(70%_60%_at_20%_50%,black,transparent)]"
-      />
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 arabesque opacity-40 [mask-image:radial-gradient(55%_55%_at_85%_45%,black,transparent)]" />
+        <div className="absolute inset-0 blueprint opacity-30 [mask-image:radial-gradient(50%_50%_at_20%_50%,black,transparent)]" />
+      </div>
 
       <div className="container-page relative py-20 lg:py-28">
         <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
