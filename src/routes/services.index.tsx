@@ -59,7 +59,7 @@ function ServicesPage() {
         </div>
       </section>
 
-      <section className="container-page py-20 lg:py-24">
+      <section className="container-page py-20 lg:py-28">
         <SectionHeader
           eyebrow="نظرة عامة"
           title="استكشف خدماتنا"

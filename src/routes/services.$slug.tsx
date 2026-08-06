@@ -128,7 +128,7 @@ function ServiceDetail() {
 
       {/* طريقة المساعدة — مقاربتنا الخاصة بهذه الخدمة */}
       <section className="border-y border-border bg-surface">
-        <div className="container-page py-16 lg:py-24">
+        <div className="container-page py-20 lg:py-28">
           <SectionHeader eyebrow="كيف نساعدك؟" title={`طريقتنا في ${service.title}`} />
           <div className="mt-14 grid gap-5 md:grid-cols-3">
             {service.help.map((h, i) => (
@@ -168,7 +168,7 @@ function ServiceDetail() {
 
       {/* النتائج المتوقعة */}
       <section className="border-y border-border bg-surface">
-        <div className="container-page py-16 lg:py-24">
+        <div className="container-page py-20 lg:py-28">
           <SectionHeader eyebrow="النتيجة" title="ماذا ستحصل عليه؟" />
           <ul className="mt-12 grid gap-3 sm:grid-cols-2">
             {service.outcomes.map((o, i) => (
@@ -197,7 +197,7 @@ function ServiceDetail() {
       </section>
 
       <section className="border-y border-border bg-surface">
-        <div className="container-page py-16 lg:py-24">
+        <div className="container-page py-20 lg:py-28">
           <SectionHeader eyebrow="خدمات ذات صلة" title="قد تحتاج أيضًا إلى" />
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {others.map((o) => (
