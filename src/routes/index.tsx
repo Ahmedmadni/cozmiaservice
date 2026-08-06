@@ -26,6 +26,7 @@ import { site } from "@/data/site";
 import { processSteps, projectStages, whyUs } from "@/data/solutions";
 import { services } from "@/data/services";
 import { caseStudies, faqs } from "@/data/content";
+import riyadhSkyline from "@/assets/band-wide.webp";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
 const description =
@@ -86,6 +87,7 @@ function Index() {
       <StagePicker />
       <ValueSection />
       <CaseStudiesSection />
+      <CityBand />
       <VisionSection />
       <FAQSection />
       <CTASection
@@ -106,10 +108,12 @@ function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden pb-24 lg:pb-24">
+    <section className="relative overflow-hidden pb-28 lg:pb-32">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 blueprint opacity-[0.55] [mask-image:radial-gradient(78%_62%_at_72%_28%,black,transparent)]" />
+        <div className="absolute inset-0 arabesque opacity-50 [mask-image:radial-gradient(55%_50%_at_80%_25%,black,transparent)]" />
+        <div className="absolute inset-0 blueprint opacity-40 [mask-image:radial-gradient(60%_55%_at_30%_60%,black,transparent)]" />
         <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
+        <div className="absolute -right-32 -top-16 h-72 w-72 rounded-full bg-sand/6 blur-[100px]" />
       </div>
 
       <div className="container-page relative grid gap-14 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:pt-20">
@@ -134,7 +138,7 @@ function Hero() {
             initial={reduced ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE.cinematic, delay: 0.55 }}
-            className="mt-7 max-w-xl text-base leading-8 text-muted-foreground lg:text-[1.0625rem]"
+            className="mt-7 max-w-lg text-base leading-[1.85] text-muted-foreground lg:text-[1.0625rem]"
           >
             حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
             الأعمال — ضمن مسار واحد واضح.
@@ -252,6 +256,7 @@ function ChallengesSection() {
     <section className="grain relative overflow-hidden bg-ink text-ink-foreground">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Constellation className="opacity-[0.14]" />
+        <div className="absolute inset-0 arabesque opacity-[0.18] [mask-image:radial-gradient(50%_50%_at_50%_50%,black,transparent)]" />
         <div className="absolute -right-1/4 top-0 h-[34rem] w-[34rem] rounded-full bg-accent/12 blur-[130px]" />
       </div>
 
@@ -269,17 +274,17 @@ function ChallengesSection() {
           <h2 className="mt-5 text-[1.6rem] font-bold leading-[1.32] text-balance-ar sm:text-[2rem]">
             <SplitWords text="ما الذي يعطّل المشاريع عادة؟" />
           </h2>
-          <p className="mt-5 max-w-md text-sm leading-8 text-ink-muted">
+          <p className="mt-6 max-w-xs text-sm leading-[1.8] text-ink-muted">
             ليست المشكلة نقص الجهد، بل تشتّته بين جهات وأدوات وأولويات غير مرتبطة.
           </p>
         </div>
 
-        <RiseGroup as="ul" className="grid gap-3 sm:grid-cols-2" stagger={0.05}>
+        <RiseGroup as="ul" className="grid gap-4 sm:grid-cols-2" stagger={0.05}>
           {challenges.map((c) => (
             <RiseItem key={c.title} as="li">
-              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6">
                 <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-ink-muted">{c.desc}</p>
+                <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{c.desc}</p>
               </div>
             </RiseItem>
           ))}
@@ -317,7 +322,7 @@ function ProcessSection() {
             style={{ scaleY }}
           />
 
-          <ol className="grid gap-8">
+          <ol className="grid gap-10">
             {processSteps.map((step, i) => (
               <Rise as="li" key={step.title} delay={i * 60} className="relative pr-14">
                 <span
@@ -327,7 +332,7 @@ function ProcessSection() {
                   {i + 1}
                 </span>
                 <h3 className="font-display text-lg font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.desc}</p>
+                <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{step.desc}</p>
               </Rise>
             ))}
           </ol>
@@ -367,7 +372,7 @@ function StagePicker() {
                 onClick={() => setActive(s.id)}
                 aria-pressed={isActive}
                 className={
-                  "relative overflow-hidden rounded-2xl p-5 text-right transition-all duration-500 " +
+                  "relative overflow-hidden rounded-2xl p-6 text-right transition-all duration-500 " +
                   (isActive
                     ? "glass-strong glass-edge -translate-y-0.5"
                     : "border border-border bg-card/50 hover:border-accent/50")
@@ -402,9 +407,9 @@ function StagePicker() {
                 transition={{ duration: 0.35, ease: EASE.ui }}
               >
                 <h3 className="mt-2.5 font-display text-lg font-semibold">{current.title}</h3>
-                <ul className="mt-6 space-y-3.5">
+                <ul className="mt-6 space-y-4">
                   {current.solutions.map((sol) => (
-                    <li key={sol} className="flex gap-3 text-sm leading-7">
+                    <li key={sol} className="flex gap-3 text-sm leading-[1.8]">
                       <Check className="mt-1.5 h-4 w-4 shrink-0 text-accent" strokeWidth={2.25} />
                       <span className="min-w-0">{sol}</span>
                     </li>
@@ -436,7 +441,7 @@ function ValueSection() {
             <SplitWords text="حلول مترابطة… حول احتياجات مشروعك" />
           </h2>
           <Rise delay={120}>
-            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+            <p className="mt-6 max-w-sm text-base leading-[1.85] text-muted-foreground">
               بدل تنسيق العمل بين جهات متعددة لكل احتياج، تُدار احتياجات مشروعك ضمن خطة واحدة وفريق
               يعرف سياق عملك.
             </p>
@@ -444,12 +449,12 @@ function ValueSection() {
           <span aria-hidden className="mt-10 hidden h-px w-24 bg-sand lg:block" />
         </div>
 
-        <RiseGroup className="grid gap-x-12 gap-y-9 sm:grid-cols-2" stagger={0.06}>
+        <RiseGroup className="grid gap-x-14 gap-y-10 sm:grid-cols-2" stagger={0.06}>
           {whyUs.map((item) => (
             <RiseItem key={item.title}>
-              <div className="group border-t border-border pt-5 transition-colors duration-500 hover:border-accent">
+              <div className="group border-t border-border pt-6 transition-colors duration-500 hover:border-accent">
                 <h3 className="font-display text-base font-semibold">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+                <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{item.desc}</p>
               </div>
             </RiseItem>
           ))}
@@ -477,7 +482,7 @@ function CaseStudiesSection() {
         </Link>
       </div>
 
-      <div ref={ref} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div ref={ref} className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {caseStudies.map((item, i) => (
           <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
             <Rise delay={i * 70} className="h-full">
@@ -490,6 +495,32 @@ function CaseStudiesSection() {
   );
 }
 
+/* ═══════════ الشريط البصري السعودي — أفق الرياض ═══════════ */
+
+function CityBand() {
+  const reduced = useReducedMotion();
+
+  return (
+    <section className="relative h-56 overflow-hidden sm:h-72 lg:h-[26rem]">
+      <motion.img
+        src={riyadhSkyline}
+        alt=""
+        aria-hidden
+        initial={reduced ? false : { scale: 1.12 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: EASE.cinematic }}
+        className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"
+      />
+      <div aria-hidden className="absolute inset-0 bg-ink/30" />
+    </section>
+  );
+}
+
 /* ═══════════════════ 9 — الأسئلة الشائعة ═══════════════════ */
 
 function FAQSection() {
@@ -498,14 +529,14 @@ function FAQSection() {
       <div className="container-page grid gap-10 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <span className="flex items-center gap-3 text-accent">
-            <span aria-hidden className="h-px w-8 bg-sand" />
+            <span aria-hidden className="h-px w-10 bg-sand" />
             <span className="eyebrow">الأسئلة الشائعة</span>
           </span>
           <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="أسئلة نسمعها كثيرًا" />
           </h2>
           <Rise delay={120}>
-            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
+            <p className="mt-6 max-w-sm text-base leading-[1.85] text-muted-foreground">
               إن لم تجد إجابتك هنا، اسألنا مباشرة — نردّ بوضوح عن النطاق والمدد وما يحتاج جهة
               مرخّصة.
             </p>

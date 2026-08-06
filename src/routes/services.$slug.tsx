@@ -78,7 +78,11 @@ function ServiceDetail() {
       <section className="relative overflow-hidden border-b border-border bg-surface">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-accent-soft blur-3xl"
+          className="pointer-events-none absolute inset-0 arabesque opacity-30 [mask-image:radial-gradient(45%_50%_at_90%_30%,black,transparent)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent-soft/80 blur-3xl"
         />
         <div className="container-page relative grid items-center gap-10 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
           <div className="fade-up">
@@ -89,7 +93,7 @@ function ServiceDetail() {
             <h1 className="mt-5 text-3xl font-bold text-balance-ar sm:text-4xl lg:text-[3rem] lg:leading-[1.25]">
               {service.title}
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-8 text-muted-foreground">
+            <p className="mt-5 max-w-lg text-base leading-[1.85] text-muted-foreground">
               {service.description}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -117,7 +121,7 @@ function ServiceDetail() {
         <ul className="mt-12 grid gap-3 sm:grid-cols-2">
           {service.items.map((item, i) => (
             <Reveal key={item} as="li" delay={(i % 2) * 60}>
-              <div className="flex h-full items-start gap-3 panel rounded-xl p-4 text-sm leading-7">
+              <div className="flex h-full items-start gap-3 panel rounded-xl p-5 text-sm leading-[1.8]">
                 <Check className="mt-1.5 h-4 w-4 shrink-0 text-accent" />
                 <span className="min-w-0">{item}</span>
               </div>
@@ -133,10 +137,10 @@ function ServiceDetail() {
           <div className="mt-14 grid gap-5 md:grid-cols-3">
             {service.help.map((h, i) => (
               <Reveal key={h.title} delay={i * 70}>
-                <div className="h-full panel p-6">
+                <div className="h-full panel p-7">
                   <IconBadge icon={service.icon} />
                   <h3 className="mt-4 text-base font-semibold">{h.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{h.desc}</p>
+                  <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{h.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -173,7 +177,7 @@ function ServiceDetail() {
           <ul className="mt-12 grid gap-3 sm:grid-cols-2">
             {service.outcomes.map((o, i) => (
               <Reveal key={o} as="li" delay={(i % 2) * 60}>
-                <div className="flex h-full items-start gap-3 panel rounded-xl p-4 text-sm leading-7 text-muted-foreground">
+                <div className="flex h-full items-start gap-3 panel rounded-xl p-5 text-sm leading-[1.8] text-muted-foreground">
                   <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-sand" />
                   <span className="min-w-0">{o}</span>
                 </div>
@@ -205,7 +209,7 @@ function ServiceDetail() {
                 key={o.slug}
                 to="/services/$slug"
                 params={{ slug: o.slug }}
-                className="group panel p-5 transition-colors hover:border-accent/60"
+                className="group panel p-6 card-hover hover:border-accent/60"
               >
                 <IconBadge icon={o.icon} />
                 <h3 className="mt-4 text-sm font-semibold">{o.title}</h3>
@@ -217,10 +221,14 @@ function ServiceDetail() {
       </section>
 
       <section className="container-page py-20 lg:pb-24">
-        <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-14 text-primary-foreground sm:px-12">
+        <div className="grain relative overflow-hidden rounded-3xl bg-primary px-6 py-16 text-primary-foreground sm:px-12 lg:py-20">
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-16 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"
+            className="pointer-events-none absolute inset-0 arabesque opacity-[0.06] [mask-image:radial-gradient(60%_60%_at_70%_40%,black,transparent)]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-16 -top-24 h-80 w-80 rounded-full bg-accent/25 blur-3xl"
           />
           <div className="relative max-w-2xl">
             <h2 className="font-display text-2xl font-semibold text-balance-ar sm:text-3xl">

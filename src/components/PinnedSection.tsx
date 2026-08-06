@@ -58,6 +58,10 @@ export function PinnedSection({
         )}
       />
       <Constellation className="opacity-[0.12]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 arabesque opacity-[0.1] [mask-image:radial-gradient(50%_50%_at_50%_50%,black,transparent)]"
+      />
 
       <div className={cn("container-page relative", pad, innerClassName)}>{children}</div>
     </section>

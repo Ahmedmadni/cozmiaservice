@@ -13,7 +13,7 @@ export function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
           <AccordionTrigger className="text-right text-base font-semibold hover:no-underline">
             {item.q}
           </AccordionTrigger>
-          <AccordionContent className="text-sm leading-8 text-muted-foreground">
+          <AccordionContent className="text-[0.9375rem] leading-[1.9] text-muted-foreground">
             {item.a}
           </AccordionContent>
         </AccordionItem>

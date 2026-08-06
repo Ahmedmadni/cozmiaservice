@@ -23,9 +23,13 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <div className="container-page py-16 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="relative border-t border-border bg-surface">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 arabesque opacity-30 [mask-image:radial-gradient(50%_40%_at_80%_20%,black,transparent)]"
+      />
+      <div className="container-page relative py-16 lg:py-24">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-sm font-bold text-primary-foreground">
@@ -34,7 +38,7 @@ export function Footer() {
               <span className="text-base font-bold">{site.name}</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">{site.tagline}</p>
-            <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+            <ul className="mt-6 space-y-3.5 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0 text-accent" />
                 <a href={`mailto:${site.email}`} className="hover:text-foreground">
@@ -92,7 +96,7 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        <div className="mt-12 flex flex-col gap-5 panel rounded-xl p-5 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col gap-5 panel rounded-xl p-6 sm:flex-row sm:items-center">
           <img
             src={vision2030}
             alt="شعار رؤية السعودية 2030"

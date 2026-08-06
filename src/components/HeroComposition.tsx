@@ -154,7 +154,8 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
       />
       {/* الحجاب: الصورة نسيج يحمل البطاقات، لا لوحة تُقرأ بذاتها. */}
       <div className="absolute inset-0 bg-ink/58" />
-      <div className="absolute inset-0 blueprint opacity-[0.05]" />
+      <div className="absolute inset-0 blueprint opacity-[0.04]" />
+      <div className="absolute inset-0 arabesque opacity-[0.08] [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]" />
       {/* ضوءان فقط: واحد تركوازي وواحد رملي — لا أكثر. */}
       <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/22 blur-[90px]" />
       <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/10 blur-[100px]" />

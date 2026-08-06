@@ -15,17 +15,10 @@ export function CaseStudyCard({ item, featured = false }: { item: CaseStudy; fea
         to="/case-studies/$slug"
         params={{ slug: item.slug }}
         className={cn(
-          "group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1.5",
+          "group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 card-hover",
           featured ? "glass-strong glass-edge lg:p-8" : "glass glass-edge",
         )}
       >
-        {featured ? (
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full bg-accent-soft/60 blur-3xl"
-          />
-        ) : null}
-
         <span className="relative eyebrow text-accent">{item.sector}</span>
         <h3
           className={cn(
@@ -52,11 +45,11 @@ export function CaseStudyCard({ item, featured = false }: { item: CaseStudy; fea
          * المؤشرات كقائمة رأسية لا كأعمدة: التسميات العربية أطول من أن
          * تتّسع في ثلث عرض البطاقة، والأعمدة كانت تقتطعها.
          */}
-        <dl className="relative mt-6 border-t border-border/70 pt-4">
+        <dl className="relative mt-6 border-t border-border/70 pt-5">
           {item.metrics.map((m) => (
             <div
               key={m.label}
-              className="flex items-baseline justify-between gap-4 border-b border-border/50 py-2.5 last:border-b-0"
+              className="flex items-baseline justify-between gap-4 border-b border-border/50 py-3 last:border-b-0"
             >
               <dt className="min-w-0 text-[11px] leading-5 text-muted-foreground">{m.label}</dt>
               <dd

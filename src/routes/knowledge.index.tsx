@@ -34,7 +34,7 @@ function KnowledgePage() {
               key={a.slug}
               to="/knowledge/$slug"
               params={{ slug: a.slug }}
-              className="group panel p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60"
+              className="group panel p-7 card-hover hover:border-accent/60"
             >
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
                 <span className="text-accent">{a.category}</span>
@@ -42,7 +42,7 @@ function KnowledgePage() {
                 <span>{a.readMinutes} دقائق قراءة</span>
               </div>
               <h2 className="mt-3 font-display text-lg font-semibold">{a.title}</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{a.excerpt}</p>
+              <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{a.excerpt}</p>
             </Link>
           ))}
         </div>
