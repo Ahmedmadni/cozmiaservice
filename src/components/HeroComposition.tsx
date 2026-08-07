@@ -202,19 +202,25 @@ function NodeCard({
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ duration: 0.9, ease: EASE.cinematic, delay: 0.25 + index * 0.13 }}
     >
-      <div className="glass-dark glass-edge rounded-2xl p-4 text-ink-foreground">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent/18 text-accent">
+      <div className="glass-dark glass-edge relative overflow-hidden rounded-2xl p-4 text-ink-foreground">
+        {/* بريق زاوي خفيف يعبر أعلى اللوح — انكسار ضوء لا لون مضاف. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -inset-px bg-[linear-gradient(135deg,oklch(1_0_0/0.14),transparent_42%)]"
+        />
+        <div className="relative flex items-center gap-2.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-accent/28 to-accent/10 text-accent ring-1 ring-accent/25 shadow-[0_6px_18px_-8px_var(--color-accent)]">
             <Icon className="h-4 w-4" strokeWidth={1.75} />
           </span>
           <span className="eyebrow text-sand/80" data-num>
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
-        <p className="mt-3 text-sm font-semibold">{node.label}</p>
-        <p className="mt-1 text-[11px] leading-5 text-ink-muted">{node.caption}</p>
+        <p className="relative mt-3 text-sm font-semibold">{node.label}</p>
+        <p className="relative mt-1 text-[11px] leading-5 text-ink-muted">{node.caption}</p>
         {node.id === "growth" ? <Sparkline /> : null}
       </div>
+
     </motion.div>
   );
 }
