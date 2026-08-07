@@ -110,11 +110,14 @@ function Hero() {
   return (
     <section className="relative overflow-hidden pb-28 lg:pb-32">
       <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(90%_60%_at_50%_-10%,var(--color-accent-soft),transparent_70%)] opacity-70" />
         <div className="absolute inset-0 arabesque opacity-50 [mask-image:radial-gradient(55%_50%_at_80%_25%,black,transparent)]" />
         <div className="absolute inset-0 blueprint opacity-40 [mask-image:radial-gradient(60%_55%_at_30%_60%,black,transparent)]" />
         <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
         <div className="absolute -right-32 -top-16 h-72 w-72 rounded-full bg-sand/6 blur-[100px]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
       </div>
+
 
       <div className="container-page relative grid gap-14 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:pt-20">
         <div>
