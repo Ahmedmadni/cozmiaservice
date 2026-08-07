@@ -44,6 +44,32 @@ function ContactPage() {
         description={description}
         image={skyline}
       />
+      <section className="border-b border-border">
+        <div className="container-page py-12 lg:py-16">
+          <div className="relative grid grid-cols-3 gap-8 text-center sm:gap-12">
+            <span
+              aria-hidden
+              className="absolute left-[17%] right-[17%] top-4 hidden h-px bg-border sm:block"
+            />
+            {[
+              { n: "01", t: "أرسل تفاصيل مشروعك" },
+              { n: "02", t: "نراجع احتياجاتك" },
+              { n: "03", t: "نتواصل معك بخطوات واضحة" },
+            ].map((step) => (
+              <div key={step.n} className="relative">
+                <span
+                  className="relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-background font-display text-sm font-semibold text-accent ring-1 ring-border"
+                  data-num
+                >
+                  {step.n}
+                </span>
+                <p className="mt-4 text-xs leading-6 text-muted-foreground sm:text-sm">{step.t}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="container-page py-20 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-5">

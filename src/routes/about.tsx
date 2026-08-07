@@ -98,7 +98,7 @@ function AboutPage() {
         />
         <div className="container-page relative py-20 lg:py-28">
           <SectionHeader eyebrow="لماذا نحن؟" title="ما الذي يشعر به عميلنا؟" />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 divide-y divide-border/40">
             {[
               { t: "بداية منظمة", d: "خطوات مرتبة بدل قرارات متفرقة." },
               { t: "حضور احترافي", d: "هوية وقنوات رقمية تعبّر عن قيمة مشروعك." },
@@ -106,28 +106,17 @@ function AboutPage() {
               { t: "نمو قابل للقياس", d: "مؤشرات واضحة تدعم قرارك التالي." },
             ].map((item, i) => (
               <Reveal key={item.t} delay={i * 70}>
-                <div className="h-full panel p-7">
-                  <span className="font-display text-4xl font-bold text-sand/25" data-num>
+                <div className="flex items-baseline gap-8 py-7 sm:gap-12">
+                  <span
+                    className="shrink-0 font-display text-3xl font-bold text-sand/30 sm:text-4xl"
+                    data-num
+                  >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 text-base font-semibold">{item.t}</h3>
-                  <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{item.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-border bg-surface">
-        <div className="container-page py-20 lg:py-28">
-          <SectionHeader eyebrow="قيمنا" title="أربع قيم تحكم طريقة عملنا" />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((v, i) => (
-              <Reveal key={v.title} delay={i * 70}>
-                <div className="h-full panel p-7">
-                  <h3 className="text-base font-semibold">{v.title}</h3>
-                  <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{v.desc}</p>
+                  <div>
+                    <h3 className="text-base font-semibold">{item.t}</h3>
+                    <p className="mt-1.5 text-sm leading-[1.8] text-muted-foreground">{item.d}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -136,24 +125,43 @@ function AboutPage() {
       </section>
 
       <section className="container-page py-20 lg:py-28">
-        <SectionHeader
-          eyebrow="من نخدم"
-          title="مع من نعمل عادة؟"
-          description="نعمل مع أصحاب المشاريع في المراحل التي يصنع فيها التنظيم فارقًا حقيقيًا."
-        />
-        <div className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {audiences.map((item, i) => (
-            <Reveal key={item.title} delay={i * 70}>
-              <div className="border-t border-border pt-6">
-                <h3 className="text-base font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{item.desc}</p>
+        <SectionHeader eyebrow="قيمنا" title="أربع قيم تحكم طريقة عملنا" />
+        <div className="mt-14 grid gap-x-16 gap-y-10 sm:grid-cols-2">
+          {values.map((v, i) => (
+            <Reveal key={v.title} delay={i * 70}>
+              <div className="border-b border-border pb-8">
+                <span className="font-display text-3xl font-bold text-sand/20" data-num>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-base font-semibold">{v.title}</h3>
+                <p className="mt-2.5 text-sm leading-[1.8] text-muted-foreground">{v.desc}</p>
               </div>
             </Reveal>
           ))}
         </div>
-        <p className="mt-12 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
-          {professionalDisclaimer}
-        </p>
+      </section>
+
+      <section className="border-t border-border bg-surface">
+        <div className="container-page py-20 lg:py-28">
+          <SectionHeader
+            eyebrow="من نخدم"
+            title="مع من نعمل عادة؟"
+            description="نعمل مع أصحاب المشاريع في المراحل التي يصنع فيها التنظيم فارقًا حقيقيًا."
+          />
+          <div className="mt-14 grid gap-x-16 gap-y-10 sm:grid-cols-2">
+            {audiences.map((item, i) => (
+              <Reveal key={item.title} delay={i * 70}>
+                <div className="border-t border-border pt-6">
+                  <h3 className="text-base font-semibold">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-[1.8] text-muted-foreground">{item.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="mt-12 panel rounded-xl bg-surface p-5 text-xs leading-7 text-muted-foreground">
+            {professionalDisclaimer}
+          </p>
+        </div>
       </section>
 
       <CTASection

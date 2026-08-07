@@ -29,10 +29,15 @@ function CaseStudiesPage() {
     <>
       <PageHero eyebrow="قصص النجاح" title="نتائج نفخر بها" description={description} />
       <section className="container-page py-20 lg:py-28">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {caseStudies.map((item) => (
-            <CaseStudyCard key={item.slug} item={item} />
-          ))}
+        <div className="space-y-6">
+          <div>
+            <CaseStudyCard item={caseStudies[0]!} featured />
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.slice(1).map((item) => (
+              <CaseStudyCard key={item.slug} item={item} />
+            ))}
+          </div>
         </div>
         <p className="mt-8 text-xs text-muted-foreground">
           البيانات المعروضة تجريبية وقابلة للاستبدال بمشاريع فعلية.

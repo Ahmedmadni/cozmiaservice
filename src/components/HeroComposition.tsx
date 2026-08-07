@@ -83,7 +83,9 @@ export function HeroComposition({ className }: { className?: string }) {
     <div
       ref={ref}
       className={cn(
-        "relative aspect-[5/6] w-full select-none sm:aspect-[6/5] lg:aspect-[5/6]",
+        // منظر رأسي ثابت عبر كل المقاسات: يمنح البطاقات الأربع مسافة
+        // رأسية كافية فلا تتراكب حين يضيق العمود.
+        "relative aspect-[5/6] w-full select-none",
         className,
       )}
       onPointerMove={(e) => {
@@ -98,6 +100,12 @@ export function HeroComposition({ className }: { className?: string }) {
         my.set(0);
       }}
     >
+      {/* ظل تأسيس ناعم: يُطفي التكوين فوق الخلفية بدل التصاقه بها. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-3 bottom-[3%] top-[12%] -z-10 rounded-[2.75rem] bg-ink/20 blur-3xl"
+      />
+
       <Backdrop x={sx} y={sy} />
 
       {/* المسار الرابط — يُرسم مرة واحدة، ثم يبقى ساكنًا. */}
@@ -140,7 +148,7 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
     <motion.div
       aria-hidden
       style={{ x: tx, y: ty }}
-      className="absolute inset-[-6%] grain overflow-hidden rounded-[2rem] bg-ink"
+      className="absolute inset-[-6%] grain overflow-hidden rounded-[2rem] bg-ink shadow-[0_50px_120px_-50px_oklch(0.185_0.035_253/0.9)] ring-1 ring-white/10"
     >
       <img
         src={skyline}
@@ -156,10 +164,16 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
       <div className="absolute inset-0 bg-ink/58" />
       <div className="absolute inset-0 blueprint opacity-[0.04]" />
       <div className="absolute inset-0 arabesque opacity-[0.08] [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]" />
-      {/* ضوءان فقط: واحد تركوازي وواحد رملي — لا أكثر. */}
+      {/* إضاءة مفتاحية ناعمة من الأعلى — تُعطي المشهد اتجاه ضوء واحد. */}
+      <div className="absolute -top-1/4 right-1/4 h-1/2 w-2/3 rounded-full bg-white/[0.08] blur-[70px]" />
+      {/* ضوءان ملوّنان: تركوازي ورملي. */}
       <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/22 blur-[90px]" />
       <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/10 blur-[100px]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/95 via-ink/25 to-transparent" />
+      {/* تظليل سفلي أعمق: يفتح فرقًا بين الأمام والخلف. */}
+      <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
+      {/* حافة داخلية مضيئة + فينييت مركزي خفيف. */}
+      <div className="absolute inset-0 rounded-[2rem] [box-shadow:inset_0_1px_0_0_oklch(1_0_0/0.14)]" />
+      <div className="absolute inset-0 [background:radial-gradient(82%_72%_at_50%_38%,transparent,oklch(0.185_0.035_253/0.32))]" />
     </motion.div>
   );
 }
@@ -200,17 +214,29 @@ function NodeCard({
         delay: STAGGER.section * 2 + index * STAGGER.section,
       }}
     >
-      <div className="glass-dark glass-edge rounded-2xl p-4 text-ink-foreground">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent/18 text-accent">
-            <Icon className="h-4 w-4" strokeWidth={1.75} />
+      {/*
+       * التحجيم بحسب العمق: البطاقة الأمامية أكبر قليلًا والخلفية أصغر،
+       * فيُقرأ الترتيب كمنظور لا كبطاقات على مستوى واحد. فرق طفيف عمدًا.
+       */}
+      <div
+        className="glass-dark glass-edge relative rounded-[1.3rem] p-[1.15rem] text-ink-foreground shadow-[0_30px_64px_-34px_oklch(0_0_0/0.95)]"
+        style={{ transform: `scale(${0.95 + node.depth * 0.07})` }}
+      >
+        {/* بريق علوي: انكسار ضوء أعلى السطح الزجاجي. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[1.3rem] bg-gradient-to-b from-white/[0.09] to-transparent"
+        />
+        <div className="relative flex items-center gap-2.5">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-accent/18 text-accent ring-1 ring-inset ring-white/10">
+            <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={1.75} />
           </span>
-          <span className="eyebrow text-sand/80" data-num>
+          <span className="eyebrow text-sand/85" data-num>
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
-        <p className="mt-3 text-sm font-semibold">{node.label}</p>
-        <p className="mt-1 text-[11px] leading-5 text-ink-muted">{node.caption}</p>
+        <p className="relative mt-3.5 text-sm font-semibold">{node.label}</p>
+        <p className="relative mt-1 text-[11px] leading-5 text-ink-muted">{node.caption}</p>
         {node.id === "growth" ? <Sparkline /> : null}
       </div>
     </motion.div>
@@ -262,13 +288,13 @@ function ReadinessStrip({
 
   return (
     <motion.div
-      className="absolute inset-x-[6%] bottom-[-4%] z-20"
+      className="absolute inset-x-[7%] bottom-[2%] z-20"
       style={{ x: tx, y: ty }}
       initial={reduced ? false : { opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: STAGGER.section * 8 }}
     >
-      <div className="glass-strong glass-edge flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
+      <div className="glass-strong glass-edge flex items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-[0_30px_64px_-34px_oklch(0_0_0/0.9)]">
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2 w-2 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70 motion-reduce:hidden" />

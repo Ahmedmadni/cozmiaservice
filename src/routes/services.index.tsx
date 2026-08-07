@@ -8,6 +8,7 @@ import { ServicePlate } from "@/components/ServicePlate";
 import { ServiceGridCard } from "@/components/ServiceGridCard";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { cn } from "@/lib/utils";
 import { services, serviceProcess } from "@/data/services";
 import { professionalDisclaimer, site } from "@/data/site";
 
@@ -66,17 +67,25 @@ function ServicesPage() {
           description="حلول متكاملة تساعد منشأتك على الانطلاق والتنظيم والنمو، مع إمكانية اختيار الخدمة التي تناسب احتياجك."
         />
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <Reveal key={service.slug} as="li" delay={(i % 3) * 70} className="relative h-full">
-              <ServiceGridCard service={service} index={i} />
-              {service.slug === "accounting-operations" ? (
-                <span className="pointer-events-none absolute right-4 top-4 z-10 max-w-[calc(100%-2rem)] rounded-full bg-card/90 px-3 py-1.5 text-[11px] font-medium leading-5 text-primary shadow-sm backdrop-blur">
-                  توفير كفاءات ودعم تنظيمي لعملياتك
-                </span>
-              ) : null}
-            </Reveal>
-          ))}
+        <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-10">
+          {services.map((service, i) => {
+            const featured = i < 2 || i >= 5;
+            return (
+              <Reveal
+                key={service.slug}
+                as="li"
+                delay={(i % 3) * 70}
+                className={cn("relative h-full", featured ? "lg:col-span-3" : "lg:col-span-2")}
+              >
+                <ServiceGridCard service={service} index={i} />
+                {service.slug === "accounting-operations" ? (
+                  <span className="pointer-events-none absolute right-4 top-4 z-10 max-w-[calc(100%-2rem)] rounded-full bg-card/90 px-3 py-1.5 text-[11px] font-medium leading-5 text-primary shadow-sm backdrop-blur">
+                    توفير كفاءات ودعم تنظيمي لعملياتك
+                  </span>
+                ) : null}
+              </Reveal>
+            );
+          })}
         </ul>
       </section>
 

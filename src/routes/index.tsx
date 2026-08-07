@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, Check, MoveDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
   DUR,
@@ -83,12 +84,13 @@ function Index() {
   return (
     <>
       <Hero />
-      <ServicesSection />
       <ChallengesSection />
+      <EditorialDivider />
+      <ServicesSection />
       <ProcessSection />
-      <StagePicker />
       <ValueSection />
       <CaseStudiesSection />
+      <StagePicker />
       <CityBand />
       <VisionSection />
       <FAQSection />
@@ -115,107 +117,153 @@ const HERO_BEAT = {
   badge: 0,
   titleTop: STAGGER.section,
   titleBottom: STAGGER.section * 2.4,
-  lead: STAGGER.section * 4.6,
-  actions: STAGGER.section * 5.8,
+  underline: STAGGER.section * 4,
+  lead: STAGGER.section * 4.8,
+  actions: STAGGER.section * 6,
   hint: STAGGER.section * 10,
 } as const;
+
+/*
+ * خلفية الهيرو — طبقات ثابتة (بلا حركة) تُبنى العمق منها.
+ *
+ * القراءة من الخلف إلى الأمام: غسيل عمودي يرفع أعلى المشهد، ثم ضوءان
+ * ملوّنان خافتان (تركوازي قرب النص، كحلي بارد تحت التكوين)، ثم نسيجان
+ * هندسيان مقنّعان إلى ربعين متقابلين حتى يُقرآ كشبكة مقصودة لا كضجيج،
+ * وأخيرًا حبيبات ناعمة وخياطة سفلية تُجلس القسم في ما بعده.
+ */
+function HeroBackdrop() {
+  return (
+    <div aria-hidden className="grain pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-surface/80 via-background to-background" />
+      {/* الضوء التركوازي: قرب كتلة النص (يمين في RTL) */}
+      <div className="absolute -top-40 right-[-10%] h-[42rem] w-[42rem] rounded-full bg-accent-soft/55 blur-[140px]" />
+      {/* لمسة رملية دافئة، خافتة جدًا */}
+      <div className="absolute right-[24%] top-[6%] h-72 w-72 rounded-full bg-sand/[0.07] blur-[120px]" />
+      {/* ضوء كحلي بارد: أسفل يسار، تحت التكوين */}
+      <div className="absolute -bottom-40 left-[-8%] h-[38rem] w-[38rem] rounded-full bg-primary-soft/45 blur-[140px]" />
+      {/* أرابيسك مقنّع إلى أعلى اليمين */}
+      <div className="absolute inset-0 arabesque opacity-60 [mask-image:radial-gradient(58%_54%_at_80%_18%,black,transparent)]" />
+      {/* شبكة إنشائية مقنّعة إلى أسفل اليسار */}
+      <div className="absolute inset-0 blueprint opacity-[0.32] [mask-image:radial-gradient(55%_50%_at_22%_72%,black,transparent)]" />
+      {/* خياطة سفلية تذوب في القسم التالي */}
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+    </div>
+  );
+}
 
 function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden pb-28 lg:pb-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 arabesque opacity-50 [mask-image:radial-gradient(55%_50%_at_80%_25%,black,transparent)]" />
-        <div className="absolute inset-0 blueprint opacity-40 [mask-image:radial-gradient(60%_55%_at_30%_60%,black,transparent)]" />
-        <div className="absolute -left-40 top-1/4 h-[26rem] w-[26rem] rounded-full bg-accent-soft/70 blur-[110px]" />
-        <div className="absolute -right-32 -top-16 h-72 w-72 rounded-full bg-sand/6 blur-[100px]" />
-      </div>
+    <section className="relative isolate overflow-hidden">
+      <HeroBackdrop />
 
-      <div className="container-page relative grid gap-14 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:pt-20">
-        <div>
-          <motion.span
-            initial={reduced ? false : { opacity: 0, y: 10, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: DUR.large, ease: EASE.cinematic, delay: HERO_BEAT.badge }}
-            className="glass glass-edge inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            شريك حلول أعمال للشركات الناشئة والمنشآت الصغيرة
-          </motion.span>
-
-          <h1 className="mt-7 text-[2.1rem] font-bold leading-[1.28] text-balance-ar sm:text-5xl lg:text-[3.6rem] lg:leading-[1.2]">
-            <SplitWords text="نبني أساس مشروعك" delay={HERO_BEAT.titleTop} />
-            <br />
-            <SplitWords
-              text="ونساعده على النمو"
-              className="text-accent"
-              delay={HERO_BEAT.titleBottom}
-            />
-          </h1>
-
-          <motion.p
-            initial={reduced ? false : { opacity: 0, y: 14, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              duration: DUR.hero,
-              ease: EASE.cinematic,
-              delay: HERO_BEAT.lead,
-              filter: { duration: DUR.large, ease: EASE.ui, delay: HERO_BEAT.lead },
-            }}
-            className="mt-7 max-w-lg text-base leading-[1.85] text-muted-foreground lg:text-[1.0625rem]"
-          >
-            حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
-            الأعمال — ضمن مسار واحد واضح.
-          </motion.p>
-
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: HERO_BEAT.actions }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
-          >
-            <Magnetic>
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link to="/" hash="services">
-                  استكشف خدماتنا
-                </Link>
-              </Button>
-            </Magnetic>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="glass glass-edge border-transparent"
-            >
-              <Link to="/assessment">قيّم احتياجات مشروعك</Link>
-            </Button>
-          </motion.div>
-
-          <motion.div
-            aria-hidden
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: DUR.hero, ease: EASE.ui, delay: HERO_BEAT.hint }}
-            className="mt-12 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
-          >
+      <div className="container-page relative">
+        <div className="grid items-center gap-y-14 pb-20 pt-6 sm:gap-y-16 lg:min-h-[min(90vh,52rem)] lg:grid-cols-[1.08fr_1fr] lg:gap-x-16 lg:pb-28 lg:pt-12 xl:gap-x-24">
+          {/* ─────────── العمود النصي ─────────── */}
+          <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-right">
             <motion.span
-              {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
-              transition={{
-                duration: 2.4,
-                repeat: Infinity,
-                ease: EASE.inOut,
-                delay: HERO_BEAT.hint,
-              }}
+              initial={reduced ? false : { opacity: 0, y: 10, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: DUR.large, ease: EASE.cinematic, delay: HERO_BEAT.badge }}
+              className="glass glass-edge inline-flex items-center gap-2.5 rounded-full py-1.5 pl-4 pr-3 text-xs font-medium text-muted-foreground"
             >
-              <MoveDown className="h-4 w-4" />
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70 motion-reduce:hidden" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+              </span>
+              شريك حلول أعمال للشركات الناشئة والمنشآت الصغيرة
             </motion.span>
-            تابع للأسفل
-          </motion.div>
-        </div>
 
-        <div className="lg:pr-4">
-          <HeroComposition />
+            <h1 className="mt-8 text-[2.4rem] font-bold leading-[1.14] text-balance-ar sm:text-[3.1rem] lg:text-[3.85rem] lg:leading-[1.09] xl:text-[4.3rem]">
+              <SplitWords text="نبني أساس مشروعك" delay={HERO_BEAT.titleTop} />
+              <br />
+              <span className="relative inline-block">
+                <SplitWords
+                  text="ونساعده على النمو"
+                  className="text-accent"
+                  delay={HERO_BEAT.titleBottom}
+                />
+                {/* خط رملي رفيع يُرسم أسفل العبارة المميّزة — لمسة الهوية السعودية */}
+                <motion.span
+                  aria-hidden
+                  className="absolute inset-x-0 -bottom-1 h-px origin-right bg-gradient-to-l from-sand via-sand/50 to-transparent"
+                  initial={reduced ? false : { scaleX: 0, opacity: 0 }}
+                  animate={{ scaleX: 1, opacity: 1 }}
+                  transition={{
+                    duration: DUR.hero,
+                    ease: EASE.cinematic,
+                    delay: HERO_BEAT.underline,
+                  }}
+                />
+              </span>
+            </h1>
+
+            <motion.p
+              initial={reduced ? false : { opacity: 0, y: 14, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                duration: DUR.hero,
+                ease: EASE.cinematic,
+                delay: HERO_BEAT.lead,
+                filter: { duration: DUR.large, ease: EASE.ui, delay: HERO_BEAT.lead },
+              }}
+              className="mt-7 max-w-md text-base leading-[1.9] text-muted-foreground sm:text-[1.0625rem] lg:mt-8 lg:max-w-lg"
+            >
+              حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات
+              ودعم الأعمال — ضمن مسار واحد واضح.
+            </motion.p>
+
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: HERO_BEAT.actions }}
+              className="mt-10 flex w-full flex-col gap-3.5 sm:w-auto sm:flex-row sm:items-center lg:mt-11"
+            >
+              <Magnetic className="w-full sm:w-auto">
+                <Button asChild size="lg" className="group w-full gap-2.5 px-9 sm:w-auto">
+                  <Link to="/" hash="services">
+                    استكشف خدماتنا
+                    <ArrowLeft className="h-4 w-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1 motion-reduce:transform-none" />
+                  </Link>
+                </Button>
+              </Magnetic>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="glass glass-edge w-full border-transparent sm:w-auto"
+              >
+                <Link to="/assessment">قيّم احتياجات مشروعك</Link>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              aria-hidden
+              initial={reduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: DUR.hero, ease: EASE.ui, delay: HERO_BEAT.hint }}
+              className="mt-14 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
+            >
+              <motion.span
+                {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
+                transition={{
+                  duration: 2.4,
+                  repeat: Infinity,
+                  ease: EASE.inOut,
+                  delay: HERO_BEAT.hint,
+                }}
+              >
+                <MoveDown className="h-4 w-4" />
+              </motion.span>
+              تابع للأسفل
+            </motion.div>
+          </div>
+
+          {/* ─────────── العمود البصري ─────────── */}
+          <div className="relative z-0 mx-auto w-full max-w-sm sm:max-w-lg lg:max-w-none lg:pr-2">
+            <HeroComposition />
+          </div>
         </div>
       </div>
     </section>
@@ -242,12 +290,20 @@ function ServicesSection() {
         </Link>
       </div>
 
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, i) => (
-          <Rise as="li" key={service.slug} delay={(i % 3) * STAGGER.item * 1000} className="h-full">
-            <ServiceGridCard service={service} index={i} />
-          </Rise>
-        ))}
+      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+        {services.map((service, i) => {
+          const featured = i < 2 || i >= 5;
+          return (
+            <Rise
+              as="li"
+              key={service.slug}
+              delay={(i % 3) * STAGGER.item * 1000}
+              className={cn("h-full", featured ? "lg:col-span-3" : "lg:col-span-2")}
+            >
+              <ServiceGridCard service={service} index={i} />
+            </Rise>
+          );
+        })}
       </ul>
 
       <div className="mt-10 sm:hidden">
@@ -309,16 +365,62 @@ function ChallengesSection() {
           </p>
         </div>
 
-        <RiseGroup as="ul" className="grid gap-4 sm:grid-cols-2" stagger={0.05}>
-          {challenges.map((c) => (
-            <RiseItem key={c.title} as="li">
-              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-                <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
-                <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{c.desc}</p>
-              </div>
-            </RiseItem>
-          ))}
-        </RiseGroup>
+        <div className="space-y-4">
+          <Rise>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 sm:p-10">
+              <h3 className="text-lg font-semibold sm:text-xl">{challenges[0]!.title}</h3>
+              <p className="mt-3 max-w-lg text-base leading-[1.9] text-ink-muted">
+                {challenges[0]!.desc}
+              </p>
+            </div>
+          </Rise>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {challenges.slice(1, 3).map((c, i) => (
+              <Rise key={c.title} delay={(i + 1) * 60}>
+                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                  <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
+                  <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{c.desc}</p>
+                </div>
+              </Rise>
+            ))}
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-[1.4fr_0.6fr]">
+            {challenges.slice(3, 5).map((c, i) => (
+              <Rise key={c.title} delay={(i + 3) * 60}>
+                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                  <h3 className="text-sm font-semibold sm:text-base">{c.title}</h3>
+                  <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{c.desc}</p>
+                </div>
+              </Rise>
+            ))}
+          </div>
+
+          <Rise delay={300}>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:max-w-sm">
+              <h3 className="text-sm font-semibold sm:text-base">{challenges[5]!.title}</h3>
+              <p className="mt-2.5 text-sm leading-[1.8] text-ink-muted">{challenges[5]!.desc}</p>
+            </div>
+          </Rise>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════ فاصل تحريري ═══════════════════ */
+
+function EditorialDivider() {
+  return (
+    <section className="container-page py-24 lg:py-36">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="text-[1.75rem] font-bold leading-[1.4] text-balance-ar sm:text-4xl lg:text-[2.8rem] lg:leading-[1.3]">
+          <SplitWords text="الحل ليس في جهود أكثر — بل في ترابط أكثر" />
+        </h2>
+        <Rise delay={120}>
+          <span aria-hidden className="mx-auto mt-8 block h-px w-16 bg-sand" />
+        </Rise>
       </div>
     </section>
   );
@@ -512,14 +614,20 @@ function CaseStudiesSection() {
         </Link>
       </div>
 
-      <div ref={ref} className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {caseStudies.map((item, i) => (
-          <motion.div key={item.slug} className="h-full" {...(i === 0 ? { style: { y } } : {})}>
-            <Rise delay={i * STAGGER.item * 1000} className="h-full">
-              <CaseStudyCard item={item} featured={i === 0} />
+      <div ref={ref} className="mt-14 space-y-6">
+        <motion.div style={{ y }}>
+          <Rise className="h-full">
+            <CaseStudyCard item={caseStudies[0]!} featured />
+          </Rise>
+        </motion.div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {caseStudies.slice(1).map((item, i) => (
+            <Rise key={item.slug} delay={(i + 1) * STAGGER.item * 1000} className="h-full">
+              <CaseStudyCard item={item} />
             </Rise>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -531,22 +639,28 @@ function CityBand() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative h-56 overflow-hidden sm:h-72 lg:h-[26rem]">
-      <motion.img
-        src={riyadhSkyline}
-        alt=""
-        aria-hidden
-        initial={reduced ? false : { scale: 1.12 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: DUR.hero * 2.2, ease: EASE.cinematic }}
-        className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
-      />
+    <section className="relative -mt-px overflow-hidden">
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"
+        className="absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-background to-transparent"
       />
-      <div aria-hidden className="absolute inset-0 bg-ink/30" />
+      <div className="relative h-56 sm:h-72 lg:h-[26rem]">
+        <motion.img
+          src={riyadhSkyline}
+          alt=""
+          aria-hidden
+          initial={reduced ? false : { scale: 1.12 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: DUR.hero * 2.2, ease: EASE.cinematic }}
+          className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+        />
+        <div aria-hidden className="absolute inset-0 bg-ink/20" />
+      </div>
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-background to-transparent"
+      />
     </section>
   );
 }
