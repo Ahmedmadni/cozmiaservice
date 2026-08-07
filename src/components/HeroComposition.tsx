@@ -276,7 +276,7 @@ function ReadinessStrip({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, ease: EASE.cinematic, delay: 0.95 }}
     >
-      <div className="glass-strong glass-edge flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
+      <div className="glass-strong glass-edge flex items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-[0_30px_64px_-32px_oklch(0_0_0/0.6)]">
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2 w-2 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70 motion-reduce:hidden" />
