@@ -140,7 +140,7 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
     <motion.div
       aria-hidden
       style={{ x: tx, y: ty }}
-      className="absolute inset-[-6%] grain overflow-hidden rounded-[2rem] bg-ink"
+      className="absolute inset-[-6%] grain overflow-hidden rounded-[2rem] bg-ink shadow-[0_60px_120px_-60px_oklch(0_0_0/0.85)] ring-1 ring-white/10"
     >
       <img
         src={skyline}
@@ -150,17 +150,23 @@ function Backdrop({ x, y }: { x: ReturnType<typeof useSpring>; y: ReturnType<typ
         height={1018}
         fetchPriority="high"
         decoding="async"
-        className="absolute inset-0 h-full w-full scale-105 object-cover"
+        className="absolute inset-0 h-full w-full scale-105 object-cover contrast-[1.06] saturate-[0.92]"
       />
-      {/* الحجاب: الصورة نسيج يحمل البطاقات، لا لوحة تُقرأ بذاتها. */}
-      <div className="absolute inset-0 bg-ink/58" />
+      {/* الحجاب: متدرّج لا مسطّح — يفتح عند المنتصف ويعتم عند الأطراف. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/72 via-ink/44 to-ink/80" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_38%,transparent,oklch(0.16_0.03_253/0.55))]" />
       <div className="absolute inset-0 blueprint opacity-[0.04]" />
       <div className="absolute inset-0 arabesque opacity-[0.08] [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]" />
       {/* ضوءان فقط: واحد تركوازي وواحد رملي — لا أكثر. */}
-      <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/22 blur-[90px]" />
-      <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/10 blur-[100px]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/95 via-ink/25 to-transparent" />
+      <div className="absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full bg-accent/24 blur-[90px]" />
+      <div className="absolute -bottom-1/3 -left-1/4 h-2/3 w-2/3 rounded-full bg-sand/12 blur-[100px]" />
+      {/* انعكاس ضوء زاحف على الحافة العليا — يعطي إحساس السطح المصقول. */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/35 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/96 via-ink/28 to-transparent" />
+      {/* تعتيم محيطي داخلي (vignette) يجمع المشهد نحو المركز. */}
+      <div className="absolute inset-0 shadow-[inset_0_0_120px_40px_oklch(0.16_0.03_253/0.6)]" />
     </motion.div>
+
   );
 }
 
