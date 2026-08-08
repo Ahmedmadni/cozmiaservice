@@ -17,7 +17,7 @@ import {
 } from "@/components/motion";
 import { HeroComposition } from "@/components/HeroComposition";
 import { Constellation } from "@/components/Constellation";
-import { ServiceGridCard } from "@/components/ServiceGridCard";
+import { ServicesEditorial } from "@/components/ServicesEditorial";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
