@@ -199,7 +199,7 @@ function Hero() {
 
 function ServicesSection() {
   return (
-    <section id="services" className="container-page scroll-mt-24 py-20 lg:py-28">
+    <section id="services" className="container-page scroll-mt-24 py-24 lg:py-32">
       <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
         <SectionHeader
           eyebrow="الخدمات"
@@ -215,13 +215,7 @@ function ServicesSection() {
         </Link>
       </div>
 
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, i) => (
-          <Rise as="li" key={service.slug} delay={(i % 3) * 70} className="h-full">
-            <ServiceGridCard service={service} index={i} />
-          </Rise>
-        ))}
-      </ul>
+      <ServicesEditorial items={services} />
 
       <div className="mt-10 sm:hidden">
         <Button asChild className="w-full">
