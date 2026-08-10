@@ -51,7 +51,7 @@ export function IconBadge({
     <span
       aria-hidden
       className={cn(
-        "grid shrink-0 place-items-center transition-colors duration-500",
+        "grid shrink-0 place-items-center transition-colors duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
         shape === "circle" ? "rounded-full" : "rounded-xl",
         s.box,
         // الحلقة الخارجية بلون الخلفية تفصل القرص عن البطاقة تحته

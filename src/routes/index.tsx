@@ -21,7 +21,6 @@ import {
 import { HeroComposition } from "@/components/HeroComposition";
 import { Constellation } from "@/components/Constellation";
 import { ServiceGridCard } from "@/components/ServiceGridCard";
-import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
 import { VisionSection } from "@/components/VisionSection";
@@ -30,6 +29,7 @@ import { processSteps, projectStages, whyUs } from "@/data/solutions";
 import { services } from "@/data/services";
 import { caseStudies, faqs } from "@/data/content";
 import riyadhSkyline from "@/assets/band-wide.webp";
+import heroSkyline from "@/assets/hero-skyline.webp";
 
 const title = `${site.name} | نبني أساس مشروعك… ونساعده على النمو`;
 const description =
@@ -123,30 +123,24 @@ const HERO_BEAT = {
   hint: STAGGER.section * 10,
 } as const;
 
-/*
- * خلفية الهيرو — طبقات ثابتة (بلا حركة) تُبنى العمق منها.
- *
- * القراءة من الخلف إلى الأمام: غسيل عمودي يرفع أعلى المشهد، ثم ضوءان
- * ملوّنان خافتان (تركوازي قرب النص، كحلي بارد تحت التكوين)، ثم نسيجان
- * هندسيان مقنّعان إلى ربعين متقابلين حتى يُقرآ كشبكة مقصودة لا كضجيج،
- * وأخيرًا حبيبات ناعمة وخياطة سفلية تُجلس القسم في ما بعده.
- */
 function HeroBackdrop() {
   return (
-    <div aria-hidden className="grain pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-surface/80 via-background to-background" />
-      {/* الضوء التركوازي: قرب كتلة النص (يمين في RTL) */}
-      <div className="absolute -top-40 right-[-10%] h-[42rem] w-[42rem] rounded-full bg-accent-soft/55 blur-[140px]" />
-      {/* لمسة رملية دافئة، خافتة جدًا */}
-      <div className="absolute right-[24%] top-[6%] h-72 w-72 rounded-full bg-sand/[0.07] blur-[120px]" />
-      {/* ضوء كحلي بارد: أسفل يسار، تحت التكوين */}
-      <div className="absolute -bottom-40 left-[-8%] h-[38rem] w-[38rem] rounded-full bg-primary-soft/45 blur-[140px]" />
-      {/* أرابيسك مقنّع إلى أعلى اليمين */}
-      <div className="absolute inset-0 arabesque opacity-60 [mask-image:radial-gradient(58%_54%_at_80%_18%,black,transparent)]" />
-      {/* شبكة إنشائية مقنّعة إلى أسفل اليسار */}
-      <div className="absolute inset-0 blueprint opacity-[0.32] [mask-image:radial-gradient(55%_50%_at_22%_72%,black,transparent)]" />
-      {/* خياطة سفلية تذوب في القسم التالي */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      <img
+        src={heroSkyline}
+        alt=""
+        width={760}
+        height={1018}
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.06] grayscale-[0.6] [mask-image:linear-gradient(to_bottom,transparent_5%,black_30%,black_65%,transparent_95%)]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-background/80" />
+      <div className="absolute right-[15%] top-[25%] h-[45vh] w-[30vw] rounded-full bg-accent-soft/30 blur-[140px]" />
+      <div className="absolute bottom-[10%] left-[20%] h-[35vh] w-[25vw] rounded-full bg-sand/8 blur-[120px]" />
+      <div className="absolute inset-0 arabesque opacity-[0.02] [mask-image:radial-gradient(50%_45%_at_60%_35%,black,transparent)]" />
+      <div className="absolute inset-0 grain opacity-15" />
     </div>
   );
 }
@@ -155,117 +149,108 @@ function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section className="relative isolate min-h-[100dvh] overflow-hidden bg-background">
       <HeroBackdrop />
 
-      <div className="container-page relative">
-        <div className="grid items-center gap-y-14 pb-20 pt-6 sm:gap-y-16 lg:min-h-[min(90vh,52rem)] lg:grid-cols-[1.08fr_1fr] lg:gap-x-16 lg:pb-28 lg:pt-12 xl:gap-x-24">
-          {/* ─────────── العمود النصي ─────────── */}
-          <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-right">
-            <motion.span
-              initial={reduced ? false : { opacity: 0, y: 10, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: DUR.large, ease: EASE.cinematic, delay: HERO_BEAT.badge }}
-              className="glass glass-edge inline-flex items-center gap-2.5 rounded-full py-1.5 pl-4 pr-3 text-xs font-medium text-muted-foreground"
-            >
-              <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70 motion-reduce:hidden" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-              </span>
-              شريك حلول أعمال للشركات الناشئة والمنشآت الصغيرة
-            </motion.span>
+      <div className="container-page relative z-10 grid items-center gap-12 pb-28 pt-28 lg:grid-cols-[1.15fr_0.85fr] lg:gap-x-16 lg:pb-36 lg:pt-36">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-right">
+          <motion.span
+            initial={reduced ? false : { opacity: 0, y: 10, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: DUR.large, ease: EASE.cinematic, delay: HERO_BEAT.badge }}
+            className="inline-flex items-center gap-2.5 rounded-full border border-border/40 bg-card/50 py-1.5 pl-4 pr-3 text-xs font-medium text-muted-foreground backdrop-blur-sm"
+          >
+            <span className="relative flex h-1.5 w-1.5 shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70 motion-reduce:hidden" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            شريك حلول أعمال للشركات الناشئة والمنشآت الصغيرة
+          </motion.span>
 
-            <h1 className="mt-8 text-[2.4rem] font-bold leading-[1.14] text-balance-ar sm:text-[3.1rem] lg:text-[3.85rem] lg:leading-[1.09] xl:text-[4.3rem]">
-              <SplitWords text="نبني أساس مشروعك" delay={HERO_BEAT.titleTop} />
-              <br />
-              <span className="relative inline-block">
-                <SplitWords
-                  text="ونساعده على النمو"
-                  className="text-accent"
-                  delay={HERO_BEAT.titleBottom}
-                />
-                {/* خط رملي رفيع يُرسم أسفل العبارة المميّزة — لمسة الهوية السعودية */}
-                <motion.span
-                  aria-hidden
-                  className="absolute inset-x-0 -bottom-1 h-px origin-right bg-gradient-to-l from-sand via-sand/50 to-transparent"
-                  initial={reduced ? false : { scaleX: 0, opacity: 0 }}
-                  animate={{ scaleX: 1, opacity: 1 }}
-                  transition={{
-                    duration: DUR.hero,
-                    ease: EASE.cinematic,
-                    delay: HERO_BEAT.underline,
-                  }}
-                />
-              </span>
-            </h1>
-
-            <motion.p
-              initial={reduced ? false : { opacity: 0, y: 14, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: DUR.hero,
-                ease: EASE.cinematic,
-                delay: HERO_BEAT.lead,
-                filter: { duration: DUR.large, ease: EASE.ui, delay: HERO_BEAT.lead },
-              }}
-              className="mt-7 max-w-md text-base leading-[1.9] text-muted-foreground sm:text-[1.0625rem] lg:mt-8 lg:max-w-lg"
-            >
-              حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات
-              ودعم الأعمال — ضمن مسار واحد واضح.
-            </motion.p>
-
-            <motion.div
-              initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: HERO_BEAT.actions }}
-              className="mt-10 flex w-full flex-col gap-3.5 sm:w-auto sm:flex-row sm:items-center lg:mt-11"
-            >
-              <Magnetic className="w-full sm:w-auto">
-                <Button asChild size="lg" className="group w-full gap-2.5 px-9 sm:w-auto">
-                  <Link to="/" hash="services">
-                    استكشف خدماتنا
-                    <ArrowLeft className="h-4 w-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1 motion-reduce:transform-none" />
-                  </Link>
-                </Button>
-              </Magnetic>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="glass glass-edge w-full border-transparent sm:w-auto"
-              >
-                <Link to="/assessment">قيّم احتياجات مشروعك</Link>
-              </Button>
-            </motion.div>
-
-            <motion.div
-              aria-hidden
-              initial={reduced ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: DUR.hero, ease: EASE.ui, delay: HERO_BEAT.hint }}
-              className="mt-14 hidden items-center gap-3 text-xs text-muted-foreground lg:flex"
-            >
+          <h1 className="mt-10 font-display text-[2.75rem] font-bold leading-[1.08] text-foreground text-balance-ar sm:text-[3.5rem] lg:mt-12 lg:text-[4.5rem] lg:leading-[1.05] xl:text-[5.25rem]">
+            <SplitWords text="نبني أساس مشروعك" delay={HERO_BEAT.titleTop} />
+            <br />
+            <span className="relative inline-block">
+              <SplitWords
+                text="ونساعده على النمو"
+                className="text-accent"
+                delay={HERO_BEAT.titleBottom}
+              />
               <motion.span
-                {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
+                aria-hidden
+                className="absolute inset-x-0 -bottom-1.5 h-px origin-right bg-gradient-to-l from-sand via-sand/50 to-transparent"
+                initial={reduced ? false : { scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
                 transition={{
-                  duration: 2.4,
-                  repeat: Infinity,
-                  ease: EASE.inOut,
-                  delay: HERO_BEAT.hint,
+                  duration: DUR.hero,
+                  ease: EASE.cinematic,
+                  delay: HERO_BEAT.underline,
                 }}
-              >
-                <MoveDown className="h-4 w-4" />
-              </motion.span>
-              تابع للأسفل
-            </motion.div>
-          </div>
+              />
+            </span>
+          </h1>
 
-          {/* ─────────── العمود البصري ─────────── */}
-          <div className="relative z-0 mx-auto w-full max-w-sm sm:max-w-lg lg:max-w-none lg:pr-2">
-            <HeroComposition />
-          </div>
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 14, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: DUR.hero,
+              ease: EASE.cinematic,
+              delay: HERO_BEAT.lead,
+              filter: { duration: DUR.large, ease: EASE.ui, delay: HERO_BEAT.lead },
+            }}
+            className="mt-7 max-w-md text-base leading-[1.85] text-muted-foreground sm:text-[1.0625rem] lg:mt-9 lg:max-w-lg"
+          >
+            حلول مترابطة تشمل التصميم والحضور الرقمي والتسويق والأنظمة والتنظيم وتوفير الكفاءات ودعم
+            الأعمال — ضمن مسار واحد واضح.
+          </motion.p>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: DUR.hero, ease: EASE.cinematic, delay: HERO_BEAT.actions }}
+            className="mt-10 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center lg:mt-12"
+          >
+            <Magnetic className="w-full sm:w-auto">
+              <Button asChild size="lg" className="group w-full gap-2.5 px-10 shadow-lg sm:w-auto">
+                <Link to="/" hash="services">
+                  استكشف خدماتنا
+                  <ArrowLeft className="h-4 w-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1 motion-reduce:transform-none" />
+                </Link>
+              </Button>
+            </Magnetic>
+            <Link
+              to="/assessment"
+              className="link-sweep text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              قيّم احتياجات مشروعك
+            </Link>
+          </motion.div>
         </div>
+
+        <HeroComposition className="hidden lg:block" />
       </div>
+
+      <motion.div
+        aria-hidden
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: DUR.hero, ease: EASE.ui, delay: HERO_BEAT.hint }}
+        className="absolute inset-x-0 bottom-12 z-10 flex flex-col items-center gap-2 text-xs text-muted-foreground"
+      >
+        <motion.span
+          {...(reduced ? {} : { animate: { y: [0, 6, 0] } })}
+          transition={{
+            duration: 2.4,
+            repeat: Infinity,
+            ease: EASE.inOut,
+            delay: HERO_BEAT.hint,
+          }}
+        >
+          <MoveDown className="h-4 w-4" />
+        </motion.span>
+        تابع للأسفل
+      </motion.div>
     </section>
   );
 }
@@ -357,7 +342,7 @@ function ChallengesSection() {
       <div className="container-page relative grid gap-10 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:py-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <span className="eyebrow text-sand">التحديات</span>
-          <h2 className="mt-5 text-[1.6rem] font-bold leading-[1.32] text-balance-ar sm:text-[2rem]">
+          <h2 className="mt-5 font-display text-[1.6rem] font-bold leading-[1.32] text-balance-ar sm:text-[2rem]">
             <SplitWords text="ما الذي يعطّل المشاريع عادة؟" />
           </h2>
           <p className="mt-6 max-w-xs text-sm leading-[1.8] text-ink-muted">
@@ -415,7 +400,7 @@ function EditorialDivider() {
   return (
     <section className="container-page py-24 lg:py-36">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="text-[1.75rem] font-bold leading-[1.4] text-balance-ar sm:text-4xl lg:text-[2.8rem] lg:leading-[1.3]">
+        <h2 className="font-display text-[1.75rem] font-bold leading-[1.4] text-balance-ar sm:text-4xl lg:text-[2.8rem] lg:leading-[1.3]">
           <SplitWords text="الحل ليس في جهود أكثر — بل في ترابط أكثر" />
         </h2>
         <Rise delay={120}>
@@ -569,7 +554,7 @@ function ValueSection() {
       <div className="container-page grid gap-12 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:py-28">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <span className="eyebrow text-accent">القيمة</span>
-          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
+          <h2 className="mt-5 font-display text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="حلول مترابطة… حول احتياجات مشروعك" />
           </h2>
           <Rise delay={120}>
@@ -596,38 +581,159 @@ function ValueSection() {
   );
 }
 
-/* ═══════════════════ 8 — قصص النجاح ═══════════════════ */
+/* ═══════════════════ 8 — قصص النجاح والثقة ═══════════════════ */
+
+const TRUST_INDICATORS = [
+  { label: "سنوات خبرة", value: "—" },
+  { label: "مشروع مُنفّذ", value: "—" },
+  { label: "قطاع أعمال", value: "—" },
+  { label: "منطقة في المملكة", value: "—" },
+];
+
+const CLIENT_META = [
+  { label: "القطاع", value: "أغذية ومنتجات" },
+  { label: "الحجم", value: "—" },
+  { label: "النطاق", value: "هوية + متجر + تشغيل" },
+  { label: "الموقع", value: "المملكة العربية السعودية" },
+];
 
 function CaseStudiesSection() {
-  const { ref, y } = useParallax(28);
+  const featured = caseStudies[0]!;
+  const supporting = caseStudies.slice(1, 3);
 
   return (
-    <section className="container-page py-20 lg:py-28">
-      <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
-        <SectionHeader eyebrow="قصص النجاح" title="نتائج من مشاريع عملنا معها" />
-        <Link
-          to="/case-studies"
-          className="link-sweep hidden items-center gap-2 pb-2 text-sm font-medium text-primary sm:inline-flex"
-        >
-          كل القصص
-          <ArrowLeft className="h-4 w-4" />
-        </Link>
-      </div>
-
-      <div ref={ref} className="mt-14 space-y-6">
-        <motion.div style={{ y }}>
-          <Rise className="h-full">
-            <CaseStudyCard item={caseStudies[0]!} featured />
-          </Rise>
-        </motion.div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {caseStudies.slice(1).map((item, i) => (
-            <Rise key={item.slug} delay={(i + 1) * STAGGER.item * 1000} className="h-full">
-              <CaseStudyCard item={item} />
-            </Rise>
-          ))}
+    <section className="border-y border-border bg-surface">
+      <div className="container-page py-24 lg:py-36">
+        <div className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+          <SectionHeader eyebrow="قصص النجاح" title="نتائج من مشاريع عملنا معها" />
+          <Link
+            to="/case-studies"
+            className="link-sweep hidden items-center gap-2 pb-2 text-sm font-medium text-primary sm:inline-flex"
+          >
+            كل القصص
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
         </div>
+
+        <div className="mt-20 grid gap-12 lg:mt-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+          {/* ── القصة الرئيسية ── */}
+          <Rise>
+            <div className="flex h-full flex-col">
+              <div className="flex items-center gap-2.5">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-border/30 text-[9px] font-semibold text-muted-foreground">
+                  {featured.name.charAt(0)}
+                </span>
+                <span className="text-xs font-medium text-muted-foreground">{featured.name}</span>
+              </div>
+
+              <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-[11px] text-muted-foreground/70">
+                {CLIENT_META.map((m) => (
+                  <div key={m.label} className="flex gap-1.5">
+                    <dt className="font-medium">{m.label}</dt>
+                    <dd>{m.value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-12 lg:mt-16">
+                <span
+                  className="font-display text-[3.5rem] font-bold leading-none tracking-tight text-foreground lg:text-[4.5rem]"
+                  dir="ltr"
+                >
+                  {featured.metrics[0]!.value}
+                </span>
+                <p className="mt-3 text-sm text-muted-foreground">{featured.metrics[0]!.label}</p>
+              </div>
+
+              <blockquote className="mt-14 border-r border-sand/30 pr-6 lg:mt-16">
+                <span aria-hidden className="block font-display text-4xl leading-none text-sand/20">
+                  &ldquo;
+                </span>
+                <p className="mt-3 text-base font-medium leading-[1.75] text-foreground/85 lg:text-lg lg:leading-[1.7]">
+                  {featured.result}
+                </p>
+              </blockquote>
+
+              <div className="mt-12 flex flex-wrap gap-2 lg:mt-14">
+                {featured.services.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-full border border-border/30 px-3 py-1 text-[10px] text-muted-foreground/70"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Rise>
+
+          {/* ── قصص داعمة ── */}
+          <div className="flex flex-col gap-10 lg:gap-12 lg:pt-10">
+            {supporting.map((item, i) => (
+              <Rise key={item.slug} delay={(i + 1) * STAGGER.item * 1000}>
+                <div className="border-r border-border/20 pr-5">
+                  <div className="flex items-center gap-2">
+                    <span className="grid h-5 w-5 shrink-0 place-items-center rounded border border-border/20 text-[7px] font-semibold text-muted-foreground/60">
+                      {item.name.charAt(0)}
+                    </span>
+                    <span className="text-[11px] font-medium text-muted-foreground/60">
+                      {item.name}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/40">·</span>
+                    <span className="text-[10px] text-muted-foreground/40">{item.sector}</span>
+                  </div>
+
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span
+                      className="font-display text-xl font-bold leading-none text-foreground/70"
+                      dir="ltr"
+                    >
+                      {item.metrics[0]!.value}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/50">
+                      {item.metrics[0]!.label}
+                    </span>
+                  </div>
+
+                  <p className="mt-3 text-xs leading-[1.8] text-muted-foreground/60">
+                    {item.result}
+                  </p>
+
+                  <Link
+                    to="/case-studies/$slug"
+                    params={{ slug: item.slug }}
+                    className="link-sweep mt-4 inline-flex items-center gap-1.5 text-[11px] font-medium text-primary/70"
+                  >
+                    التفاصيل
+                    <ArrowLeft className="h-3 w-3" />
+                  </Link>
+                </div>
+              </Rise>
+            ))}
+          </div>
+        </div>
+
+        {/* ── شريط مؤشرات الثقة ── */}
+        <Rise delay={STAGGER.section * 1000 * 4}>
+          <div className="mt-24 border-t border-border/20 pt-10 lg:mt-32">
+            <dl className="flex flex-wrap justify-between gap-y-6">
+              {TRUST_INDICATORS.map((ind, i) => (
+                <div key={ind.label} className="flex items-baseline gap-2.5">
+                  <dd className="font-display text-lg font-semibold text-foreground/80">
+                    {ind.value}
+                  </dd>
+                  <dt className="text-[11px] text-muted-foreground/50">{ind.label}</dt>
+                  {i < TRUST_INDICATORS.length - 1 ? (
+                    <span
+                      aria-hidden
+                      className="mr-4 hidden h-3 w-px bg-border/20 sm:inline-block lg:mr-8"
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </dl>
+          </div>
+        </Rise>
       </div>
     </section>
   );
@@ -676,7 +782,7 @@ function FAQSection() {
             <span aria-hidden className="h-px w-10 bg-sand" />
             <span className="eyebrow">الأسئلة الشائعة</span>
           </span>
-          <h2 className="mt-5 text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
+          <h2 className="mt-5 font-display text-[1.75rem] font-bold leading-[1.3] text-balance-ar sm:text-4xl">
             <SplitWords text="أسئلة نسمعها كثيرًا" />
           </h2>
           <Rise delay={120}>

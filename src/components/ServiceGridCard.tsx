@@ -26,7 +26,7 @@ export function ServiceGridCard({ service, index }: { service: Service; index?: 
             width={1200}
             height={900}
             loading="lazy"
-            className="h-full w-full object-cover saturate-[0.92] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.06] group-hover:saturate-100 motion-reduce:transform-none"
+            className="h-full w-full object-cover saturate-[0.92] transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.06] group-hover:saturate-100 motion-reduce:transform-none"
           />
           <span
             aria-hidden

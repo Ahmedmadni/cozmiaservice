@@ -49,6 +49,33 @@
   --font-display: "Alexandria", "IBM Plex Sans Arabic", ui-sans-serif, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 
+  /* ── سلّم الطباعة — مبني على Arabic-optimized line-heights ──── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.38;
+  --leading-normal: 1.7;
+  --leading-relaxed: 1.85;
+  --leading-loose: 2;
+
+  /* أوزان الخطوط — تدرّج من الجسم إلى العرض */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* الإيقاع العمودي — مسافات بين العناصر النصية */
+  --space-paragraph: 1.25em;
+  --space-heading: 2.5rem;
+  --space-section: clamp(4rem, 8vw, 7rem);
+
+  /* عرض القراءة المثالي للنص العربي */
+  --prose-width: 42rem;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -247,36 +274,76 @@
   }
 
   /*
-   * العناوين: وزن 700 وتتبّع سالب. الخط العربي الهندسي يحتاج وزنًا
-   * أثقل من اللاتيني ليحمل نفس الحضور عند الأحجام الكبيرة، والتتبّع
-   * السالب يشدّ الكلمات فتُقرأ ككتلة واحدة لا كحروف متجاورة.
+   * تسلسل العناوين (H1–H6)
+   *
+   * الخط العربي الهندسي يحتاج وزنًا أثقل من اللاتيني ليحمل نفس
+   * الحضور عند الأحجام الكبيرة. التتبّع السالب يشدّ الكلمات فتُقرأ
+   * ككتلة واحدة. كل مستوى يحمل ارتفاع سطر مُعدّ للحروف العربية
+   * التي تمتد أعلى وأسفل من اللاتينية.
    */
   h1,
   h2,
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: var(--weight-bold);
     letter-spacing: -0.025em;
     line-height: 1.3;
+    text-wrap: balance;
   }
 
-  /* الأحجام الكبيرة تحتمل تتبّعًا أشدّ */
   h1 {
     letter-spacing: -0.035em;
-    line-height: 1.22;
+    line-height: 1.2;
   }
 
-  h3,
+  h2 {
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-weight: var(--weight-semibold);
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+  }
+
   h4 {
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
     letter-spacing: -0.015em;
-    line-height: 1.38;
+    line-height: var(--leading-snug);
   }
 
-  /* توحيد معالجة النصوص عبر الموقع */
+  h5 {
+    font-weight: var(--weight-semibold);
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+  }
+
+  h6 {
+    font-weight: var(--weight-medium);
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  /*
+   * النص الجسدي — ارتفاع سطر 1.7 هو الحدّ الأدنى المريح للعربية.
+   * المسافة بين الفقرات تخلق إيقاعًا عموديًا واضحًا دون فراغ مفرط.
+   */
   p {
     -webkit-font-smoothing: antialiased;
+    line-height: var(--leading-normal);
+  }
+
+  p + p {
+    margin-top: var(--space-paragraph);
+  }
+
+  /* القوائم ترث إيقاع النص الجسدي */
+  li {
+    line-height: var(--leading-normal);
   }
 
   /* الأرقام اللاتينية داخل نص عربي — عرض ثابت ومحاذاة سليمة */
@@ -420,21 +487,23 @@
  */
 @utility card-hover {
   will-change: transform;
-  transform: translate3d(0, 0, 0) scale(1);
+  /* بُعد المنظور (perspective) داخل نفس خاصية transform حتى يبقى الإحساس
+     المادي دون أي حاوية إضافية أو جافاسكربت. الميلان صغير جدًا (1°) —
+     يُحسّ كوزن ينحني تحت الضوء، لا كبطاقة تُقلب. */
+  transform: perspective(1200px) rotateX(0deg) translate3d(0, 0, 0) scale(1);
   transition:
-    transform 0.55s var(--ease-out),
-    box-shadow 0.55s var(--ease-out),
-    border-color 0.25s ease;
+    transform 0.7s var(--ease-out),
+    box-shadow 0.7s var(--ease-out);
 
   &:hover,
   &:focus-visible {
-    transform: translate3d(0, -8px, 0) scale(1.012);
+    transform: perspective(1200px) rotateX(-1deg) translate3d(0, -8px, 0) scale(1.012);
     box-shadow: var(--shadow-card);
     transition-duration: 0.45s;
   }
 
   &:active {
-    transform: translate3d(0, -3px, 0) scale(1.004);
+    transform: perspective(1200px) rotateX(-0.4deg) translate3d(0, -3px, 0) scale(1.004);
     transition-duration: 0.12s;
   }
 }
@@ -516,15 +585,56 @@
 @utility eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 @utility text-lead {
   font-size: 1.0625rem;
-  line-height: 1.85;
+  line-height: var(--leading-relaxed);
   color: var(--color-foreground);
+}
+
+/* عرض قراءة مثالي — ~65 حرفًا عربيًا في السطر */
+@utility prose-width {
+  max-width: var(--prose-width);
+}
+
+/*
+ * طباعة مرنة (Fluid Typography)
+ *
+ * أحجام تتدرّج بسلاسة بين 375px و 1280px بدل القفزات الحادة بين
+ * نقاط التوقف. القيمة الدنيا تحمي القراءة على الجوال، والقصوى
+ * تمنع التضخم على الشاشات العريضة.
+ */
+@utility text-fluid-hero {
+  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 4.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+@utility text-fluid-display {
+  font-size: clamp(1.75rem, 1.15rem + 2.5vw, 3.15rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+@utility text-fluid-title {
+  font-size: clamp(1.5rem, 1.1rem + 1.7vw, 2.6rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+@utility text-fluid-subtitle {
+  font-size: clamp(1.125rem, 0.95rem + 0.75vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+/* إيقاع المقاطع — مسافات عمودية ثابتة بين الأقسام */
+@utility section-gap {
+  padding-block: var(--space-section);
 }
 
 /* رابط بخط سفلي يُرسم عند التحويم */

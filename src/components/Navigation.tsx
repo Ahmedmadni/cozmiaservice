@@ -38,15 +38,15 @@ export function Navigation() {
        */}
       <div
         className={cn(
-          "transition-all duration-500",
+          "transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
           lifted
-            ? "glass-nav border-b border-border/70"
-            : "border-b border-transparent bg-transparent",
+            ? "glass-nav border-b border-border/70 shadow-[0_12px_30px_-26px_var(--primary)]"
+            : "border-b border-transparent bg-transparent shadow-none",
         )}
       >
         <nav className="container-page flex h-16 items-center gap-4 lg:h-20">
           <Link to="/" className="group flex shrink-0 items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-sm font-bold text-primary-foreground transition-transform duration-500 group-hover:rotate-6">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-sm font-bold text-primary-foreground transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-6">
               {site.name.charAt(0)}
             </span>
             <span className="font-display text-base font-semibold">{site.name}</span>
@@ -68,7 +68,7 @@ export function Navigation() {
                     {link.label}
                     <ChevronDown
                       className={cn(
-                        "h-3.5 w-3.5 transition-transform duration-300",
+                        "h-3.5 w-3.5 transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
                         mega && "rotate-180",
                       )}
                     />
@@ -84,7 +84,7 @@ export function Navigation() {
                     {link.label}
                     <span
                       aria-hidden
-                      className="absolute inset-x-3 bottom-1 h-px origin-right scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover:scale-x-100"
+                      className="absolute inset-x-3 bottom-1 h-px origin-right scale-x-0 bg-accent transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 group-data-[status=active]:scale-x-100"
                     />
                   </Link>
                 </li>
@@ -101,7 +101,7 @@ export function Navigation() {
               href={`tel:${site.phone.replace(/\s/g, "")}`}
               className="hidden items-center gap-2.5 xl:flex"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-primary transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-primary transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-primary hover:text-primary-foreground">
                 <Phone className="h-4 w-4" strokeWidth={1.75} />
               </span>
               <span className="leading-tight">
@@ -122,9 +122,20 @@ export function Navigation() {
               aria-label="القائمة"
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="glass glass-edge grid h-10 w-10 shrink-0 place-items-center rounded-lg lg:hidden"
+              className="glass glass-edge relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-lg lg:hidden"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={open ? "close" : "open"}
+                  initial={{ opacity: 0, rotate: -45 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 45 }}
+                  transition={{ duration: DUR.fast, ease: EASE.ui }}
+                  className="grid place-items-center"
+                >
+                  {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                </motion.span>
+              </AnimatePresence>
             </button>
           </div>
         </nav>
@@ -158,9 +169,9 @@ export function Navigation() {
                     <Link
                       to="/services/$slug"
                       params={{ slug: s.slug }}
-                      className="group flex gap-3.5 rounded-2xl border border-transparent p-4 transition-colors duration-300 hover:border-border hover:bg-card/60"
+                      className="group flex gap-3.5 rounded-2xl border border-transparent p-4 transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-border hover:bg-card/60"
                     >
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:bg-primary group-hover:text-primary-foreground">
                         <s.icon className="h-5 w-5" strokeWidth={1.75} />
                       </span>
                       <span className="min-w-0">
@@ -209,7 +220,7 @@ export function Navigation() {
                       {link.label}
                       <ChevronDown
                         className={cn(
-                          "h-4 w-4 transition-transform duration-300",
+                          "h-4 w-4 transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
                           mobileServices && "rotate-180",
                         )}
                       />

@@ -41,7 +41,10 @@ export function Footer() {
             <ul className="mt-6 space-y-3.5 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0 text-accent" />
-                <a href={`mailto:${site.email}`} className="hover:text-foreground">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground"
+                >
                   {site.email}
                 </a>
               </li>
@@ -62,14 +65,17 @@ export function Footer() {
                 <Link
                   to="/services/$slug"
                   params={{ slug: s.slug }}
-                  className="hover:text-foreground"
+                  className="transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground"
                 >
                   {s.title}
                 </Link>
               </li>
             ))}
             <li>
-              <Link to="/services" className="hover:text-foreground">
+              <Link
+                to="/services"
+                className="transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground"
+              >
                 جميع الخدمات
               </Link>
             </li>
@@ -78,7 +84,10 @@ export function Footer() {
           <FooterCol title="الشركة">
             {companyLinks.map((l) => (
               <li key={l.to}>
-                <Link to={l.to} className="hover:text-foreground">
+                <Link
+                  to={l.to}
+                  className="transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground"
+                >
                   {l.label}
                 </Link>
               </li>
@@ -88,7 +97,10 @@ export function Footer() {
           <FooterCol title="روابط نظامية">
             {legalLinks.map((l) => (
               <li key={l.to}>
-                <Link to={l.to} className="hover:text-foreground">
+                <Link
+                  to={l.to}
+                  className="transition-colors duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground"
+                >
                   {l.label}
                 </Link>
               </li>

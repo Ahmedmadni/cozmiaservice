@@ -387,9 +387,15 @@ export function ServiceRequestForm({
         </div>
 
         {done ? (
-          <p className="mt-6 rounded-xl border border-accent/40 bg-accent-soft p-4 text-sm leading-7">
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.45, ease: EASE.cinematic }}
+            className="mt-6 flex items-center gap-2.5 rounded-xl border border-accent/40 bg-accent-soft p-4 text-sm leading-7"
+          >
+            <Check aria-hidden className="h-4 w-4 shrink-0 text-accent" />
             وصلنا طلبك بنجاح، وسيتواصل معك فريقنا خلال يوم عمل.
-          </p>
+          </motion.p>
         ) : null}
       </form>
     </Form>
